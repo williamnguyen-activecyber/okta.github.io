@@ -823,7 +823,7 @@ include | The AD integrations this policy applies to | Array | No | Include all 
 ## Okta Sign On Policy
 {: #OktaSignOnPolicy }
 
-Okta sign on policy controls the manner in which a user is allowed to sign on to Okta, including whether they are challenged for multifactor authentication (MFA) and how long they are allowed to remain signed in before re-authenticating.
+Okta Sign On Policy controls the manner in which a user is allowed to sign on to Okta, including whether they are challenged for multifactor authentication (MFA) and how long they are allowed to remain signed in before re-authenticating.
 
 >Note: Okta Sign On Policy is different from application sign-on policy, which determines the extra levels of authentication (if any) which must be performed before a specific Okta application can be invoked.
 Application sign-on policy can't be configured via the API.
@@ -1162,7 +1162,7 @@ okta_sms | Settings for SMS factor | <a href="#SMSFactorObject">SMS Factor Objec
 
 Property | Description | Data Type | Required |
 | --- | --- | --- | ---
-status | Indicates if the factor is enabled. | `ACTIVE`, `INACTIVE` (EA) | Yes |
+status | Indicates if the factor is enabled. | `ACTIVE`, `INACTIVE` {% api_lifecycle ea %} | Yes |
 properties | Configuration settings for security question factor | <a href="#RecoveryQuestionFactorPropertiesObject">Recovery Question Factor Properties Object</a> | No
 
 ###### Recovery Question Factor Properties Object
