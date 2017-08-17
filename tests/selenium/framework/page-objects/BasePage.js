@@ -54,7 +54,7 @@ class BasePage {
       });
     }).then((elementList) => {
       return elementList.length == expectedTextArray.length;
-    })
+    });
   }
 
   urlContains(str) {
@@ -96,5 +96,8 @@ class BasePage {
     return elements.then(element => element.length > 0);
   }
 
+  refresh() {
+    return browser.refresh();
+  }
 }
 module.exports = BasePage;
