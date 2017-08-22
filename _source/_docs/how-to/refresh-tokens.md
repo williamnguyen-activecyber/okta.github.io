@@ -18,7 +18,11 @@ Once you have an application, you need to make sure that the "Allowed grant type
 
 To get a refresh token, you send a request to your Okta Authorization Server. 
 
+### Get a Refresh Token with the Code or Implicit Flow
+
 In the case of the Authorization Code or Implicit flows, you use the Authorization Server's `/authorize` endpoint to get an authorization code, specifying an `offline_access` scope. You then send this code to the `/token` endpoint to get an access token and a refresh token. For more information about this endpoint, see [Obtain an Authorization Grant from a User](https://developer.okta.com/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user). For more information about the Authorization Code and Implicit flows, see: (jakub.todo)
+
+### Get a Refresh Token with the Client Credentials or Password Flow
 
 For the Client Credentials and Resource Owner Password flows, you use the Authorization Server's `/token` endpoint directly. For more information about this endpoint, see [Request a Token](https://developer.okta.com/docs/api/resources/oauth2.html#request-a-token). For more information about the Client Credentials and Resource Owner Password flows, see: (jakub.todo)
 
@@ -26,7 +30,7 @@ The following combinations of grant type and scope, when sent to `/token` endpoi
 
 |Grant Type  | Scope |
 |-------------|-------|
-| `authorization_code`  | `offline_access`*  |
+| `authorization_code`  | `offline_access` (see Note)  |
 | `refresh_token`  | `offline_access` |
 | `password`  | `offline_access`  |
 
