@@ -29,6 +29,11 @@
       {
         name: 'widget',
         label: 'Sign-In Widget',
+        serverExampleType: 'implicit',
+      },
+      {
+        name: 'okta-sign-in-page',
+        label: 'Okta Sign-In Page',
         serverExampleType: 'auth-code',
         active: true
       }
