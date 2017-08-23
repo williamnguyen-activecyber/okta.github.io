@@ -20,11 +20,11 @@ To get a refresh token, you send a request to your Okta Authorization Server.
 
 ### Get a Refresh Token with the Code or Implicit Flow
 
-In the case of the Authorization Code or Implicit flows, you use the Authorization Server's `/authorize` endpoint to get an authorization code, specifying an `offline_access` scope. You then send this code to the `/token` endpoint to get an access token and a refresh token. For more information about this endpoint, see [Obtain an Authorization Grant from a User](https://developer.okta.com/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user). For more information about the Authorization Code and Implicit flows, see: (jakub.todo)
+In the case of the Authorization Code or Implicit flows, you use the Authorization Server's `/authorize` endpoint to get an authorization code, specifying an `offline_access` scope. You then send this code to the `/token` endpoint to get an access token and a refresh token. For more information about this endpoint, see [Obtain an Authorization Grant from a User](/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user). For more information about the Authorization Code and Implicit flows, see: (jakub.todo)
 
 ### Get a Refresh Token with the Client Credentials or Password Flow
 
-For the Client Credentials and Resource Owner Password flows, you use the Authorization Server's `/token` endpoint directly. For more information about this endpoint, see [Request a Token](https://developer.okta.com/docs/api/resources/oauth2.html#request-a-token). For more information about the Client Credentials and Resource Owner Password flows, see: (jakub.todo)
+For the Client Credentials and Resource Owner Password flows, you use the Authorization Server's `/token` endpoint directly. For more information about this endpoint, see [Request a Token](/docs/api/resources/oauth2.html#request-a-token). For more information about the Client Credentials and Resource Owner Password flows, see: (jakub.todo)
 
 The following combinations of grant type and scope, when sent to `/token` endpoint, will return a refresh token:
 
@@ -46,19 +46,13 @@ You would then get back an ID token alongside your access and refresh tokens.
 
 > NOTE: Although you requested access, refresh, and ID tokens, the refresh token can only be used to get a new access token. An ID token will not be returned.
 
-For more information see the [Okta OAuth 2.0 reference page](https://developer.okta.com/docs/api/resources/oauth2.html#response-parameters-1).
+For more information see the [Okta OAuth 2.0 reference page](/docs/api/resources/oauth2.html#response-parameters-1).
 
 ## Get a Refresh Token Silently for Your SPA
 
-In a normal Single-Page Application (SPA) you would likely want to use the Implicit flow (jakub.todo.see here for more on that)
+In a normal Single-Page Application (SPA) it is usually undesirable to redirect the user to a login page during normal navigation. For example, a user could request access to a resource, prompting your SPA to send a request to the Okta `/authorize` endpoint. Normally, if a user does not have a valid session, this request will result in a redirection to a login page. To avoid this disruptive redirection, the endpoint allows for a request parameter called `prompt`. If the value of the `prompt` parameter is `none`, this guarantees that the user will not be prompted to login, regardless of whether they have an active session or not. Instead, your application will either silently obtain the requested tokens or an OAuth error response. How to act on the error is up to you. 
 
-What prompt=none is saying is that you want to prevent the login screen from showing up regardless of the whether the user has session or not. Either they do have a session, in which case you get tokens back, or they don't have a session in which case you get a nice silent error that you can then act on.
-
-To perform silent authentication, you send a request to the `/authorize` endpoint with a `prompt` parameter value of `none`.
-
-check -> success -> tokens (without the user knowing)
-check -> error -> oh snap, i need them to reauthorize to get tokens
-so you redirect
+For more information on the `/authorize` endpoint, see the [Authentication Request section of the OIDC Reference](/docs/api/resources/oidc.html#authentication-request).
 
 ## How to Use a Refresh Token
 
