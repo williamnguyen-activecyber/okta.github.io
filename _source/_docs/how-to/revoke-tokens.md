@@ -1,11 +1,11 @@
 # Revoke A Token
 
-## How to revoke a token
+## How to Revoke a Token
 
-## Removing a user session
+## Removing a User Session
 
 https://developer.okta.com/docs/api/resources/users.html#user-sessions
 
-## Revoking the tokens without deleting the user session
+## Revoking Tokens Without Deleting the User Session
 
-## What happens if you revoke the access token VS the refresh token
+## Revoking the Access VS the Refresh Token
