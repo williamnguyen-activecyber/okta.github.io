@@ -1,4 +1,8 @@
-# Revoking Tokens
+---
+layout: docs_page
+title: Revoking Tokens
+excerpt: How to revoke OAuth 2.0 and Okta session tokens
+---
 
 ## How to Revoke a Token
 
@@ -34,16 +38,10 @@ For more information on configuring TTL and other parameters involving access an
 
 ## Removing a User Session
 
-For a more complete explanation of Okta User sessions, see (jakub.todo).
+Separate from access and refresh tokens, there is also the Okta session cookie which provides access to your Okta organization and applications. For a more complete explanation of Okta User sessions, see (jakub.todo). Okta sessions can be revoked in one of two ways: you can either close a specific session using the Sessions API, or revoke all sessions for a given user using the Users API. 
 
-you can either close a specific session (Sessions API) or revoke all user sessions (Users API)
+> Note: Removing all user sessions can optionally also remove all related access and refresh tokens as well.
 
-Close a session: `/api/v1/sessions/:id`
-
-Clear user's sessions: `/api/v1/users/:uid/sessions`
-
-For more information see [Clear User Sessions](https://developer.okta.com/docs/api/resources/users.html#clear-user-sessions) in the Users API reference, or [Close Session](https://developer.okta.com/docs/api/resources/sessions.html#close-session) in the Sessions API reference.
-
-https://developer.okta.com/docs/api/resources/users.html#user-sessions
+For more information on removing a specific session, see [Close Session](https://developer.okta.com/docs/api/resources/sessions.html#close-session) in the Sessions API reference. For more on removing all of a user's sessions, see [Clear User Sessions](https://developer.okta.com/docs/api/resources/users.html#clear-user-sessions) in the Users API reference.
 
 
