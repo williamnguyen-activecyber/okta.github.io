@@ -20,7 +20,7 @@
       });
 
       var link = $('<a>', {
-        text: language.label + ' ↗',
+        text: language.label + ' ›',
         href: '/code/' + language.name + '/',
       });
 
