@@ -18,15 +18,32 @@ http --form POST https://dev-144769.oktapreview.com/oauth2/ausaw8fz3q4Yd3Zk70h7/
 
 For more information, see [Revoke a Token](https://developer.okta.com/docs/api/resources/oauth2.html#revoke-a-token) in the Okta OAuth 2.0 reference.
 
+## Revoking the Access VS the Refresh Token
+
+The token revocation endpoint can revoke either access or refresh tokens. Revoking an access token does not revoke the associated refresh token, and revoking a refresh token does not revoke the associated access token. 
+
+#### Revoking only the access token
+
+Revoking only the access token will effectively forces the use of the refresh token to retrieve a new access token. This could be useful if, for example, you have changed a user's data and you want this information to be reflected in a new access token.
+
+#### Revoking only the refresh token 
+
+If you revoke only the refresh token then the access token will only last as long as the configured time-to-live (TTL) of the access token. This allows you to, for example, force a user to reauthenticate soon (when the access token expires) but not immediately. 
+
+For more information on configuring TTL and other parameters involving access and refresh tokens, you can read about [Okta Access Policies](https://developer.okta.com/standards/OAuth/index#access-policies).
+
 ## Removing a User Session
 
 For a more complete explanation of Okta User sessions, see (jakub.todo).
 
-For more information see [Clear User Sessions](https://developer.okta.com/docs/api/resources/users.html#clear-user-sessions) in the Users API reference.
+you can either close a specific session (Sessions API) or revoke all user sessions (Users API)
+
+Close a session: `/api/v1/sessions/:id`
+
+Clear user's sessions: `/api/v1/users/:uid/sessions`
+
+For more information see [Clear User Sessions](https://developer.okta.com/docs/api/resources/users.html#clear-user-sessions) in the Users API reference, or [Close Session](https://developer.okta.com/docs/api/resources/sessions.html#close-session) in the Sessions API reference.
 
 https://developer.okta.com/docs/api/resources/users.html#user-sessions
 
-## Revoking Tokens Without Deleting the User Session
-
-## Revoking the Access VS the Refresh Token
 
