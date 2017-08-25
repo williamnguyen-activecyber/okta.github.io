@@ -6,10 +6,11 @@ exampleDescription: React Implicit
 This guide will walk you through integrating authentication into a React app with Okta by performing these steps:
 
 1. Add an OpenID Connect Client in Okta
-2. Create an Authentication Utility
-3. Create Routes
-4. Connect the Routes
-5. Using the Access Token
+2. Create a React App
+3. Create an Authentication Utility
+4. Create Routes
+5. Connect the Routes
+6. Using the Access Token
 
 At the end of the React instructions you can choose your server type to learn more about post-authentication workflows, such as verifying tokens that your React application can send to your server.
 
@@ -17,7 +18,7 @@ At the end of the React instructions you can choose your server type to learn mo
 If you do not already have a **Developer Edition Account**, you can create one at [https://developer.okta.com/signup/](https://developer.okta.com/signup/).
 
 ## Add an OpenID Connect Client in Okta
-In Okta, applications are OpenID Connect clients that can use Okta Authorization servers to authenticate users.  Your Okta Org already has a default authorization server, so you just need to create an OIDC client that will use it.
+In Okta, applications are OpenID Connect clients that can use Okta Authorization servers to authenticate users. Your Okta Org already has a default authorization server, so you just need to create an OIDC client that will use it.
 * Log into the Okta Developer Dashboard, click **Applications** then **Add Application**.
 * Choose **Single Page App (SPA)** as the platform, then submit the form the default values, which should look like this:
 
@@ -38,6 +39,20 @@ After you have created the application there are two more values you will need t
 
 These values will be used in your React application to setup the OpenID Connect flow with Okta.
 
+## Create a React App
+To quickly create a React app, install the create-react-app CLI:
+
+```bash
+$ npm install -g create-react-app
+```
+
+Now, create a new app:
+```bash
+$ create-react-app okta-app
+```
+
+This creates a new project named `okta-app`.
+
 ## Create an Authentication Utility
 
 Your React app will use the [Okta Auth JS](/code/javascript/okta_auth_sdk) library to redirect the user to the authorization endpoint on your Okta Org. You can install it via npm:
@@ -54,7 +69,7 @@ npm install react-router-dom --save
 
 You will need to create a class that encapsulates the interaction with the [Okta Auth JS](/code/javascript/okta_auth_sdk) library. This file will expose a `withAuth` method that makes it easy to create [Higher-Order Components](https://facebook.github.io/react/docs/higher-order-components.html) that include an `auth` property.
 
-To create this file, you will need the values from the OIDC client that you created in the previous step.  You will also need to know your Okta Org URL, which you can see on the home page of the Okta Developer console.
+To create this file, you will need the values from the OIDC client that you created in the previous step. You will also need to know your Okta Org URL, which you can see on the home page of the Okta Developer console.
 
 Create a new file `src/auth.js` and add the following code to it, replacing the `{yourOktaDomain}` with your Org URL, and `{clientId}` with the Client ID of the application that you created:
 
@@ -69,7 +84,7 @@ class Auth {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.redirect = this.redirect.bind(this);
-    this.getIdToken = this.getIdToken.bind(this);
+    this.getAccessToken = this.getAccessToken.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
 
@@ -81,13 +96,10 @@ class Auth {
     });
   }
 
-  getIdToken() {
-    return this.oktaAuth.tokenManager.get('idToken');
-  }
-
   getAccessToken() {
     // Return the token from the accessToken object.
-    return this.okatAuth.tokenManager.get('accessToken').accessToken;
+    const accessTokenObj = this.oktaAuth.tokenManager.get('accessToken');
+    return accessTokenObj.accessToken;
   }
 
   login(history) {
@@ -143,7 +155,7 @@ You'll want to create these routes in your sample application:
 Follow the next sections to create these routes in your React application.
 
 ### `/`
-Place the following code in a new file, `src/Home.js`.  This will render a home page and show links to navigate within app:
+Place the following code in a new file, `src/Home.js`. This will render a home page and show links to navigate within the app:
 
 ```typescript
 // src/Home.js
@@ -279,11 +291,22 @@ export default App;
 
 ## Using the Access Token
 
-Your React application now has an access token in local storage that was issued by your Okta Authorization server. You can use this token to authenticate requests for resources on your server or API. As a hypothetical example, let's say that you have an API that gives us messages for our user.  You could create a `MessageList` component that gets the access token from local storage, and use it to make an authenticated request to your server.
+Your React application now has an access token in local storage that was issued by your Okta Authorization server. You can use this token to authenticate requests for resources on your server or API. As a hypothetical example, let's say that you have an API that gives us messages for our user. You could create a `MessageList` component that gets the access token from local storage, and use it to make an authenticated request to your server.
 
-Please continue down to the next section, Server Setup, to learn about access token validation on the server.  Here is what the React component could look like for this hypothetical example:
+To test this, we first need to configure `create-react-app` for our server. Add the following line to your `package.json`, then run `npm start`:
 
 ```typescript
+{
+  ...
+  "proxy": "http://localhost:{serverPort}"
+}
+```
+
+Please continue down to the next section, Server Setup, to learn about access token validation on the server. Here is what the React component could look like for this hypothetical example:
+
+```typescript
+// src/MessageList.js
+
 import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
@@ -302,28 +325,26 @@ export default withAuth(withRouter(class MessageList extends Component {
     if (this.props.auth.isAuthenticated()) {
       fetch('/api/messages', {
         headers: {
-          Authorization: 'Bearer ' + this.props.auth.getAccessToken().accessToken
+          Authorization: 'Bearer ' + this.props.auth.getAccessToken()
         }
-      }).then(response => {
-        response.json().then(data => {
-          this.setState({messages: data.messages});
-        });
-      }).catch(response => {
+      })
+      .then(response => response.json())
+      .then(data => this.setState({messages: data.messages}))
+      .catch(err => {
         // handle error as needed
+        console.log(err);
       });
     };
   }
 
   render() {
     if (this.state.messages) {
-      const items = this.state.messages.map((message) =>
+      const items = this.state.messages.map(message =>
         <li key={message}>{message}</li>
       );
       return (<ul>{items}</ul>);
     } else {
-      return (
-        <div>Loading..</div>
-      )
+      return (<div>Loading..</div>);
     }
   }
 }));
