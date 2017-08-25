@@ -12,8 +12,6 @@ This guide will walk you through integrating authentication into an Angular app 
 
 At the end of the Angular instructions you can choose your server type to learn more about post-authentication workflows, such as verifying tokens that your Angular application can send to your server.
 
-Starting from scratch with Angular?  Our [Angular + Okta Auth SDK](/code/angular/okta_angular_auth_js) walkthrough will help you setup a new Angular application and cover the same topics as this quickstart.
-
 ## Prerequisites
 * If you do not already have a **Developer Edition Account**, you can create one at [https://developer.okta.com/signup/](https://developer.okta.com/signup/).
 * If you don't have an Angular app, or are new to Angular, please continue with the [Angular + Okta Auth SDK](/code/angular/okta_angular_auth_js.html) guide instead.  It will walk you through the creation of an Angular app, and cover the same points as this quickstart.
@@ -125,10 +123,10 @@ import { Component } from '@angular/core';
 import { OktaAuthService } from './app.service';
 
 @Component({
-  template: '
+  template: `
     <button *ngIf="!oktaAuth.isAuthenticated()" (click)="oktaAuth.login()"> Login </button>
     <button *ngIf="oktaAuth.isAuthenticated()" (click)="oktaAuth.logout()"> Logout </button>
-  ',
+  `,
 })
 export class AppComponent {
   constructor(public oktaAuth: OktaAuthService) {}

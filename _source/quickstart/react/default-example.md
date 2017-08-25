@@ -12,10 +12,8 @@ This guide will walk you through integrating authentication into a React app wit
 
 At the end of the React instructions you can choose your server type to learn more about post-authentication workflows, such as verifying tokens that your React application can send to your server.
 
-Starting from scratch with React?  Our [React + Okta Auth SDK](/code/react/okta_react) walkthrough will help you setup a new React application and cover the same topics as this quickstart.
-
 ## Prerequisites
-If you do not already have a **Developer Edition Account**, you can create one at [https://developer.okta.com/signup/](https://developer.okta.com/signup/).
+* If you do not already have a **Developer Edition Account**, you can create one at [https://developer.okta.com/signup/](https://developer.okta.com/signup/).
 * If you don't have a React app, or are new to React, please continue with the [React + Okta Auth SDK](/code/react/okta_react.html) guide instead.  It will walk you through the creation of a React app, and cover the same points as this quickstart.
 
 ## Add an OpenID Connect Client in Okta
