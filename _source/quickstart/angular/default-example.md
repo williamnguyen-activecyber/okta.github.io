@@ -24,8 +24,8 @@ In Okta, applications are OpenID Connect clients that can use Okta Authorization
 | Setting             | Value                                          |
 | ------------------- | ---------------------------------------------- |
 | App Name            | My SPA App                                     |
-| Base URIs           | http://localhost:{port}                        |
-| Login redirect URIs | http://localhost:{port}/implicit/callback      |
+| Base URIs           | http://localhost:4200                          |
+| Login redirect URIs | http://localhost:4200/implicit/callback        |
 | Grant Types Allowed | Implicit                                       |
 
 After you have created the application there are two more values you will need to gather:
@@ -37,6 +37,19 @@ After you have created the application there are two more values you will need t
 
 
 These values will be used in your Angular application to setup the OpenID Connect flow with Okta.
+
+## Create an Angular App
+To quickly create an Angular app, install the Angular CLI:
+```bash
+$ npm install -g @angular/cli
+```
+
+Now, create a new application:
+```bash
+$ ng new okta-app
+```
+
+This creates a new project named `okta-app`.
 
 ## Create an Authentication Service
 
@@ -53,7 +66,7 @@ To create this file, you will need the values from the OIDC client that you crea
 Create a new file `src/app/app.service.ts` and add the following code to it, replacing the `{yourOktaDomain}` with your Org URL, and `{clientId}` with the Client ID of the application that you created:
 
 ```typescript
-// app.service.ts
+// src/app/app.service.ts
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -121,7 +134,7 @@ Follow the next sections to create these routes in your Angular application.
 Place the following code in a new file, `src/app/app.component.html`.  This will render a home page and show links to navigate within app:
 
 ```typescript
-// src/Home.js
+// src/app/app.component.html
 
 <button routerLink="/"> Home </button>
 <button *ngIf="!oktaAuth.isAuthenticated()" (click)="oktaAuth.login()"> Login </button>
@@ -130,9 +143,9 @@ Place the following code in a new file, `src/app/app.component.html`.  This will
 <router-outlet></router-outlet>
 ```
 
-Then, update `src/app/app.compnent.ts` to handle the `login()` and `logout()` calls:
+Then, update `src/app/app.component.ts` to handle the `login()` and `logout()` calls:
 ```typescript
-// app.component.ts
+// src/app/app.component.ts
 
 import { Component } from '@angular/core';
 import { OktaAuthService } from './app.service';
@@ -153,7 +166,7 @@ In order to handle the redirect back from Okta, you need to capture the token va
 Create a new component `src/app/callback.component.ts`:
 
 ```typescript
-// callback.component.ts
+// src/app/callback.component.ts
 
 import { Component } from '@angular/core';
 import { OktaAuthService } from './app.service';
@@ -172,7 +185,7 @@ export class CallbackComponent {
 Open `src/app/app.module.ts` (this was created by the generator) and replace its contents with this code, this will create your final application with the routes that you've created:
 
 ```typescript
-// app.module.ts
+// src/app/app.module.ts
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -183,7 +196,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OktaAuthService } from './app.service';
 import { CallbackComponent } from './callback.component';
 
-import { AppComponent } from './app.componenet';
+import { AppComponent } from './app.component';
 
 const appRoutes: Routes = [
   {
@@ -217,7 +230,7 @@ Your Angular application now has an access token in local storage that was issue
 
 Please continue down to the next section, Server Setup, to learn about access token validation on the server.  Here is what the Angular component could look like for this hypothetical example:
 
-First, update the `@NgModule` imports with the `HttpModule`:
+First, update the `@NgModule` imports with the `HttpModule` in `src/app/app.module.ts`:
 
 ```typescript
   ...

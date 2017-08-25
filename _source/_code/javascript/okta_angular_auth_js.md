@@ -51,7 +51,7 @@ First, create `src/app/app.service.ts` as an authorization utility file and use 
 > Important: We're using Okta's organization authorization server to make setup easy, but it's less flexible than a custom authorization server. Most SPAs send access tokens to access APIs. If you're building an API that will need to accept access tokens, [create an authorization server](/docs/how-to/set-up-auth-server.html#create-an-authorization-server).
 
 ```typescript
-// app.service.ts
+// src/app/app.service.ts
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';

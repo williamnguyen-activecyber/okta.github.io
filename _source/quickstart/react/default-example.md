@@ -25,8 +25,8 @@ In Okta, applications are OpenID Connect clients that can use Okta Authorization
 | Setting             | Value                                        |
 | ------------------- | -------------------------------------------- |
 | App Name            | My SPA App                                   |
-| Base URIs           | http://localhost:{port}                      |
-| Login redirect URIs | http://localhost:{port}/implicit/callback    |
+| Base URIs           | http://localhost:3000                        |
+| Login redirect URIs | http://localhost:3000/implicit/callback      |
 | Grant Types Allowed | Implicit                                     |
 
 After you have created the application there are two more values you will need to gather:
