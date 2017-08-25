@@ -194,7 +194,7 @@ try {
     // Setup the JWT Verifier.
     $jwtVerifier = (new \Okta\JwtVerifier\JwtVerifierBuilder())
         ->setAdaptor(new \Okta\JwtVerifier\Adaptors\SpomkyLabsJose())
-        ->setIssuer('https://php.oktapreview.com/oauth2/default')
+        ->setIssuer('https://{yourOktaDomain}.com/oauth2/default')
         ->build();
 
     // Verify the JWT from the Authorization Header.
@@ -206,7 +206,7 @@ try {
 }
 
 // Check to make sure the client id is valid.
-if( $jwt->getClaims()['cid'] != '0oabrp8f1lfYtiB4I0h7') {
+if( $jwt->getClaims()['cid'] != '{clientId}') {
     return http_response_code( 401 );
 }
 
