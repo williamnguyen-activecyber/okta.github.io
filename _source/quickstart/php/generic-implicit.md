@@ -39,6 +39,9 @@ Our client side application is going to be sending us a call to an api endpoint 
  
 Our first step is to include the composer autoload file.  In your new `messages.php` file, add the following:
  
+ 
+ > NOTE: All code blocks will be added progressively to the file. The full file is provided at the end of this 
+ quickstart.
 ```php
 <?php
 
@@ -52,9 +55,6 @@ prefetch, the client side application will quit trying to make the call, and wil
 api.
 
 ```php
-<?php
-
-require __DIR__ . '/../vendor/autoload.php'; // This path may be different for you. 
 
 // Don't do anything for prefetch requests.
 if ( $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
@@ -62,7 +62,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
 }
 
 // Make sure the authorization header is available, if not return 401.
-if (!isset( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
+if ( ! isset( $_SERVER['HTTP_AUTHORIZATION'] ) ) {
     return http_response_code( 401 );
 }
 ```
@@ -73,9 +73,6 @@ is present, we can not begin our verification process.  First, we set up some va
  the authentication type is a Bearer token.
  
 ```php
-<?php
-
-// PREVIOUS CODE HERE, EXCLUDED FOR SPACE
 
 $authType = null;
 $authToken = null;
@@ -84,7 +81,7 @@ $authToken = null;
 list( $authType, $authToken ) = explode( " ", $_SERVER['HTTP_AUTHORIZATION'], 2 );
 
 // If the Authorization Header is not a bearer type, return a 401.
-if ($authType != 'Bearer' ) {
+if ( $authType != 'Bearer' ) {
     return http_response_code( 401 );
 }
 
@@ -96,19 +93,16 @@ Now we are ready to use our verifier library to make sure the token is valid. Th
  Unauthorized` to tell the client there was an issue.
 
 ```php
-<?php
-
-// PREVIOUS CODE HERE, EXCLUDED FOR SPACE
 
 try {
     // Setup the JWT Verifier.
-    $jwtVerifier = (new \Okta\JwtVerifier\JwtVerifierBuilder())
-        ->setAdaptor(new \Okta\JwtVerifier\Adaptors\SpomkyLabsJose())
-        ->setIssuer('https://{yourOktaDomain}.com/oauth2/default')
+    $jwtVerifier = ( new \Okta\JwtVerifier\JwtVerifierBuilder() )
+        ->setAdaptor( new \Okta\JwtVerifier\Adaptors\SpomkyLabsJose() )
+        ->setIssuer( 'https://{yourOktaDomain}.com/oauth2/default' )
         ->build();
 
     // Verify the JWT from the Authorization Header.
-    $jwt = $jwtVerifier->verify($authData);
+    $jwt = $jwtVerifier->verify( $authData );
 } catch (\Exception $e) {
     // We encountered an error, return a 401.
     return http_response_code( 401 );
@@ -119,9 +113,6 @@ If the verify method was successful, we will now have access to all the claims o
 make sure that the `cid` (ClientId) from the token matches what our ClientId is from the authoriztation server.
 
 ```php
-<?php
-
-// PREVIOUS CODE HERE, EXCLUDED FOR SPACE
 
 // Check to make sure the client id is valid.
 if( $jwt->getClaims()['cid'] != '{clientId}') {
@@ -133,9 +124,6 @@ Finally, if we have made it to this point, everything checks out and you can res
 supply the client application.
 
 ```php
-<?php
-
-// PREVIOUS CODE HERE, EXCLUDED FOR SPACE
 
 //JWT is valid!
 print json_encode([
@@ -186,19 +174,19 @@ $authData = null;
 list( $authType, $authData ) = explode( " ", $_SERVER['HTTP_AUTHORIZATION'], 2 );
 
 // If the Authorization Header is not a bearer token, return a 401.
-if ($authType != 'Bearer' ) {
+if ( $authType != 'Bearer' ) {
     return http_response_code( 401 );
 }
 
 try {
     // Setup the JWT Verifier.
-    $jwtVerifier = (new \Okta\JwtVerifier\JwtVerifierBuilder())
-        ->setAdaptor(new \Okta\JwtVerifier\Adaptors\SpomkyLabsJose())
-        ->setIssuer('https://{yourOktaDomain}.com/oauth2/default')
+    $jwtVerifier = ( new \Okta\JwtVerifier\JwtVerifierBuilder() )
+        ->setAdaptor( new \Okta\JwtVerifier\Adaptors\SpomkyLabsJose() )
+        ->setIssuer( 'https://{yourOktaDomain}.com/oauth2/default' )
         ->build();
 
     // Verify the JWT from the Authorization Header.
-    $jwt = $jwtVerifier->verify($authData);
+    $jwt = $jwtVerifier->verify( $authData );
 
 } catch (\Exception $e) {
     // We encountered an error, return a 401.
