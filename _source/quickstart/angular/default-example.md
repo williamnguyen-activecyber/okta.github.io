@@ -40,7 +40,7 @@ These values will be used in your Angular application to setup the OpenID Connec
 
 ## Create an Authentication Service
 
-You will need to use the [Okta Auth JS](/code/javascript/okta_auth_sdk) library to sign in the user by redirecting to the authorization endpoint on your Okta Org. You can install it via npm:
+You will need to use the [Okta Auth JS](/code/javascript/okta_auth_sdk.html) library to sign in the user by redirecting to the authorization endpoint on your Okta Org. You can install it via npm:
 
 ```bash
 [your-app]$ npm install @okta/okta-auth-js --save
