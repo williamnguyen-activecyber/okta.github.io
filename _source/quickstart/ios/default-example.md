@@ -17,7 +17,7 @@ At the end of the iOS instructions you can choose your server type to learn more
 If you do not already have a **Developer Edition Account**, you can create one at [https://developer.okta.com/signup/](https://developer.okta.com/signup/).
 
 ### Add an OpenID Connect Client
-* Log into the Okta Developer Dashboard, and **Create New App**
+* Log into the Okta Developer Dashboard, click **Applications** then **Add Application**.
 * Choose **Native app** as the platform, then populate your new OpenID Connect application with values similar to:
 
 | Setting             | Value                                               |
@@ -34,7 +34,7 @@ After you have created the application there are two more values you will need t
 | Org URL       | On the home screen of the developer dashboard, in the upper right.             |
 
 
-These values will be used in your iOS application to setup the OIDC flow with Okta.
+These values will be used in your iOS application to setup the OpenID Connect flow with Okta.
 
 ## Add Okta-AppAuth to your iOS Project
 The simplest way to add authentication into an iOS app is using the library [Okta AppAuth](http://cocoapods.org/pods/OktaAuth), available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
@@ -140,7 +140,7 @@ if let currentToken = OktaAuth.tokens.get(forKey: "accessToken") {
 
 ## Using the Access Token
 
-Your iOS application now has an access token in the Keychain that was issued by your Okta Authorization server. You can read this token and present it to your own server to authenticate requests for resources on your server.  As a hypothetical example, let's say that you have an API that gives us messages for our user.  You could create a `callMessagesApi` function that requires authentication, and uses the stored `accessToken` from the Keychain, to attach to our resource request.
+Your iOS application now has an access token in the Keychain that was issued by your Okta Authorization server. You can use this token to authenticate requests for resources on your server or API. As a hypothetical example, let's say that you have an API that gives us messages for our user.  You could create a `callMessagesApi` function that gets the access token from the Keychain, and use it to make an authenticated request to your server.
 
 Please continue down to the next section, Server Setup, to learn about access token validation on the server.  Here is what the iOS HTTP request could look like for this hypothetical example:
 
