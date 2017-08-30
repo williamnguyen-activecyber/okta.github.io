@@ -3,6 +3,21 @@
   
     
     <url>
+      <loc>https://developer.okta.com/blog/2017/08/29/meet-the-new-okta-identity-platform</loc>
+      
+        <lastmod>2017-08-29T00:00:00+00:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+    
+    <url>
       <loc>https://developer.okta.com/blog/2017/08/23/five-java-tips</loc>
       
         <lastmod>2017-08-23T00:00:00+00:00</lastmod>
@@ -680,32 +695,6 @@
   
     
     <url>
-      <loc>https://developer.okta.com/quickstart/ios/default-example</loc>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
-  
-    
-    <url>
-      <loc>https://developer.okta.com/quickstart/android/default-example</loc>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
-  
-    
-    <url>
       <loc>https://developer.okta.com/quickstart/angular/default-example</loc>
       
       
@@ -719,6 +708,35 @@
   
     
     <url>
+      <loc>https://developer.okta.com/quickstart/widget/default-example</loc>
+      <loc>https://developer.okta.com/quickstart/android/default-example</loc>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>https://developer.okta.com/quickstart/react/default-example</loc>
+      <loc>https://developer.okta.com/quickstart/angular/default-example</loc>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>https://developer.okta.com/quickstart/android/default-example</loc>
       <loc>https://developer.okta.com/quickstart/okta-sign-in-page/default-example</loc>
       
       
@@ -732,6 +750,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/quickstart/ios/default-example</loc>
       <loc>https://developer.okta.com/error</loc>
       
       
@@ -745,6 +764,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/error</loc>
       <loc>https://developer.okta.com/quickstart/nodejs/express-auth-code</loc>
       
       
@@ -758,6 +778,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/quickstart/nodejs/express-auth-code</loc>
       <loc>https://developer.okta.com/quickstart/nodejs/express-implicit</loc>
       
       
@@ -771,6 +792,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/quickstart/nodejs/express-implicit</loc>
       <loc>https://developer.okta.com/feed.xml</loc>
       
       
@@ -784,6 +806,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/feed.xml</loc>
       <loc>https://developer.okta.com/quickstart/nodejs/generic-auth-code</loc>
       
       
@@ -810,6 +833,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/quickstart/nodejs/generic-auth-code</loc>
       <loc>https://developer.okta.com/quickstart/php/generic-auth-code</loc>
       
       
@@ -823,7 +847,7 @@
   
     
     <url>
-      <loc>https://developer.okta.com/quickstart/nodejs/generic-implicit</loc>
+      <loc>https://developer.okta.com/quickstart/php/generic-auth-code</loc>
       
       
         <changefreq>monthly</changefreq>
@@ -849,6 +873,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/quickstart/nodejs/generic-implicit</loc>
       <loc>https://developer.okta.com/quickstart/php/generic-implicit</loc>
       
       
@@ -862,6 +887,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/quickstart/php/generic-implicit</loc>
       <loc>https://developer.okta.com/discussion/</loc>
       
       
@@ -874,6 +900,8 @@
     
   
     
+    <url>
+      <loc>https://developer.okta.com/feed/</loc>
     <url>
       <loc>https://developer.okta.com/signup/thank-you/</loc>
       
@@ -901,6 +929,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/contact/</loc>
       <loc>https://developer.okta.com/signup/</loc>
       
       
@@ -914,6 +943,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/privacy/</loc>
       <loc>https://developer.okta.com/blog/</loc>
       
       
@@ -927,6 +957,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/documentation/</loc>
       <loc>https://developer.okta.com/integrate_with_okta/</loc>
       
       
@@ -940,6 +971,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/product/</loc>
       <loc>https://developer.okta.com/search/</loc>
       
       
@@ -966,6 +998,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/search/</loc>
       <loc>https://developer.okta.com/documentation/</loc>
       
       
@@ -994,6 +1027,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/signup/stormpath/</loc>
       <loc>https://developer.okta.com/contact/</loc>
       
       
@@ -1007,6 +1041,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/signup/</loc>
       <loc>https://developer.okta.com/product/</loc>
       
       
@@ -1032,7 +1067,36 @@
     
   
     
+  
+    
     <url>
+      <loc>https://developer.okta.com/integrate_with_okta/</loc>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>https://developer.okta.com/</loc>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>https://developer.okta.com/oidc_playground/</loc>
       <loc>https://developer.okta.com/confirm/</loc>
       
       
@@ -1072,7 +1136,7 @@
   
     
     <url>
-      <loc>https://developer.okta.com/oidc_playground/</loc>
+      <loc>https://developer.okta.com/cla/</loc>
       
       
         <changefreq>monthly</changefreq>
@@ -1098,7 +1162,7 @@
   
     
     <url>
-      <loc>https://developer.okta.com/terms/</loc>
+      <loc>https://developer.okta.com/test_page/</loc>
       
       
         <changefreq>monthly</changefreq>
@@ -1111,6 +1175,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/quickstarts/</loc>
       <loc>https://developer.okta.com/quickstart/</loc>
       
       
@@ -1124,6 +1189,7 @@
   
     
     <url>
+      <loc>https://developer.okta.com/terms/</loc>
       <loc>https://developer.okta.com/sitemap/</loc>
       
       
