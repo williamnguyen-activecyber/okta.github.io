@@ -9,7 +9,7 @@ excerpt: How to implement an OAuth 2.0 flow for your application using Okta.
 
 ## b. Server-side Application (Authorization Code Flow)
 
-If you are building a server-side (or "web") application, then the authorization code flow is the recommended method for controlling access to it. 
+If you are building a server-side (or "web") application that is capable of securely storing secrets, then the authorization code flow is the recommended method for controlling access to it. 
 
 At a high-level, this flow has the following steps: 
 - The browser receives an authorization code from your Okta authorization server
@@ -75,6 +75,8 @@ This `access_token` can now be passed to your application in the form of a beare
 When your application receives a request with an `access_token`, it will need to validate it. For more on this, see (jakub.todo).
 
 ### 5. Samples
+
+https://github.com/okta/samples-nodejs-express-4
 
 ## c. Single Page Application (Implicit Flow)
 
