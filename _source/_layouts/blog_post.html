@@ -1,7 +1,9 @@
 ---
 layout: master
-js: blog.js
+js: blog
 show_bottom_cta: true
+scripts:
+- //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-56e9a5087c9cc8b8
 ---
 
 {% comment %}
@@ -14,26 +16,31 @@ show_bottom_cta: true
 {% assign author = site.data.authors[post.author] %}
 
 {% capture _post_content %}
-	{{ content }}
+{{ content }}
 {% endcapture %}
 
-<section class="Blog is-single">
-		
+<section class="Blog is-single StickyAddThis">
+
 	<div class="Blog-social">
-		{% if author.github %}
-		<a href="{{ author.github }}" target="_blank"><i class="fa fa-github"></i></a>
-		{% endif %}
-		{% if author.twitter %}
-		<a href="{{ author.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
-		{% endif %}
-		{% if author.linkedin %}
-		<a href="{{ author.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
-		{% endif %}
-		{% if author.web%}
-		<a href="{{ author.web }}" target="_blank"><i class="fa fa-external-link"></i></a>
-		{% endif %}
+		<div class="addthis_toolbox">
+			<div class="addthis_single_icon">
+				<a class="addthis_button_twitter">
+					<span class='icon-twitter'></span>
+				</a>
+			</div>
+			<div class="addthis_single_icon">
+				<a class="addthis_button_facebook">
+					<span class='icon-facebook'></span>
+				</a>
+			</div>
+			<div class="addthis_single_icon">
+				<a class="addthis_button_linkedin">
+					<span class='icon-linkedin'></span>
+				</a>
+			</div>
+		</div>
 	</div>
-	
+
 	{% include blog_post.html post_content=_post_content %}
-		
+
 </section>

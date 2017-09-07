@@ -10,6 +10,9 @@
 
 	&.is-index {
 		flex-direction: column;
+		.Author-social {
+			display: none;
+		}
 	}
 
 	&.is-single {
