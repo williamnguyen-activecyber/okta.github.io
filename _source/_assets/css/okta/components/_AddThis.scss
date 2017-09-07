@@ -1,0 +1,148 @@
+.StickyAddThis {
+	position: relative;
+
+	.addthis_toolbox {
+		left: 24px;
+		margin: 0;
+		position: absolute;
+		top: 120 + get-spacing('x-large');
+		width: 32px;
+
+		&.is-fixed {
+			left: calc(50% - #{$site-width * 0.35});
+			position: fixed;
+			top: 182px;
+    		transform: translateX(-56px) !important;
+		}
+
+		&.is-fixedToBottom {
+			bottom: 20px;
+			position: absolute;
+			top: inherit;
+		}
+	}
+
+	.addthis_toolbox .addthis_single_icon {
+		border: 1px solid get-color('gray-dark');
+		border-radius: 16px;
+		display: block;
+		height: 32px;
+		padding: 0;
+		width: 32px;
+
+		+ .addthis_single_icon {
+			margin-top: 10px;
+		}
+
+		a {
+			border: 0;
+			display: block;
+			font-size: 16px;
+			line-height: 30px;
+			height: 100%;
+			text-align: center;
+			width: 100%;
+		}
+	}
+}
+
+.AddThis-VideoWrap, .Addthis-InlineWrap{
+	.addthis_toolbox {
+
+		margin: 0;
+		position: absolute;
+		top: 20px;
+		width: 32px;
+		z-index: 20;
+
+		&.right{
+			right: 45px;
+		}
+
+		&.left{
+			left: -45px;
+		}
+
+		&.is-fixed {
+			left: calc(50% - #{$site-width * 0.35});
+			position: fixed;
+			top: 182px;
+			transform: translateX(24px);
+		}
+
+		&.is-fixedToBottom {
+			bottom: 20px;
+			position: absolute;
+			top: inherit;
+		}
+	}
+
+	.addthis_toolbox .addthis_single_icon {
+		border: 1px solid get-color('gray-dark');
+		border-radius: 16px;
+		display: block;
+		height: 32px;
+		padding: 0;
+		width: 32px;
+
+		+ .addthis_single_icon {
+			margin-top: 10px;
+		}
+
+		a {
+			border: 0;
+			display: block;
+			font-size: 16px;
+			line-height: 30px;
+			height: 100%;
+			text-align: center;
+			width: 100%;
+			background: #fafafa;
+		}
+	}
+}
+
+@include media('<'+$site-width) {
+	.StickyAddThis {
+		.addthis_toolbox.is-fixed {
+			left: 40px;
+			transform: translateX(0) !important;
+			// top: 100px;
+		}
+	}
+}
+
+@include media('<861px') {
+	.StickyAddThis {
+		.addthis_toolbox {
+			margin-bottom: 1em;
+			top: 0;
+			&.left{
+				left: 0;
+			}
+			position: relative;
+			width: 100%;
+			.addthis_single_icon{
+				display: inline-block;
+				margin-right: 5px;
+			}
+		}
+	}
+}
+
+@include media('<769px') {
+	.addthis_toolbox {
+		&.is-fixed {
+			position: inherit !important;
+		}
+	}
+}
+
+@include media('>1440px') {
+	.addthis_toolbox {
+		&.is-fixed {
+			left: calc(50% - #{$site-width * 0.35}) !important;
+			transform: translateX(-56px) !important;
+		}
+	}
+}
