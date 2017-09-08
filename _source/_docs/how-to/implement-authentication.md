@@ -82,12 +82,12 @@ https://github.com/okta/samples-nodejs-express-4
 
 ## c. Single Page Application (Implicit Flow)
 
-If you are building a Single-page Application (SPA), then the implicit flow is the recommended method for controlling access to it. 
+If you are building a Single-page Application (SPA), then the implicit flow is the recommended method for controlling access between your SPA and a resource server. 
 
 At a high-level, this flow has the following steps:
 
 - Your application directs the browser to the Okta sign-in page, where the user authenticates
-- Okta redirects the browser back to the specified redirect URI, along with access and ID tokens, and optionally a refresh token, as a hash fragment in the URI.
+- Okta redirects the browser back to the specified redirect URI, along with access and ID tokens, and optionally a refresh token, as a hash fragment in the URI
 - Your application extracts the tokens from the URI
 - Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
 
@@ -127,10 +127,93 @@ When your application passes a request with an `access_token`, the resource serv
 
 ## d. Mobile Application (Authorization Code Flow with PKCE)
 
+If you are building a mobile application, then the authorization code flow with a Proof Key for Code Exchange (PKCE) is the recommended method for controlling the access between your application and a resource server. 
+
+At a high-level, this flow has the following steps:
+
+- Your application generates a code verifier followed by a code challenge
+- Your application directs the browser to the Okta sign-in page, along with the generated code challenge, and the user authenticates. 
+- The browser receives an authorization code from your Okta authorization server
+- The authorization code is passed to your application
+- Your application sends this code, along with the coder verifier to Okta. Okta returns access and ID tokens, and optionally a refresh token
+- Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
+
+For more information on the authorization code with PKCE flow, including why to use it, see (jakub.todo).
+
 ### 1. Setting up your Application
+
+1. From the Applications page, choose **Add Application**
+2. You will now be on the Create New Application page. From here, select **Native**
+3. Fill-in the Application Settings, then click **Done**.
+
 ### 2. Using the Authorization Code Flow with PKCE
+
+Get a code verifier and code challenge.
+
+For example, in Node.js:
+
+```
+const base64url = require('base64url');
+var crypto = require('crypto');
+crypto.createHash('sha256').update('at83hsVcajT5nfc2FVnKSxI6bsuU2Tq2aoVhEFhEO1A').digest();
+var buffer = crypto.createHash('sha256').update('at83hsVcajT5nfc2FVnKSxI6bsuU2Tq2aoVhEFhEO1A').digest();
+base64url.encode(buffer)
+```
+
+This will create output like this:
+
+```
+{
+  "code_verifier":"M25iVXpKU3puUjFaYWg3T1NDTDQtcW1ROUY5YXlwalNoc0hhakxifmZHag",
+  "code_challenge":"qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es"
+}
+```
+
+The `code_challenge` is a BASE64-URL-encoded string of the SHA256 hash of the `code_verifier`
+
+Get the code:
+
+```
+https://dev-686102.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabygpxgk9lXaMgF0h7&response_type=code&response_mode=query&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9&nonce=nonce-8600b31f-52d1-4dca-987c-386e3d8967e9&code_challenge_method=S256&code_challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
+```
+
+Response:
+
+```
+http://localhost/?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9
+```
+
+
+
 ### 3. Exchanging the Code for Tokens
-### 4. Samples
+
+Request token:
+
+```
+curl --request POST \
+  --url https://dev-686102.oktapreview.com/oauth2/default/v1/token \
+  --header 'accept: application/json' \
+  --header 'cache-control: no-cache' \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --header 'postman-token: c42acf2c-179f-628f-5ade-7d1ce5673072' \
+  --data 'grant_type=authorization_code&client_id=0oabygpxgk9lXaMgF0h7&redirect_uri=http%3A%2F%2Flocalhost&code=CKA9Utz2GkWlsrmnqehz&code_verifier=M25iVXpKU3puUjFaYWg3T1NDTDQtcW1ROUY5YXlwalNoc0hhakxifmZHag'
+```
+
+Response:
+
+```
+{
+    "access_token": "eyJhb[...]Hozw",
+    "expires_in": 3600,
+    "id_token": "eyJhb[...]jvCw",
+    "scope": "openid",
+    "token_type": "Bearer"
+}
+```
+
+### 4. Next Steps
+
+### 5. Samples
 
 ## e. Trusted Application (Resource Owner Password Flow)
 
