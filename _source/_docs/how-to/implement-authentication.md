@@ -82,7 +82,7 @@ https://github.com/okta/samples-nodejs-express-4
 
 ## c. Single Page Application (Implicit Flow)
 
-If you are building a Single-page Application (SPA) or mobile app, then the implicit flow is the recommended method for controlling access to it. 
+If you are building a Single-page Application (SPA), then the implicit flow is the recommended method for controlling access to it. 
 
 At a high-level, this flow has the following steps:
 
@@ -91,7 +91,7 @@ At a high-level, this flow has the following steps:
 - Your application extracts the tokens from the URI
 - Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
 
-For more information on the authorization code flow, including why to use it, see (jakub.todo).
+For more information on the implicit flow, including why to use it, see (jakub.todo).
 
 ### 1. Setting up your Application
 
@@ -103,7 +103,7 @@ For more information on the authorization code flow, including why to use it, se
 
 This flow is very similar to the authorization code flow (jakub.todo Link to page) except that the `response_type` is `token` and/or `id_token` instead of `code`.
 
-Your browser (or web view) makes a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
+Your browser makes a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
 
 ```
 https://dev-686102.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabv6kx4qq6h1U5l0h7&response_type=token&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
