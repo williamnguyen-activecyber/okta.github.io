@@ -32,7 +32,7 @@ For more information on the authorization code flow, including why to use it, se
 To get an authorization code, you make a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
 
 ```
-https://dev-686102.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabucvyc38HLL1ef0h7&response_type=code&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601'
+https://your-Org.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabucvyc38HLL1ef0h7&response_type=code&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601'
 ```
 
 > Note: You must request the `openid` scope or configure a default scope on the authorization server. For more information about this, see (jakub.todo).
@@ -47,11 +47,11 @@ This code will remain valid for 60 seconds, during which it can be exchanged for
 
 ### 3. Exchanging the Code for Tokens
 
-To exchange this code for access and ID tokens, you pass it to your authorization server's `/token` endpoint:
+To exchange this code for access and ID tokens, you pass it to your Organization's `/token` endpoint:
 
 ```
 curl --request POST \
-  --url https://dev-686102.oktapreview.com/oauth2/default/v1/token \
+  --url https://your-Org.oktapreview.com/oauth2/default/v1/token \
   --header 'accept: application/json' \
   --header 'authorization: Basic MG9hY...' \
   --header 'content-type: application/x-www-form-urlencoded' \
@@ -106,7 +106,7 @@ This flow is very similar to the authorization code flow (jakub.todo Link to pag
 Your browser makes a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
 
 ```
-https://dev-686102.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabv6kx4qq6h1U5l0h7&response_type=token&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
+https://your-Org.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabv6kx4qq6h1U5l0h7&response_type=token&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
 ```
 
 > Note: You must request the `openid` scope or configure a default scope on the authorization server. For more information about this, see (jakub.todo).
@@ -148,9 +148,9 @@ For more information on the authorization code with PKCE flow, including why to 
 
 ### 2. Using the Authorization Code Flow with PKCE
 
-Get a code verifier and code challenge.
+Just like with the regular authorization code flow, you start by making a request to your authorization server’s `/authorize` endpoint. However, in this instance you will also have to pass along a code challenge.
 
-For example, in Node.js:
+Your first step should therefore be to generate a code verifier and challenge. For example, in Node.js:
 
 ```
 const base64url = require('base64url');
@@ -159,6 +159,8 @@ crypto.createHash('sha256').update('at83hsVcajT5nfc2FVnKSxI6bsuU2Tq2aoVhEFhEO1A'
 var buffer = crypto.createHash('sha256').update('at83hsVcajT5nfc2FVnKSxI6bsuU2Tq2aoVhEFhEO1A').digest();
 base64url.encode(buffer)
 ```
+
+> NOTE: You can try running the above code on Runkit here: https://pkce-generator-s9q3fj7oxbgc.runkit.sh/
 
 This will create output like this:
 
@@ -169,29 +171,30 @@ This will create output like this:
 }
 ```
 
-The `code_challenge` is a BASE64-URL-encoded string of the SHA256 hash of the `code_verifier`
+The `code_challenge` is a BASE64-URL-encoded string of the SHA256 hash of the `code_verifier`. 
 
-Get the code:
+The `code_challenge` will now be passed along with the authorization request to your authorization server's `/authorize` URL:
 
 ```
-https://dev-686102.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabygpxgk9lXaMgF0h7&response_type=code&response_mode=query&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9&nonce=nonce-8600b31f-52d1-4dca-987c-386e3d8967e9&code_challenge_method=S256&code_challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
+https://your-Org.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabygpxgk9lXaMgF0h7&response_type=code&response_mode=query&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9&nonce=nonce-8600b31f-52d1-4dca-987c-386e3d8967e9&code_challenge_method=S256&code_challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
 ```
 
-Response:
+If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with a `code`:
 
 ```
 http://localhost/?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9
 ```
 
+This code will remain valid for 60 seconds, during which time it can be exchanged for tokens.
 
 
 ### 3. Exchanging the Code for Tokens
 
-Request token:
+To exchange this code for access and ID tokens, you pass it to your Organization's `/token` endpoint along with the `code_verifier` that was generated along with your `code_challenge`:
 
 ```
 curl --request POST \
-  --url https://dev-686102.oktapreview.com/oauth2/default/v1/token \
+  --url https://your-Org.oktapreview.com/oauth2/default/v1/token \
   --header 'accept: application/json' \
   --header 'cache-control: no-cache' \
   --header 'content-type: application/x-www-form-urlencoded' \
@@ -199,7 +202,9 @@ curl --request POST \
   --data 'grant_type=authorization_code&client_id=0oabygpxgk9lXaMgF0h7&redirect_uri=http%3A%2F%2Flocalhost&code=CKA9Utz2GkWlsrmnqehz&code_verifier=M25iVXpKU3puUjFaYWg3T1NDTDQtcW1ROUY5YXlwalNoc0hhakxifmZHag'
 ```
 
-Response:
+> Note: The call to the `/token` endpoint requires authentication. For more on this, please see [Token Authentication Methods](https://developer.okta.com/docs/api/resources/oauth2.html#token-authentication-methods).
+
+If the code is still valid, your application will receive back access and ID tokens:
 
 ```
 {
@@ -212,6 +217,8 @@ Response:
 ```
 
 ### 4. Next Steps
+
+When your application passes a request with an `access_token`, the resource server will need to validate it. For more on this, see (jakub.todo).
 
 ### 5. Samples
 
