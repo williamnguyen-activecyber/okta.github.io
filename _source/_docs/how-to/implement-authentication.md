@@ -47,7 +47,7 @@ This code will remain valid for 60 seconds, during which it can be exchanged for
 
 ### 3. Exchanging the Code for Tokens
 
-To exchange this code for access and ID tokens, you pass it to your Organization's `/token` endpoint:
+To exchange this code for access and ID tokens, you pass it to your authorization server's `/token` endpoint:
 
 ```
 curl --request POST \
@@ -190,7 +190,7 @@ This code will remain valid for 60 seconds, during which time it can be exchange
 
 ### 3. Exchanging the Code for Tokens
 
-To exchange this code for access and ID tokens, you pass it to your Organization's `/token` endpoint along with the `code_verifier` that was generated along with your `code_challenge`:
+To exchange this code for access and ID tokens, you pass it to your authorization server's `/token` endpoint along with the `code_verifier` that was generated along with your `code_challenge`:
 
 ```
 curl --request POST \
@@ -224,8 +224,48 @@ When your application passes a request with an `access_token`, the resource serv
 
 ## e. Trusted Application (Resource Owner Password Flow)
 
+The Resource Owner Password Flow is intended for use cases where you control both the client application and the resource that it is interacting with.  At a high-level, this flow has the following steps:
+
+- Your client application collects a user's credentials
+- Your application sends these credentials to your Okta authorization server
+- If the credentials are accurate, Okta responds with the requested tokens
+
+For more information on the resource owner password flow, including why to use it, see (jakub.todo).
+
 ### 1. Setting up your Application
+
+1. From the Applications page, choose **Add Application**
+2. You will now be on the Create New Application page. From here, select **Native**
+3. Fill-in the Application Settings, being sure to select "Resource Owner Password" as one of the allowed grant types, then click **Done**.
+4. On the next screen, in the "Client Credentials section", click **Edit**.
+5. Select "Use Client Authentication", then click **Save**.
+
 ### 2. Using the Resource Owner Password Flow
+
+Using this flow requires a single API call to the `/token` endpoint:
+
+```
+curl --request POST \
+  --url https://dev-686102.oktapreview.com/oauth2/default/v1/token \
+  --header 'accept: application/json' \
+  --header 'authorization: Basic MG9hYnpsamloM3JucjZhR3QwaDc6UHU4X2hmQkxzOGxNejVnMTZBNllmY0xid091LTExOFRPNF9YR1VOTQ==' \
+  --header 'cache-control: no-cache' \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data 'grant_type=password&redirect_uri=http%3A%2F%2Flocalhost&username=testuser1%40example.com&password=%7CmCovrlnU9oZU4qWGrhQSM%3Dyd&scope=openid'
+```
+
+Response:
+
+```
+{
+    "access_token": "eyJhb[...]56Rg",
+    "expires_in": 3600,
+    "id_token": "eyJhb[...]yosFQ",
+    "scope": "openid",
+    "token_type": "Bearer"
+}
+```
+
 ### 3. Next Steps
 ### 4. Samples
 
