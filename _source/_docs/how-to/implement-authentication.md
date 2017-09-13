@@ -62,7 +62,7 @@ curl --request POST \
 
 If the code is still valid, your application will receive back access and ID tokens:
 
-```
+```jwt
 {
     "access_token": "eyJhbG[...]9pDQ",
     "token_type": "Bearer",
@@ -187,7 +187,6 @@ http://localhost/?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-987c-
 
 This code will remain valid for 60 seconds, during which time it can be exchanged for tokens.
 
-
 ### 3. Exchanging the Code for Tokens
 
 To exchange this code for access and ID tokens, you pass it to your authorization server's `/token` endpoint along with the `code_verifier` that was generated along with your `code_challenge`:
@@ -198,7 +197,6 @@ curl --request POST \
   --header 'accept: application/json' \
   --header 'cache-control: no-cache' \
   --header 'content-type: application/x-www-form-urlencoded' \
-  --header 'postman-token: c42acf2c-179f-628f-5ade-7d1ce5673072' \
   --data 'grant_type=authorization_code&client_id=0oabygpxgk9lXaMgF0h7&redirect_uri=http%3A%2F%2Flocalhost&code=CKA9Utz2GkWlsrmnqehz&code_verifier=M25iVXpKU3puUjFaYWg3T1NDTDQtcW1ROUY5YXlwalNoc0hhakxifmZHag'
 ```
 
@@ -242,7 +240,9 @@ For more information on the resource owner password flow, including why to use i
 
 ### 2. Using the Resource Owner Password Flow
 
-Using this flow requires a single API call to the `/token` endpoint:
+Before you can begin this flow, you will have to collect the user's password in a manner of your choosing. 
+
+Once you have collected the credentials, all that is required is a single API call to the `/token` endpoint:
 
 ```
 curl --request POST \
@@ -254,7 +254,9 @@ curl --request POST \
   --data 'grant_type=password&redirect_uri=http%3A%2F%2Flocalhost&username=testuser1%40example.com&password=%7CmCovrlnU9oZU4qWGrhQSM%3Dyd&scope=openid'
 ```
 
-Response:
+> Note: The call to the `/token` endpoint requires authentication. For more on this, please see [Token Authentication Methods](https://developer.okta.com/docs/api/resources/oauth2.html#token-authentication-methods).
+
+If the credentials are valid, your application will receive back access and ID tokens:
 
 ```
 {
@@ -267,11 +269,55 @@ Response:
 ```
 
 ### 3. Next Steps
+
+When your application passes a request with an access_token, the resource server will need to validate it. For more on this, see (jakub.todo).
+
 ### 4. Samples
 
-## f. API Service (Client Credentials)
+## f. Service (Client Credentials)
+
+The Client Credentials flow is recommended for use in machine-to-machine authentication. Your application will need to securely store it's Client ID and Secret and pass those to Okta in exchange for an access token. At a high-level, the flow only has two steps:
+
+- Your application passes its client credentials to your Okta authorization server
+- If the credentials are accurate, Okta responds with an access token
 
 ### 1. Setting up your Application
-### 2. Using Client Credentials Flow
+
+1. From the Applications page, choose **Add Application**
+2. You will now be on the Create New Application page. From here, select **Service**
+3. Fill-in the Application Name, then click **Done**.
+
+### 2. Creating Custom Scopes
+
+The Client Credentials flow never has a user context, so you can't request OpenID scopes. Instead, you must create a custom scope. For more information on creating custom scopes, see (jakub.todo).
+
+### 2. Using the Client Credentials Flow
+
+Your Client Application will need to have it's Client ID and Secret stored in a secure manner. These are then passed via Basic Auth in the request to your Okta Authorization Server's `/token` endpoint:
+
+```
+curl --request POST \
+  --url https://dev-686102.oktapreview.com/oauth2/default/v1/token \
+  --header 'accept: application/json' \
+  --header 'authorization: Basic MG9hY...' \
+  --header 'cache-control: no-cache' \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data 'grant_type=client_credentials&redirect_uri=http%3A%2F%2Flocalhost&scope=customScope'
+```
+
+If the credentials are valid, you will receive back an access token:
+
+```
+{
+    "access_token": "eyJhbG[...]1LQ",
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "scope": "customScope"
+}
+```
+
 ### 3. Next Steps
+
+When your application passes a request with an access_token, the resource server will need to validate it. For more on this, see (jakub.todo).
+
 ### 4. Samples
