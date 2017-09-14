@@ -125,11 +125,11 @@ When your application passes a request with an `access_token`, the resource serv
 
 ### 4. Samples
 
-## d. Mobile Application (Authorization Code Flow with PKCE)
+## d. Native Mobile Application (Authorization Code Flow with PKCE)
 
-If you are building a mobile application, then the authorization code flow with a Proof Key for Code Exchange (PKCE) is the recommended method for controlling the access between your application and a resource server. 
+If you are building a native mobile application, then the authorization code flow with a Proof Key for Code Exchange (PKCE) is the recommended method for controlling the access between your application and a resource server. 
 
-At a high-level, this flow has the following steps:
+The Authorization Code Flow with PKCE is simply the standard Code flow with an extra step at the beginning and an extra verification at the end. At a high-level, the flow has the following steps:
 
 - Your application generates a code verifier followed by a code challenge
 - Your application directs the browser to the Okta sign-in page, along with the generated code challenge, and the user authenticates. 
