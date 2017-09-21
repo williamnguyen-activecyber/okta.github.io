@@ -155,17 +155,7 @@ Your first step should therefore be to generate a code verifier and challenge:
 * Code verifier: Random URL-safe string with a minimum length of 43 characters
 * Code challenge: Base64 URL-encoded SHA-256 hash of the code verifier.
 
-You’ll need to add code in your native mobile app to create the code verifier and code challenge. For example, in Node.js:
-
-```
-const base64url = require('base64url');
-var crypto = require('crypto');
-crypto.createHash('sha256').update('at83hsVcajT5nfc2FVnKSxI6bsuU2Tq2aoVhEFhEO1A').digest();
-var buffer = crypto.createHash('sha256').update('at83hsVcajT5nfc2FVnKSxI6bsuU2Tq2aoVhEFhEO1A').digest();
-base64url.encode(buffer)
-```
-
-> NOTE: You can try running the above code on Runkit here: https://pkce-generator-s9q3fj7oxbgc.runkit.sh/
+You’ll need to add code in your native mobile app to create the code verifier and code challenge. For examples of code that handles this, see (jakub.todo.Example section below)
 
 This will create output like this:
 
@@ -222,6 +212,12 @@ If the code is still valid, your application will receive back access and ID tok
 When your application passes a request with an `access_token`, the resource server will need to validate it. For more on this, see (jakub.todo).
 
 ### 5. Samples
+
+(jakub.todo)
+
+https://github.com/openid/AppAuth-iOS 
+
+https://github.com/openid/AppAuth-Android
 
 ## e. Trusted Application (Resource Owner Password Flow)
 
