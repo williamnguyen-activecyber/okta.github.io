@@ -132,10 +132,10 @@ If you are building a native mobile application, then the authorization code flo
 The Authorization Code Flow with PKCE is simply the standard Code flow with an extra step at the beginning and an extra verification at the end. At a high-level, the flow has the following steps:
 
 - Your application generates a code verifier followed by a code challenge
-- Your application directs the browser to the Okta sign-in page, along with the generated code challenge, and the user authenticates. 
-- The browser receives an authorization code from your Okta authorization server
+- Your application directs the browser to the Okta Sign-In page, along with the generated code challenge, and the user authenticates
+- Okta redirects back to your application with an authorization code
 - The authorization code is passed to your application
-- Your application sends this code, along with the coder verifier to Okta. Okta returns access and ID tokens, and optionally a refresh token
+- Your application sends this code, along with the code verifier, to Okta. Okta returns access and ID tokens, and optionally a refresh token
 - Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
 
 For more information on the authorization code with PKCE flow, including why to use it, see (jakub.todo).
@@ -150,7 +150,12 @@ For more information on the authorization code with PKCE flow, including why to 
 
 Just like with the regular authorization code flow, you start by making a request to your authorization server’s `/authorize` endpoint. However, in this instance you will also have to pass along a code challenge.
 
-Your first step should therefore be to generate a code verifier and challenge. For example, in Node.js:
+Your first step should therefore be to generate a code verifier and challenge:
+ 
+* Code verifier: Random URL-safe string with a minimum length of 43 characters
+* Code challenge: Base64 URL-encoded SHA-256 hash of the code verifier.
+
+You’ll need to add code in your native mobile app to create the code verifier and code challenge. For example, in Node.js:
 
 ```
 const base64url = require('base64url');
@@ -171,25 +176,23 @@ This will create output like this:
 }
 ```
 
-The `code_challenge` is a BASE64-URL-encoded string of the SHA256 hash of the `code_verifier`. 
-
-The `code_challenge` will now be passed along with the authorization request to your authorization server's `/authorize` URL:
+The `code_challenge` is a Base64-URL-encoded string of the SHA256 hash of the `code_verifier`. Your app will save the `code_verifier` for later, and send the `code_challenge` along with the authorization request to your authorization server’s `/authorize` URL:
 
 ```
 https://your-Org.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabygpxgk9lXaMgF0h7&response_type=code&response_mode=query&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9&nonce=nonce-8600b31f-52d1-4dca-987c-386e3d8967e9&code_challenge_method=S256&code_challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
 ```
 
-If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with a `code`:
+If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with an authorization `code`:
 
 ```
 http://localhost/?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9
 ```
 
-This code will remain valid for 60 seconds, during which time it can be exchanged for tokens.
+This code can only be used once, and will remain valid for 60 seconds, during which time it can be exchanged for tokens.
 
 ### 3. Exchanging the Code for Tokens
 
-To exchange this code for access and ID tokens, you pass it to your authorization server's `/token` endpoint along with the `code_verifier` that was generated along with your `code_challenge`:
+To exchange this code for access and ID tokens, you pass it to your authorization server's `/token` endpoint along with the `code_verifier` that was generated at the beginning:
 
 ```
 curl --request POST \
@@ -291,9 +294,9 @@ The Client Credentials flow is recommended for use in machine-to-machine authent
 
 The Client Credentials flow never has a user context, so you can't request OpenID scopes. Instead, you must create a custom scope. For more information on creating custom scopes, see (jakub.todo).
 
-### 2. Using the Client Credentials Flow
+### 3. Using the Client Credentials Flow
 
-Your Client Application will need to have it's Client ID and Secret stored in a secure manner. These are then passed via Basic Auth in the request to your Okta Authorization Server's `/token` endpoint:
+Your Client Application will need to have its Client ID and Secret stored in a secure manner. These are then passed via Basic Auth in the request to your Okta Authorization Server's `/token` endpoint:
 
 ```
 curl --request POST \
@@ -305,7 +308,9 @@ curl --request POST \
   --data 'grant_type=client_credentials&redirect_uri=http%3A%2F%2Flocalhost&scope=customScope'
 ```
 
-If the credentials are valid, you will receive back an access token:
+> NOTE: The Client ID and Secret aren’t included in the POST body, but rather are placed in the HTTP Authorization header following the rules of HTTP Basic Auth.
+
+If the credentials are valid, the application will receive back an access token:
 
 ```
 {
@@ -318,6 +323,6 @@ If the credentials are valid, you will receive back an access token:
 
 ### 3. Next Steps
 
-When your application passes a request with an access_token, the resource server will need to validate it. For more on this, see (jakub.todo).
+When your application sends a request with an access_token, the resource server will need to validate it. For more on this, see (jakub.todo).
 
 ### 4. Samples

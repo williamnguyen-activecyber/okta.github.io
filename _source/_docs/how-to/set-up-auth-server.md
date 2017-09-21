@@ -6,8 +6,6 @@ excerpt: Set Up an Authorization Service
 
 # Overview
 
-
-
 API Access Management is an {% api_lifecycle ea %} feature.
 
 API Access Management allows you to build custom authorization servers in Okta which can be used to protect your own API endpoints.
