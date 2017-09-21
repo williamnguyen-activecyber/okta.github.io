@@ -247,6 +247,7 @@ DEPENDENCIES
   html-proofer
   jekyll-assets
   jekyll-redirect-from
+  json
   tzinfo-data
 
 BUNDLED WITH
