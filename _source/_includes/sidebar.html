@@ -2,20 +2,54 @@
         <h2 class="Sidebar-location Sidebar-toggle h6">Navigation</h2>
         <div class="Sidebar-close Sidebar-toggle"></div>
         <div>
+          <h3 class="Sidebar-title">Authentication Guide</h3>
+          <ul class="Sidebar-nav">
+            <li{% if page.title contains '/implementing-authentication' %} class="is-active"{% endif %}>
+              <a href = "/authentication-guide/implementing-authentication/">Implementing Authentication</a>
+              {% if page.id contains "implementing-authentication" %}
+                <ul>{% assign guides = site.authentication-guide | sort: 'weight' %}
+                  {% for guide in guides %}{% unless guide.id contains "implementing-authentication" %}{% continue %}{% endunless %}
+                    {% if guide.id contains "/index" %}{% continue %}{% endif %}
+                      <li{% if guide.title == page.title %} class="is-active"{% endif %}>
+                        <a href="{{ guide.id }}.html">{{ guide.title }}</a>
+                      </li>
+                  {% endfor %}
+                </ul> 
+              {% endif %}
+            </li>
+            <li{% if page.title contains '/social-login' %} class="is-active"{% endif %}>
+            <a href = "/authentication-guide/social-login/">Social Login</a>
+            {% if page.id contains "social-login" %}
+              <ul>{% assign guides = site.authentication-guide | sort: 'weight' %}
+                {% for guide in guides %}{% unless guide.id contains "social-login" %}{% continue %}{% endunless %}
+                  {% if guide.id contains "/index" %}{% continue %}{% endif %}
+                    <li{% if guide.title == page.title %} class="is-active"{% endif %}>
+                      <a href="{{ guide.id }}.html">{{ guide.title }}</a>
+                    </li>
+                {% endfor %}
+              </ul> 
+            {% endif %}
+          </li>
+          <li{% if page.title contains '/token-validation' %} class="is-active"{% endif %}>
+          <a href = "/authentication-guide/token-validation/">Token Validation</a>
+          {% if page.id contains "token-validation" %}
+            <ul>{% assign guides = site.authentication-guide | sort: 'weight' %}
+              {% for guide in guides %}{% unless guide.id contains "token-validation" %}{% continue %}{% endunless %}
+                {% if guide.id contains "/index" %}{% continue %}{% endif %}
+                  <li{% if guide.title == page.title %} class="is-active"{% endif %}>
+                    <a href="{{ guide.id }}.html">{{ guide.title }}</a>
+                  </li>
+              {% endfor %}
+            </ul> 
+          {% endif %}
+        </li>
+        </ul>
+
           <h3 class="Sidebar-title">Use Cases</h3>
           <ul class="Sidebar-nav">{% assign documents = site.use_cases | sort: 'weight' %}{% for document in documents %}{% unless document.id contains '/index' %}{% continue %}{% endunless %}
             <li{% if document.url == page.url%} class="is-active"{% endif %}>
               <a href="{{ document.url | remove: '/index' | append: '/'}}">{{ document.title }}</a>
-            </li>{%
-            endfor %}
-          </ul>
-
-          <h3 class="Sidebar-title">Authentication Guide</h3>
-          <ul class="Sidebar-nav">{% assign documents = site.authentication-guide | sort: 'weight' %}{% for document in documents %}{% unless document.id contains '/index' %}{% continue %}{% endunless %}
-            <li{% if document.title == page.title%} class="is-active"{% endif %}>
-              <a href="{{ document.id | remove: '/index' | append: '/'}}">{{ document.title }}</a>
-            </li>{%
-            endfor %}
+            </li>{% endfor %}
           </ul>
 
           <h3 class="Sidebar-title">Reference</h3>

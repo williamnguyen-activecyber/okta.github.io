@@ -1,10 +1,8 @@
 ---
 layout: docs_page
-title: Okta Authentication Guide
-excerpt: An overview of how to implement authentication with Okta
+title: Authentication Overview
+excerpt: A high-level overview of authenticating with OAuth 2.0
 ---
-
-# The Okta Authentication Guide
 
 ### Overview
 
