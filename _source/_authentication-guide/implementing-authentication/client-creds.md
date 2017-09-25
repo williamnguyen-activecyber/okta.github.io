@@ -1,5 +1,6 @@
 ---
 layout: docs_page
+heading: Implementing Authentication
 title: Implementing the Client Credentials Flow
 excerpt: How to implement the client credentials flow in Okta
 ---

@@ -1,5 +1,6 @@
 ---
 layout: docs_page
+heading: Implementing Authentication
 title: Implementing the Implicit Flow
 excerpt: How to implement the implicit code flow in Okta
 ---
