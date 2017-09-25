@@ -4,7 +4,7 @@ title: Implementing Authentication
 excerpt: How to implement an OAuth 2.0 flow in Okta
 ---
 
-## Only need this because our sidebar doesn't support nesting
+## Only need this if our sidebar doesn't support nesting?
 
 (jakub.todo)
 
