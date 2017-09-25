@@ -10,11 +10,13 @@
             endfor %}
           </ul>
 
-          <h3 class="Sidebar-title">Reference</h3>
-          <ul class="Sidebar-nav">
-            <li>Authentication Overview</li>
+          <h3 class="Sidebar-title">Authentication Guide</h3>
+          <ul class="Sidebar-nav">{% assign documents = site.authentication-guide | sort: 'weight' %}{% for document in documents %}{% unless document.id contains '/index' %}{% continue %}{% endunless %}
+            <li{% if document.title == page.title%} class="is-active"{% endif %}>
+              <a href="{{ document.id | remove: '/index' | append: '/'}}">{{ document.title }}</a>
+            </li>{%
+            endfor %}
           </ul>
-
 
           <h3 class="Sidebar-title">Reference</h3>
           <ul class="Sidebar-nav">

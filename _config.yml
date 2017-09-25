@@ -65,6 +65,8 @@ collections:
     output: true
   use_cases:
     output: true
+  authentication-guide:
+    output: true
   reference:
     output: true
   3rd_party_notices:
