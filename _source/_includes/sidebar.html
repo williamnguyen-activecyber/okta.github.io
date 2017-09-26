@@ -6,7 +6,7 @@
           <h3 class="Sidebar-title">Authentication Guide</h3>
           <ul class="Sidebar-nav">{% assign authMain = site.authentication-guide | sort: 'weight' %}{% for main in authMain %}{% unless main.id contains '/index' %}{% continue %}{% endunless %}
             <li{% if main.title == page.title %} class="is-active"{% endif %}>
-              <a href = "{{ main.url | remove: '/index' | append: '/'}}">{{ main.title }}</a>{% assign head = (main.heading | split: " " | join: "-" | downcase) %}{% if page.id contains head %}
+              <a href = "{{ main.url | remove: '/index.html' | append: '/'}}">{{ main.title }}</a>{% assign head = (main.heading | split: " " | join: "-" | downcase) %}{% if page.id contains head %}
               <ul>{% assign guides = authMain %}
                 {% for guide in guides %}{% unless guide.heading == page.title %}{% continue %}{% endunless %}
                 {% if guide.id contains "/index" %}{% continue %}{% endif %}
