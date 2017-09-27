@@ -1,6 +1,7 @@
 ---
 layout: docs_page
 title: Authorization Code Flow
+weight: 2
 excerpt: How to implement the authorization code flow in Okta
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: docs_page
 title: Set Up A Custom Authorization Server
+weight: 1
 excerpt: How to set up a custom authorization server in Okta
 ---
 

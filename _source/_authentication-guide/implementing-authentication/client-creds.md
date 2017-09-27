@@ -1,6 +1,7 @@
 ---
 layout: docs_page
 title: Client Credentials Flow
+weight: 6
 excerpt: How to implement the client credentials flow in Okta
 ---
 

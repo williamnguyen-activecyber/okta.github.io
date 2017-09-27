@@ -1,6 +1,7 @@
 ---
 layout: docs_page
 title: Resource Owner Password Flow
+weight: 5
 excerpt: How to implement the resource owner password flow in Okta
 ---
 

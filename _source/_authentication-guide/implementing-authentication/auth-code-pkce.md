@@ -1,6 +1,7 @@
 ---
 layout: docs_page
 title: Authorization Code Flow with PKCE
+weight: 4
 excerpt: How to implement the authorization code flow with PKCE in Okta
 ---
 

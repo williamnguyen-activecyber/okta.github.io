@@ -1,6 +1,7 @@
 ---
 layout: docs_page
 title: Implicit Flow
+weight: 3
 excerpt: How to implement the implicit code flow in Okta
 ---
 
