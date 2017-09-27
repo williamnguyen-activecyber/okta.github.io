@@ -6,10 +6,10 @@
           <h3 class="Sidebar-title">Authentication Guide</h3>
           <ul class="Sidebar-nav">
             <li{% if page.title contains '/oauth-overview' %} class="is-active"{% endif %}>
-              <a href = "/authentication-guide/oauth-overview/">OAuth 2.0 Overview</a>
-              {% if page.id contains "oauth-overview" %}
+              <a href = "/authentication-guide/auth-overview/">Authentication Overview</a>
+              {% if page.id contains "auth-overview" %}
                 <ul>{% assign guides = site.authentication-guide | sort: 'weight' %}
-                  {% for guide in guides %}{% unless guide.id contains "oauth-overview" %}{% continue %}{% endunless %}
+                  {% for guide in guides %}{% unless guide.id contains "auth-overview" %}{% continue %}{% endunless %}
                     {% if guide.id contains "/index" %}{% continue %}{% endif %}
                       <li{% if guide.title == page.title %} class="is-active"{% endif %}>
                         <a href="{{ guide.id }}.html">{{ guide.title }}</a>
