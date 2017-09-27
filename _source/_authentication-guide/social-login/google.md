@@ -1,9 +1,10 @@
 ---
 layout: docs_page
+weight: 2
 title: Google
 ---
 
-## Google
+# Google
 
 ##### 1. Set Up a Google App 
 

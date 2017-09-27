@@ -1,9 +1,10 @@
 ---
 layout: docs_page
+weight: 3
 title: LinkedIn
 ---
 
-## LinkedIn
+# LinkedIn
 
 ##### 1. Set Up a LinkedIn App 
 

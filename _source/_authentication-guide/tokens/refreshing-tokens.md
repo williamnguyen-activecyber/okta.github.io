@@ -1,5 +1,6 @@
 ---
 layout: docs_page
+weight: 3
 title: Refreshing Access Tokens
 excerpt: How to refresh access tokens with Okta.
 ---

@@ -1,8 +1,4 @@
----
-layout: docs_page
-title: Set Up Authorization Service
-excerpt: Set Up an Authorization Service
----
+
 
 # Overview
 

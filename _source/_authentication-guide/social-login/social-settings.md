@@ -1,9 +1,10 @@
 ---
 layout: docs_page
+weight: 10
 title: Social IdP Settings
 ---
 
-## Social Identity Provider Settings
+# Social Identity Provider Settings
 
 When you are setting up your social Identity Provider (IdP) in Okta, there are a number of settings that allow you to finely control the social login behavior. While the provider-specific instructions show one possible configuration, this section explains each of these in more detail so that you can choose the right configuration for your use case.
 

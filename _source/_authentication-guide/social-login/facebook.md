@@ -1,9 +1,10 @@
 ---
 layout: docs_page
+weight: 1
 title: Facebook
 ---
 
-## Facebook
+# Facebook
 
 ##### 1. Set Up a Facebook App 
 

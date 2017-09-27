@@ -1,9 +1,10 @@
 ---
 layout: docs_page
+weight: 4
 title: Microsoft
 ---
 
-## Microsoft
+# Microsoft
 
 ##### 1. Set Up a Microsoft App 
 

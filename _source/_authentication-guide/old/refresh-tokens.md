@@ -1,8 +1,4 @@
----
-layout: docs_page
-title: Refreshing Access and ID Tokens
-excerpt: How to refresh access tokens with Okta.
----
+
 
 ## What Is a Refresh Token?
 

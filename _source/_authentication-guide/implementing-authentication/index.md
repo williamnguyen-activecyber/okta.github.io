@@ -1,6 +1,5 @@
 ---
 layout: docs_page
-heading: Implementing Authentication
 weight: 1
 title: Implementing Authentication
 excerpt: How to implement an OAuth 2.0 flow in Okta
