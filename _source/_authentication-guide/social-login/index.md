@@ -8,6 +8,11 @@ title: Social Login Overview
 
 Okta allows your users to sign in to your app using their Facebook, Google, LinkedIn, and Microsoft credentials. Once the user has successfully authenticated, they are returned to your app, and their social profile information is pulled into your Okta directory.
 
+Currently Okta supports the following social login providers:
+
+- [Facebook](facebook)
+- [Google](google)
+
 ### Features
 
 Configuring social login with Okta allows you to use the following features:
@@ -53,7 +58,7 @@ ok -> ua: 302 to redirect_uri
 @enduml
 -->
 
-Social authentication requests are cancelled if not completed within fifteen minutes.
+Social authentication requests are canceled if not completed within fifteen minutes.
 
 ### The Set-up Process
 

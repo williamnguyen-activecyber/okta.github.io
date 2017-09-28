@@ -69,7 +69,20 @@
                 {% endfor %}
               </ul>
             {% endif %}
-        </li>
+            </li>
+            <li{% if page.title contains '/custom-login' %} class="is-active"{% endif %}>
+            <a href = "/authentication-guide/custom-login/">Customizing Login</a>
+            {% if page.id contains "custom-login" %}
+              <ul>{% assign guides = site.authentication-guide | sort: 'weight' %}
+                {% for guide in guides %}{% unless guide.id contains "custom-login" %}{% continue %}{% endunless %}
+                  {% if guide.id contains "/index" %}{% continue %}{% endif %}
+                    <li{% if guide.title == page.title %} class="is-active"{% endif %}>
+                      <a href="{{ guide.id }}.html">{{ guide.title }}</a>
+                    </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            </li>
         </ul>
 
           <h3 class="Sidebar-title">Use Cases</h3>

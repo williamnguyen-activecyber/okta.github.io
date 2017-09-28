@@ -55,6 +55,6 @@ If the credentials are valid, your application will receive back access and ID t
 
 ### 3. Next Steps
 
-When your application passes a request with an access_token, the resource server will need to validate it. For more on this, see (jakub.todo).
+When your application passes a request with an access_token, the resource server will need to validate it. For more on this, see [Validating Access Tokens](/authentication-guide/tokens/validating-access-tokens).
 
 ### 4. Samples

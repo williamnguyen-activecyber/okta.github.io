@@ -9,23 +9,21 @@ excerpt: How to validate access tokens with Okta.
 
 ## Overview
 
-If you are building a modern app or API, you likely want to know if your end-user is authenticated. This is important to give context or to protect APIs from unauthenticated users. You can use Okta to authenticate your end-users and issue them signed access and ID tokens, which your application can then use. It is important that your application only uses the access token to grant access, and not the ID token. For more information about this, see the (jakub.todo) section below.
-
-> For more information on issuing access tokens, see here (jakub.todo). 
+If you are building a modern app or API, you likely want to know if your end-user is authenticated. This is important to give context or to protect APIs from unauthenticated users. You can use Okta to authenticate your end-users and issue them signed access and ID tokens, which your application can then use. It is important that your application only uses the access token to grant access, and not the ID token. For more information about this, see the [Access Tokens VS ID Tokens](#access-tokens-vs-id-tokens) section below.
 
 Once the signed tokens are issued to the end-users they can be passed to your application, which must validate them. There are two ways to verify a token: locally, or remotely with Okta. The token has been signed with a JSON Web Key (JWK) using the RS256 algorithm. To validate the signature, Okta provides your application with a public key that can be used. 
 
 We will now cover the terms used in this document, and an explanation of why you should use access tokens instead of ID tokens for this use case. 
 
-- If you'd like to jump straight to the local validation steps, click here: (jakub.todo) 
-- If you'd like to see how to validate a token directly with Okta, click here: (jakub.todo)
-- If you want to see specifically how to accomplish this using an Okta SDK, click here: (jakub.todo)
+- If you'd like to jump straight to the local validation steps: [What to Check When Validating an Access Token](#what-to-check-when-validating-an-access-token)
+- If you'd like to see how to validate a token directly with Okta: [Validating A Token Remotely With Okta](#validating-a-token-remotely-with-okta)
+- If you want to see specifically how to accomplish this in your language of choice: [Okta Libraries to Help You Verify Access Tokens](#okta-libraries-to-help-you-verify-access-tokens)
 
 ### Terms 
 
 In the OAuth 2.0 flows under discussion here, we have four important roles:
 
-- The authorization server, which is the server that issues the access token. In this case Okta is the authorization server. For more information about setting-up Okta as your authorization server, go here: [Set Up Authorization Server](https://developer.okta.com/docs/how-to/set-up-auth-server.html).
+- The authorization server, which is the server that issues the access token. In this case Okta is the authorization server. For more information about setting-up Okta as your authorization server, go here: [Set Up Authorization Server](/authentication-guide/implementing-authentication/set-up-authz-server).
 - The resource owner, normally your application's end-user, that grants permission to access the resource server with an access token. 
 - The client, which is the application that requests the access token from Okta and then passes it to the resource server.
 - The resource server, which accepts the access token and therefore also must verify that it is valid. In this case this is your application.
@@ -46,8 +44,6 @@ More information about ID tokens can be found here: (jakub.todo).
 
 The high-level overview of validating an access token looks like this:
 
-(jakub.todo link to sections below)
-
 - Retrieve and parse your Okta JSON Web Keys (JWK), which should be checked periodically and cached by your application.
 - Decode the access token, which is in JSON Web Token format.
 - Verify the signature used to sign the access token
@@ -55,15 +51,13 @@ The high-level overview of validating an access token looks like this:
 
 ### Retrieve The JSON Web Keys
 
-The JSON Web Keys (JWK) need to be retrieved from your [Okta Authorization Server](https://developer.okta.com/docs/how-to/set-up-auth-server.html), though your application should have them cached. Specifically, your Authorization Server's Metadata endpoint contains the `jwks_uri`, which you can use to get the JWK. 
+The JSON Web Keys (JWK) need to be retrieved from your [Okta Authorization Server](/authentication-guide/implementing-authentication/set-up-authz-server), though your application should have them cached. Specifically, your Authorization Server's Metadata endpoint contains the `jwks_uri`, which you can use to get the JWK. 
 
 > For more information about retrieving this metadata, see [Retrieve Authorization Server Metadata](https://developer.okta.com/docs/api/resources/oauth2.html#retrieve-authorization-server-metadata).
  
 ### Decode the Access Token
 
-You will have to decode the access token, which is in JWT format. Here are a few examples of how to do this:
-
-(jakub.todo. Link to code section below)
+You will have to decode the access token, which is in JWT format. A list of libraries to help you do this can be found 
 
 ### Verify the Token's Signature
 
@@ -96,8 +90,10 @@ This incurs a network request which is slower to do verification, but can be use
 
 ## Okta Libraries to Help You Verify Access Tokens
 
-Link out to SDK-specific info on how to validate tokens here.
+The Okta JWT Verifier is available for the following languages:
 
-- <https://okta.github.io/code/php/jwt-validation.html>
+- [Java](https://github.com/okta/okta-jwt-verifier-java)
+- [Node.js](https://github.com/okta/okta-oidc-js)
+- [PHP](https://github.com/okta/okta-jwt-verifier-php)
 
 Don't see the language you're working in? Get in touch: <developers@okta.com>

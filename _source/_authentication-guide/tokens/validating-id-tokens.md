@@ -13,19 +13,17 @@ If your client application requires authentication and would like to obtain info
 
 OpenID Connect (OIDC) is an authentication protocol built on top of OAuth 2.0. With OAuth 2.0, a user can authenticate with an authorization server and get you an access token that authorizes access to some server resources. With OIDC, they can also give you a token called an ID token. The ID token contains information about a user and their authentication status. It can be used by your client both for authentication and as a store of information about that user. One OIDC flow can return both access and ID tokens.
 
-> For more information on issuing ID tokens, see here (jakub.todo). 
-
 We will now cover the terms used in this document, and an explanation of why you should use ID tokens. 
 
-- If you'd like to jump straight to the local validation steps, click here: (jakub.todo) 
-- If you'd like to see how to validate a token directly with Okta, click here: (jakub.todo)
-- If you want to see specifically how to accomplish this using an Okta SDK, click here: (jakub.todo)
+- If you'd like to jump straight to the local validation steps: [What to Check When Validating an ID Token](#what-to-check-when-validating-an-id-token)
+- If you'd like to see how to validate a token directly with Okta: [Validating A Token Remotely With Okta](#validating-a-token-remotely-with-okta)
+- If you want to see specifically how to accomplish this in your language of choice: [Okta Libraries to Help You Verify ID Tokens](#okta-libraries-to-help-you-verify-id-tokens)
 
 ### Terms 
 
 Although OpenID Connect is built on top of OAuth 2.0, the specification uses slightly different terms:
 
-- The OpenID Provider (OP), which is the authorization server that issues the ID token. In this case Okta is the OP. For more information about setting-up Okta as your authorization server, go here: [Set Up Authorization Server](https://developer.okta.com/docs/how-to/set-up-auth-server.html).
+- The OpenID Provider (OP), which is the authorization server that issues the ID token. In this case Okta is the OP. For more information about setting-up Okta as your authorization server, go here: [Set Up Authorization Server](/authentication-guide/implementing-authentication/set-up-authz-server).
 - The End-User whose information is contained in the ID token.
 - A Claim is a piece of information about your End-User. 
 - The Relying Party (RP), which is the client application that requests the ID token from Okta.
@@ -40,15 +38,13 @@ The ID Token is a security token granted by the OpenID Provider that contains in
 
 You can pass an ID Token around different components of your client, and these components can use the ID Token to confirm that the user is authenticated and also to retrieve information about them.
 
-Access tokens, on the other hand, are not intended to carry information about the user. They simply allow access to certain defined server resources. More discussion about when to use access tokens can be found in How To Validate Access Tokens (jakub.todo).
+Access tokens, on the other hand, are not intended to carry information about the user. They simply allow access to certain defined server resources. More discussion about when to use access tokens can be found in [Validating Access Tokens](validating-access-tokens).
 
 More information about ID tokens can be found here: (jakub.todo).
 
 ## What to Check When Validating an ID Token 
 
 The high-level overview of validating an ID token looks like this:
-
-(jakub.todo link to sections below)
 
 - Retrieve and parse your Okta JSON Web Keys (JWK), which should be checked periodically and cached by your application.
 - Decode the ID token, which is in JSON Web Token format.
@@ -57,7 +53,7 @@ The high-level overview of validating an ID token looks like this:
 
 ### Retrieve The JSON Web Key Set
 
-The JSON Web Key Set (JWKS) needs to be retrieved from your [Okta Authorization Server](https://developer.okta.com/docs/how-to/set-up-auth-server.html), though your application should have it cached. Specifically, your Authorization Server's Metadata endpoint contains the `jwks_uri`, which you can use to get the JWKS. 
+The JSON Web Key Set (JWKS) needs to be retrieved from your [Okta Authorization Server](/authentication-guide/implementing-authentication/set-up-authz-server), though your application should have it cached. Specifically, your Authorization Server's Metadata endpoint contains the `jwks_uri`, which you can use to get the JWKS. 
 
 > For more information about retrieving this metadata, see [Retrieve Authorization Server Metadata](https://developer.okta.com/docs/api/resources/oauth2.html#retrieve-authorization-server-metadata).
  
@@ -98,12 +94,12 @@ Alternatively, you can also validate an ID Token using the Token Introspection e
 
 This incurs a network request which is slower to do verification, but can be used when you want to guarantee that the access token hasn't been revoked. 
 
-## Okta Libraries to Help You Verify Access Tokens
+## Okta Libraries to Help You Verify ID Tokens
 
-(jakub.todo) This may not be a great name for this section.
+The Okta JWT Verifier is available for the following languages:
 
-Link out to SDK-specific info on how to validate tokens here.
-
-- <https://okta.github.io/code/php/jwt-validation.html>
+- [Java](https://github.com/okta/okta-jwt-verifier-java)
+- [Node.js](https://github.com/okta/okta-oidc-js)
+- [PHP](https://github.com/okta/okta-jwt-verifier-php)
 
 Don't see the language you're working in? Get in touch: <developers@okta.com>
