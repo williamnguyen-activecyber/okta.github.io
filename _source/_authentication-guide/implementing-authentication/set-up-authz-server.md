@@ -1,44 +1,44 @@
 ---
 layout: docs_page
-title: Set Up A Custom Authorization Server
+title: Custom Authorization Server
 weight: 1
 excerpt: How to set up a custom authorization server in Okta
 ---
 
 # Overview
 
-(jakub.todo This needs to be heavily updated) API Access Management allows you to build custom authorization servers in Okta which can be used to protect your own API endpoints.
-An authorization server defines your security boundary, for example "staging" or "production."
+Okta allows you to build custom authorization servers in Okta which can be used to protect your own API endpoints. An authorization server defines your security boundary, for example "staging" or "production."
 Within each authorization server you can define your own OAuth scopes, claims, and access policies.
 
-This allows your apps and your APIs to anchor to a central authorization point and leverage the rich identity features of Okta,
+This allows your apps and APIs to anchor to a central authorization point and leverage the rich identity features of Okta,
 such as Universal Directory for transforming attributes, adaptive MFA for end users, analytics, and system log, and extend it out to the API economy.
 
-At its core, an authorization server is simply an OAuth 2.0 token minting engine.
-Each authorization server has a unique [issuer URI](https://tools.ietf.org/html/rfc7519#section-4.1.1)
+At its core, an authorization server is simply an OAuth 2.0 token minting engine. Each authorization server has a unique issuer URI
 and its own signing key for tokens in order to keep proper boundary between security domains.
-The authorization server also acts as an [OpenID Connect Provider](http://openid.net/connect/),
-which means you can request [ID tokens](http://openid.net/specs/openid-connect-core-1_0.html#IDToken)
-in addition to [access tokens](https://tools.ietf.org/html/rfc6749#section-1.4) from the authorization server endpoints.
 
-How do you know if you need to use Okta&#8217;s Authorization Server instead of the authorization service that is
-built in to your Okta app?
+The authorization server also acts as an OpenID Connect Provider,
+which means you can request [ID tokens](jakub.todo)
+in addition to [access tokens](jakub.todo) from the authorization server endpoints.
+
+How do you know if you need to use a custom Authorization Server instead of the authorization service that is built in to your Okta app?
 
 * You need to protect non-Okta resources.
 * You need different authorization policies depending on whether the person is an employee, partner, or end user, or other similar specializations.
 
 > Note: If your employees, partners, and users can all use the same authentication policies for single sign-on,
-try [Okta&#8217;s built in authorization service](https://support.okta.com/help/articles/Knowledge_Article/Single-Sign-On-Knowledge-Hub).
+try [Okta's built in authorization service](https://support.okta.com/help/articles/Knowledge_Article/Single-Sign-On-Knowledge-Hub).
 
 
 ## Set Up an Authorization Server
+
+> NOTE: If you have an Okta Developer Account, you already have a custom Authorization Server created for you, called "default". 
 
 Create and configure an Okta Authorization Server to manage authorization between clients and Okta:
 
 * Identify the scopes and claims needed by your client app and register it with Okta.
 * Create one or more Authorization Servers and (optionally) define the scopes and claims to match those expected by your app.
 
-It doesn&#8217;t matter which of these two you do first, but the client app must recognize the scope names and be expecting the claims as defined in the Authorization Server.
+It doesn't matter which of these two you do first, but the client app must recognize the scope names and be expecting the claims as defined in the Authorization Server.
 
 This document provides step-by-step instructions for creating and configuring the Authorization Server:
 
@@ -49,6 +49,8 @@ This document provides step-by-step instructions for creating and configuring th
 5. [Test the Authorization Server](#test-your-authorization-server-configuration)
 
 ### Create an Authorization Server
+
+> NOTE: If you have an Okta Developer Account, you can skip this step because you already have a custom Authorization Server created for you, called "default". 
 
 1. In the Okta Developer Dashboard, navigate to **API > Authorization Servers**.
 {% img okta-admin-auth-server-toolbar-dev alt:"Authorization Server" %}
