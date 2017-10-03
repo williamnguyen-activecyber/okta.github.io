@@ -11,7 +11,7 @@ If you are building a server-side (or "web") application that is capable of secu
 
 At a high-level, this flow has the following steps: 
 
-- Your application directs the browser to the Okta sign-in page, where the user authenticates
+- Your application directs the browser to the Okta Sign-In page, where the user authenticates
 - The browser receives an authorization code from your Okta authorization server
 - The authorization code is passed to your application
 - Your application sends this code to Okta, and Okta returns access and ID tokens, and optionally a refresh token
