@@ -33,13 +33,21 @@ Once you have collected the credentials, all that is required is a single API ca
 curl --request POST \
   --url https://dev-686102.oktapreview.com/oauth2/default/v1/token \
   --header 'accept: application/json' \
-  --header 'authorization: Basic MG9hYnpsamloM3JucjZhR3QwaDc6UHU4X2hmQkxzOGxNejVnMTZBNllmY0xid091LTExOFRPNF9YR1VOTQ==' \
-  --header 'cache-control: no-cache' \
+  --header 'authorization: Basic MG9hYn...' \
   --header 'content-type: application/x-www-form-urlencoded' \
-  --data 'grant_type=password&redirect_uri=http%3A%2F%2Flocalhost&username=testuser1%40example.com&password=%7CmCovrlnU9oZU4qWGrhQSM%3Dyd&scope=openid'
+  --data 'grant_type=password&username=testuser1%40example.com&password=%7CmCovrlnU9oZU4qWGrhQSM%3Dyd&scope=openid'
 ```
 
-> Note: The call to the `/token` endpoint requires authentication. For more on this, please see [Token Authentication Methods](https://developer.okta.com/docs/api/resources/oauth2.html#token-authentication-methods).
+> Important: The call to the `/token` endpoint requires authentication. In this case, it is a Basic Auth digest of the Client ID and Secret. For more on Basic Auth, please see [Token Authentication Methods](https://developer.okta.com/docs/api/resources/oauth2.html#token-authentication-methods).
+
+Note the parameters that are being passed:
+
+- `grant_type` is `password`, indicating that we are using the Resource Owner Password grant type.
+- `username` is the username of a user registered with Okta.
+- `password` is the password of a user registered with Okta.
+- `scope` must be at least `openid`.
+
+For more information on these parameters, see the [OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#request-a-token).
 
 If the credentials are valid, your application will receive back access and ID tokens:
 

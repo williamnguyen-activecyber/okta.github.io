@@ -144,7 +144,7 @@ client -> okta: Authorization Code Request to /authorize
 okta -> user: 302 redirect to authentication prompt
 user -> okta: Authentication & consent
 okta -> client: Authorization Code Response
-client -> okta: Send authorization code to /token
+client -> okta: Send authorization code + Client Secret to /token
 okta -> client: Access token (and optionally Refresh Token)
 client -> app: Request with access token
 app -> client: Response
@@ -153,10 +153,33 @@ app -> client: Response
 
 ### Authorization Code with PKCE
 
-Intended for native and mobile applications
+Intended for native and mobile applications. The use of the PKCE 
 
-For native applications, the client_id and client_secret are embedded in the source code of the application; in this context, the client secret isn’t treated as a secret. Therefore native apps should make use of Proof Key for Code Exchange (PKCE) to mitigate authorization code interception.
+For native applications, the Client ID Secret are embedded in the source code of the application which means that they can't be treated as a secret. Therefore native apps should make use of Proof Key for Code Exchange (PKCE) to mitigate authorization code interception.
 
+<!-- Source for image. Generated using http://www.plantuml.com/plantuml/uml/
+
+@startuml
+
+skinparam monochrome true
+
+actor "Resource Owner (User)" as user
+participant "Client" as client
+participant "Authorization Server (Okta)" as okta
+participant "Resource Server (Your App)" as app
+
+client -> client: Generate PKCE code verifier & challenge
+client -> okta: Authorization Code Request + code_challenge to /authorize
+okta -> user: 302 redirect to authentication prompt
+user -> okta: Authentication & consent
+okta -> client: Authorization Code Response
+client -> okta: Send authorization code + code_verifier to /token
+okta -> okta: Evaluates PKCE code
+okta -> client: Access token (and optionally Refresh Token)
+client -> app: Request with access token
+app -> client: Response
+
+-->
 
 ### Implicit Flow
 

@@ -49,8 +49,20 @@ This will create output like this:
 The `code_challenge` is a Base64-URL-encoded string of the SHA256 hash of the `code_verifier`. Your app will save the `code_verifier` for later, and send the `code_challenge` along with the authorization request to your authorization server’s `/authorize` URL:
 
 ```
-https://your-Org.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabygpxgk9lXaMgF0h7&response_type=code&response_mode=query&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9&nonce=nonce-8600b31f-52d1-4dca-987c-386e3d8967e9&code_challenge_method=S256&code_challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
+https://your-Org.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabygpxgk9lXaMgF0h7&response_type=code&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9&code_challenge_method=S256&code_challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
 ```
+
+Note the parameters that are being passed:
+
+- `client_id` matches the Client ID of your Okta OAuth application that you created above.
+- `response_type` is `code`, indicating that we are using the authorization code grant type.
+- `scope` is `openid`. This can be left empty if you configure a default scope on the authorization server. For more information about this, see (jakub.todo).
+- `redirect_uri` is the callback location where the user-agent will be directed to along with the `code`. This must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
+- `state` is an arbitrary alphanumeric string that the authorization server will reproduce when redirecting the user-agent back to the client. This is used to help prevent cross-site request forgery.
+- `code_challenge_method` is the hash method used to generate the challenge, which will always be `S256`.
+- `code_challenge` is the code challenge used for PKCE.
+
+For more information on these parameters, see [the OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user).
 
 If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with an authorization `code`:
 
@@ -73,7 +85,15 @@ curl --request POST \
   --data 'grant_type=authorization_code&client_id=0oabygpxgk9lXaMgF0h7&redirect_uri=http%3A%2F%2Flocalhost&code=CKA9Utz2GkWlsrmnqehz&code_verifier=M25iVXpKU3puUjFaYWg3T1NDTDQtcW1ROUY5YXlwalNoc0hhakxifmZHag'
 ```
 
-> Note: The call to the `/token` endpoint requires authentication. For more on this, please see [Token Authentication Methods](https://developer.okta.com/docs/api/resources/oauth2.html#token-authentication-methods).
+> Important: Unlike the regular [Authorization Code Flow](auth-code), this call does not require the Authorization header with the client ID and secret. This is why this version of the Authorization Code flow is appropriate for mobile/native apps.
+
+Note the parameters that are being passed:
+
+- `grant_type` is `code`, indicating that we are using the authorization code grant type.
+- `redirect_uri` must match the URI that was used to get the authorization code.
+- `code` is the authorization code that you got from the `/authorize` endpoint.
+
+For more information on these parameters, see the [OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#request-a-token).
 
 If the code is still valid, your application will receive back access and ID tokens:
 

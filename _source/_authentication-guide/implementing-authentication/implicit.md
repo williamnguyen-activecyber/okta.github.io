@@ -34,7 +34,15 @@ Your browser makes a request to your authorization server's `/authorize` endpoin
 https://your-Org.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabv6kx4qq6h1U5l0h7&response_type=token&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
 ```
 
-> Note: You must request the `openid` scope or configure a default scope on the authorization server. For more information about this, see (jakub.todo).
+Note the parameters that are being passed:
+
+- `client_id` matches the Client ID of your Okta OAuth application that you created above.
+- `response_type` is `token`. It could also be `id_token` or both. 
+- `scope` is `openid` which is required, though additional scopes can be requested.
+- `redirect_uri` is the callback location where the user-agent will be directed to along with the `access_token`. This must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
+- `state` is an arbitrary alphanumeric string that the authorization server will reproduce when redirecting the user-agent back to the client. This is used to help prevent cross-site request forgery.
+
+For more information on these parameters, see [the OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user).
 
 If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, your browser will arrive at the specified `redirect_uri` along with a `token` as a hash fragment:
 
