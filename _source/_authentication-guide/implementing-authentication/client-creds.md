@@ -38,6 +38,12 @@ curl --request POST \
 
 > NOTE: The Client ID and Secret aren’t included in the POST body, but rather are placed in the HTTP Authorization header following the rules of HTTP Basic Auth.
 
+Note the parameters that are being passed:
+
+- `grant_type` is `client_credentials`, indicating that we are using the Client Credentials grant type.
+- `redirectUri` must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
+- `scope` must be at least one custom scope that you have created.
+
 If the credentials are valid, the application will receive back an access token:
 
 ```
