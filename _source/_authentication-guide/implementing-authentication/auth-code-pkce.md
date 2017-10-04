@@ -92,10 +92,11 @@ Note the parameters that are being passed:
 - `grant_type` is `code`, indicating that we are using the authorization code grant type.
 - `redirect_uri` must match the URI that was used to get the authorization code.
 - `code` is the authorization code that you got from the `/authorize` endpoint.
+- `code_verifier` is the PKCE code verifier that your app generated at the beginning of this flow.
 
 For more information on these parameters, see the [OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#request-a-token).
 
-If the code is still valid, your application will receive back access and ID tokens:
+If the code is still valid, and the code verifier matches, your application will receive back access and ID tokens:
 
 ```
 {

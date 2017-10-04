@@ -1,17 +1,25 @@
 ---
 layout: docs_page
 weight: 1
-title: Okta Authentication Overview
+title: Okta OAuth 2.0 Overview
 ---
 
-# Authentication Overview
+# Okta OAuth 2.0 Overview
+
+This page will give you an overview of OAuth 2.0 and OpenID Connect and their Okta implementations. It will explain the different flows and help you decide which flow is best for you based on the type of application that you are building. If you already know what kind of flow you want, you can jump directly to:
+
+- [Implementing OAuth 2.0 Authentication](/authentication-guide/implementing-authentication/)
+- [SAML Authentication with OIDC](/authentication-guide/saml-login)
+- [Social Login](/authentication-guide/social-login/)
+- [Working With OAuth 2.0 Tokens](/authentication-guide/tokens/)
+- [Customizing Login](/authentication-guide/tokens/customizing-login)
 
 ## OAuth 2.0 vs OpenID Connect vs Authentication API
 
-At a very high-level:
+At a very high-level, these three can be summarized like this:
 
 - The Authentication API controls access to the Okta API.
-- The OAuth 2.0 protocol controls authorization to access a protected resource, like a web app, mobile app, or API service.
+- The OAuth 2.0 protocol controls authorization to access a protected resource, like your web app, mobile app, or API service.
 - The OpenID Connect protocol is built on the OAuth 2.0 protocol and helps authenticate users and convey information about them. It is also more opinionated that plain OAuth 2.0, for example in its scope definitions.
 
 If you would like to work with the Okta API and control user access to Okta, then you want to use the Authentication API and should check out the [Okta Authentication API documentation](https://developer.okta.com/docs/api/resources/authn.html).
@@ -105,29 +113,29 @@ else (no)
 
 -->
 
-#### Is your Client public? 
+##### Is your Client public? 
 
 A client application is considered "public" when an end user could possibly view and modify the code. This includes Single Page Apps (SPAs) or any mobile or native applications. In both cases, the application cannot keep secrets from malicious users. 
 
-##### Is your Client a SPA or mobile/native?
+###### Is your Client a SPA or mobile/native?
 
 If your Client application is a Single Page Application (SPA), you should use the [Implicit flow](#implicit-flow).
 
 If your Client application is a mobile/native application, you should use the [Authorization Code with PKCE flow](#authorization-code-with-pkce).
 
-#### Does the Client have an end-user?
+##### Does the Client have an end-user?
 
 If your client application is running on a server with no direct end-user, then it can be trusted to store credentials and use them responsible. If your client application will only be doing this sort of machine-to-machine interaction, then you should use the [Client Credentials flow](#client-credentials-flow). 
 
-#### Does the Resource Owner own the Client?
+##### Does the Resource Owner own the Client?
 
 If you own both the client application and the Resource that it is accessing, then your application can be trusted to store your end-user's login and password. In this case, you can use the [Resource Owner Password flow](resource-owner-password-flow).
 
 ### Authorization Code Flow
 
-The authorization code flow is best used by server-side apps where the source code is not publicly exposed. This is because the request that exchanges the authorization code for a token requires a client secret, which will have to be stored in your client. Because it relies on redirection to the authentication prompt, it also relies on interaction with the end-user's web browser which will redirect the user and then receive the authorization code.
+The authorization code flow is best used by server-side apps where the source code is not publicly exposed. The apps should be server-side because the request that exchanges the authorization code for a token requires a client secret, which will have to be stored in your client. The server-side app requires an end-user, however, because it relies on interaction with the end-user's web browser which will redirect the user and then receive the authorization code.
 
-{% img auth_code_flow.png alt:"Auth Code Flow" width:"800px" %}
+{% img oauth_auth_code_flow.png alt:"Auth Code Flow" width:"800px" %}
 
 <!-- Source for image. Generated using http://www.plantuml.com/plantuml/uml/
 
@@ -151,11 +159,21 @@ app -> client: Response
 
 -->
 
+For information how to set-up your application to use this flow, see [Implement the Authorization Code Flow](/authentication-guide/implementing-authentication/auth-code).
+
 ### Authorization Code with PKCE
 
-Intended for native and mobile applications. The use of the PKCE 
+For native/mobile applications, the Client Secret cannot be stored in the application because it could easily be exposed. Additionally, mobile callbacks use `app://` protocols, which are prone to interception. Basically, a rogue application could intercept the authorization code as it is being passed through the mobile/native operating system. Therefore native apps should make use of Proof Key for Code Exchange (PKCE), which acts like a secret but isn't hard-coded, to keep the authorization code flow secure.
 
-For native applications, the Client ID Secret are embedded in the source code of the application which means that they can't be treated as a secret. Therefore native apps should make use of Proof Key for Code Exchange (PKCE) to mitigate authorization code interception.
+PKCE is an extension to the regular Authorization Code flow, so the flow is very similar, except that PKCE elements are included at various steps in the flow. 
+
+The PKCE-enhanced flow requires your application to generate a cryptographically random key called a "code verifier". A "code challenge" is then created from the verifier, and this challenge is passed along with the request for the authorization code.
+
+When the authorization code is sent in the access token request, the code verifier is sent as part of the request. The authorization server recomputes the challenge from the verifier using an agreed-upon hash algorithm and then compares that. If the two code challenges and verifier match, then it knows that both requests were sent by the same client. 
+
+A hypothetical rogue app could only intercept the authorization code, but it would not have access to the code challenge or verifier, since they are both sent over HTTPS.
+
+{% img oauth_auth_code_flow_pkce.png alt:"Auth Code Flow with PKCE" width:"800px" %}
 
 <!-- Source for image. Generated using http://www.plantuml.com/plantuml/uml/
 
@@ -181,20 +199,79 @@ app -> client: Response
 
 -->
 
+For information how to set-up your application to use this flow, see [Implement the Authorization Code Flow with PKCE](/authentication-guide/implementing-authentication/auth-code-pkce).
+
 ### Implicit Flow
 
-Intended for Single Page Applications (SPA)
+The Implicit Flow, like the Authorization Code Flow, is intended for applications where the confidentiality of the Client Secret cannot be guaranteed. Because the client does not have the Client Secret, it cannot make a request to the `/token` endpoint, and instead receives the access token directly from the `/authorize` endpoint. We recommend it for use with Single Page Applications (SPA), since the the client must be capable of interacting with the resource owner's user-agent and capable of receiving incoming requests (via redirection) from the authorization server.
 
-Access token returned directly from authorization request
+> NOTE: The Implicit Flow does not support refresh tokens.
 
-Does not support refresh tokens
+{% img oauth_implicit_flow.png alt:"Implicit Flow" width:"800px" %}
 
-Assumes Resource Owner and Public Client are on the same device
+<!-- Source for image. Generated using http://www.plantuml.com/plantuml/uml/
+
+skinparam monochrome true
+
+actor "Resource Owner (User)" as user
+participant "Client" as client
+participant "Authorization Server (Okta)" as okta
+participant "Resource Server (Your App)" as app
+
+client -> okta: Access token request to /authorize
+okta -> user: 302 redirect to authentication prompt
+user -> okta: Authentication & consent
+okta -> client: Access token response
+client -> app: Request with access token
+app -> client: Response
+-->
+
+For information how to set-up your application to use this flow, see [Implement the Implicit Flow](/authentication-guide/implementing-authentication/implicit).
 
 ### Resource Owner Password Flow 
 
-Intended for scenarios where you control both 
+The Resource Owner Password Flow is intended for use cases where you control both the client application and the resource that it is interacting with. It requires that the client can be trusted with the resource owner's credentials, and so is most commonly found in clients made for online services, like the Facebook client applications that interact with the Facebook service. It doesn't require redirects like the Authorization Code or Implicit flows, and involves a single authenticated call to the `/token` endpoint.
+
+{% img oauth_password_flow.png alt:"Resource Owner Password Flow" width:"800px" %}
+
+<!-- Source for image. Generated using http://www.plantuml.com/plantuml/uml/
+
+skinparam monochrome true
+
+actor "Resource Owner (User)" as user
+participant "Client" as client
+participant "Authorization Server (Okta)" as okta
+participant "Resource Server (Your App)" as app
+
+user -> client: Authenticates
+client -> okta: Access token request to /token
+okta -> client: Access token (+optional Refresh Token) response
+client -> app: Request with access token
+app -> client: Response
+
+-->
+
+For information how to set-up your application to use this flow, see [Implement the Resource Owner Password Flow](/authentication-guide/implementing-authentication/password).
 
 ### Client Credentials Flow
 
 Intended for server-side (AKA "confidential") app with no end user
+
+{% img oauth_client_creds_flow.png alt:"Resource Owner Password Flow" width:"800px" %}
+
+<!-- Source for image. Generated using http://www.plantuml.com/plantuml/uml/
+
+skinparam monochrome true
+
+participant "Client + Resource Owner" as client
+participant "Authorization Server (Okta)" as okta
+participant "Resource Server (Your App)" as app
+
+client -> okta: Access token request to /token
+okta -> client: Access token response
+client -> app: Request with access token
+app -> client: Response
+
+-->
+
+For information how to set-up your application to use this flow, see [Implement the Client Credentials Flow](/authentication-guide/implementing-authentication/client-creds).
