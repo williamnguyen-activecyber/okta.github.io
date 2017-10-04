@@ -171,7 +171,7 @@ The PKCE-enhanced flow requires your application to generate a cryptographically
 
 When the authorization code is sent in the access token request, the code verifier is sent as part of the request. The authorization server recomputes the challenge from the verifier using an agreed-upon hash algorithm and then compares that. If the two code challenges and verifier match, then it knows that both requests were sent by the same client. 
 
-A hypothetical rogue app could only intercept the authorization code, but it would not have access to the code challenge or verifier, since they are both sent over HTTPS.
+A rogue app could only intercept the authorization code, but it would not have access to the code challenge or verifier, since they are both sent over HTTPS.
 
 {% img oauth_auth_code_flow_pkce.png alt:"Auth Code Flow with PKCE" width:"800px" %}
 
@@ -255,7 +255,9 @@ For information how to set-up your application to use this flow, see [Implement 
 
 ### Client Credentials Flow
 
-Intended for server-side (AKA "confidential") app with no end user
+The Client Credentials flow is intended for server-side (AKA "confidential") client applications with no end user, which normally describes machine-to-machine communication. The application must be server-side because it must be trusted with the Client Secret, and since the credentials are hard-coded, it cannot be used by an actual end-user. It involves a single, authenticated request to the `/token` endpoint, which returns an access token.
+
+> NOTE: The Client Credentials Flow does not support refresh tokens.
 
 {% img oauth_client_creds_flow.png alt:"Resource Owner Password Flow" width:"800px" %}
 
