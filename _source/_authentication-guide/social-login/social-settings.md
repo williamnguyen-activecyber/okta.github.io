@@ -38,8 +38,5 @@ More user profile attributes are available for matching as an {% api_lifecycle e
 
 ## Error Codes
 
-<<<<<<< HEAD
 See the [OpenID Connect and Okta Social Authentication](/reference/error_codes/index#openid-connect-and-okta-social-authentication) section of the [Error Codes](/docs/api/getting_started/error_codes.html) API documentation.
-=======
-See the [OpenID Connect and Okta Social Authentication](/reference/error_codes/index#openid-connect-and-okta-social-authentication) section of the [Error Codes](/docs/api/getting_started/error_codes.html) API documentation.
->>>>>>> 869a6d69aefd7d8d72863d6f29bd49acdc30940e
+

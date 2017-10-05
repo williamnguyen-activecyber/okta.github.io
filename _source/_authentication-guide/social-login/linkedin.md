@@ -104,8 +104,4 @@ Okta also offers an easily embeddable JavaScript widget that reproduces the look
 
 **Auth.js**
 
-<<<<<<< HEAD
 If you don't want pre-built views, or need deeper levels of customization, then you can use the same AuthJS SDK that the Sign-in Widget is built with. For further information see [the AuthJS GitHub repo](https://github.com/okta/okta-auth-js#install). Implementing login with LinkedIn would use the SDK's [OpenID Connect authentication flow](https://github.com/okta/okta-auth-js#openid-connect-options).
-=======
-If you don't want pre-built views, or need deeper levels of customization, then you can use the same AuthJS SDK that the Sign-in Widget is built with. For further information see [the AuthJS GitHub repo](https://github.com/okta/okta-auth-js#install). Implementing login with LinkedIn would use the SDK's [OpenID Connect authentication flow](https://github.com/okta/okta-auth-js#openid-connect-options).
->>>>>>> 869a6d69aefd7d8d72863d6f29bd49acdc30940e
