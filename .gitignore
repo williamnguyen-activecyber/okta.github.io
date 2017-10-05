@@ -39,6 +39,7 @@ dist
 
 .asset-cache/
 _source/.asset-cache
+.asset-cache
 .sass-cache
 .bundle
 bin/*
