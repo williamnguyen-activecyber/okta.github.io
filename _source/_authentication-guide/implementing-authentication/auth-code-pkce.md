@@ -18,7 +18,7 @@ The Authorization Code Flow with PKCE is simply the standard Code flow with an e
 - Your application sends this code, along with the code verifier, to Okta. Okta returns access and ID tokens, and optionally a refresh token
 - Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
 
-For more information on the authorization code with PKCE flow, including why to use it, see (jakub.todo).
+For more information on the authorization code with PKCE flow, including why to use it, see our [OAuth 2.0 Overview](/authentication-guide/auth-overview/#authorization-code-with-pkce).
 
 ### 1. Setting up your Application
 
@@ -35,7 +35,7 @@ Your first step should therefore be to generate a code verifier and challenge:
 * Code verifier: Random URL-safe string with a minimum length of 43 characters
 * Code challenge: Base64 URL-encoded SHA-256 hash of the code verifier.
 
-You’ll need to add code in your native mobile app to create the code verifier and code challenge. For examples of code that handles this, see (jakub.todo.Example section below)
+You’ll need to add code in your native mobile app to create the code verifier and code challenge. For examples of code that handles this, see [below](#examples).
 
 This will create output like this:
 
@@ -56,7 +56,7 @@ Note the parameters that are being passed:
 
 - `client_id` matches the Client ID of your Okta OAuth application that you created above.
 - `response_type` is `code`, indicating that we are using the authorization code grant type.
-- `scope` is `openid`. This can be left empty if you configure a default scope on the authorization server. For more information about this, see (jakub.todo).
+- `scope` is `openid`. This can be left empty if you configure a default scope on the authorization server. For more information about this, see the [Custom Authorization Server chapter](/authentication-guide/implementing-authentication/set-up-authz-server.html#create-scopes-optional).
 - `redirect_uri` is the callback location where the user-agent will be directed to along with the `code`. This must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
 - `state` is an arbitrary alphanumeric string that the authorization server will reproduce when redirecting the user-agent back to the client. This is used to help prevent cross-site request forgery.
 - `code_challenge_method` is the hash method used to generate the challenge, which will always be `S256`.
@@ -112,9 +112,7 @@ If the code is still valid, and the code verifier matches, your application will
 
 When your application passes a request with an `access_token`, the resource server will need to validate it. For more on this, see [Validating Access Tokens](/authentication-guide/tokens/validating-access-tokens).
 
-### 5. Samples
-
-(jakub.todo)
+### Examples
 
 <https://github.com/openid/AppAuth-iOS>
 

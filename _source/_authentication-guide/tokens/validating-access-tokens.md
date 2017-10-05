@@ -19,26 +19,17 @@ We will now cover the terms used in this document, and an explanation of why you
 - If you'd like to see how to validate a token directly with Okta: [Validating A Token Remotely With Okta](#validating-a-token-remotely-with-okta)
 - If you want to see specifically how to accomplish this in your language of choice: [Okta Libraries to Help You Verify Access Tokens](#okta-libraries-to-help-you-verify-access-tokens)
 
-### Terms 
-
-In the OAuth 2.0 flows under discussion here, we have four important roles:
-
-- The authorization server, which is the server that issues the access token. In this case Okta is the authorization server. For more information about setting-up Okta as your authorization server, go here: [Set Up Authorization Server](/authentication-guide/implementing-authentication/set-up-authz-server).
-- The resource owner, normally your application's end-user, that grants permission to access the resource server with an access token. 
-- The client, which is the application that requests the access token from Okta and then passes it to the resource server.
-- The resource server, which accepts the access token and therefore also must verify that it is valid. In this case this is your application.
-
-More information about all of these can be found in our high-level discussion of OAuth 2.0, which you can find here: (jakub.todo).
+A high-level overview of OAuth 2.0 can be found [here](/authentication-guide/auth-overview/#oauth-20).
 
 The access tokens are in JSON Web Token (JWT) format, the specification for which can be found here: <https://tools.ietf.org/html/rfc7519>. They are signed using private JSON Web Keys (JWK), the specification for which you can find here: <https://tools.ietf.org/html/rfc7517>.
+
+More information about Okta's access tokens can be found here: <https://developer.okta.com/standards/OAuth/index#access-token>.
 
 ## Access Tokens vs ID Tokens
 
 As mentioned above, it is important that the resource server (your server-side application) only take the access token from a client. This is because access tokens are intended for authorizing access to a resource, which is exactly the use case you have here. 
 
 ID Tokens, on the other hand, are intended for authentication. They provide information about the resource owner, to allow you verify that they are who they say they are. Authentication is the concern of the clients. Because of this, when a client makes an authentication request, the ID Token that is returned contains the `client_id` in the ID Token's `aud` claim. 
-
-More information about ID tokens can be found here: (jakub.todo).
 
 ## What to Check When Validating an Access Token 
 
@@ -57,7 +48,7 @@ The JSON Web Keys (JWK) need to be retrieved from your [Okta Authorization Serve
  
 ### Decode the Access Token
 
-You will have to decode the access token, which is in JWT format. A list of libraries to help you do this can be found 
+You will have to decode the access token, which is in JWT format. A list of libraries to help you do this can be found [below](#okta-libraries-to-help-you-verify-access-tokens).
 
 ### Verify the Token's Signature
 

@@ -20,7 +20,7 @@ The Client Credentials flow is recommended for use in machine-to-machine authent
 
 ### 2. Creating Custom Scopes
 
-The Client Credentials flow never has a user context, so you can't request OpenID scopes. Instead, you must create a custom scope. For more information on creating custom scopes, see (jakub.todo).
+The Client Credentials flow never has a user context, so you can't request OpenID scopes. Instead, you must create a custom scope. For more information on creating custom scopes, see [our OAuth 2.0 overview](/authentication-guide/auth-overview/#client-credentials-flow).
 
 ### 3. Using the Client Credentials Flow
 
@@ -42,7 +42,7 @@ Note the parameters that are being passed:
 
 - `grant_type` is `client_credentials`, indicating that we are using the Client Credentials grant type.
 - `redirectUri` must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
-- `scope` must be at least one custom scope that you have created.
+- `scope` must be at least one custom scope that you have created. For more information about this, see the [Custom Authorization Server chapter](/authentication-guide/implementing-authentication/set-up-authz-server.html#create-scopes-optional).
 
 If the credentials are valid, the application will receive back an access token:
 
@@ -59,4 +59,4 @@ If the credentials are valid, the application will receive back an access token:
 
 When your application sends a request with an access_token, the resource server will need to validate it. For more on this, see [Validating Access Tokens](/authentication-guide/tokens/validating-access-tokens).
 
-### 4. Samples
+### Examples

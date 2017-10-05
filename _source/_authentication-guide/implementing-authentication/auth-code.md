@@ -17,7 +17,7 @@ At a high-level, this flow has the following steps:
 - Your application sends this code to Okta, and Okta returns access and ID tokens, and optionally a refresh token
 - Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
 
-For more information on the authorization code flow, including why to use it, see (jakub.todo).
+For more information on the authorization code flow, including why to use it, see [our OAuth 2.0 overview](/authentication-guide/auth-overview/#authorization-code-flow).
 
 ### 1. Setting up your Application
 
@@ -37,7 +37,7 @@ Note the parameters that are being passed:
 
 - `client_id` matches the Client ID of your Okta OAuth application that you created above.
 - `response_type` is `code`, indicating that we are using the authorization code grant type.
-- `scope` is `openid`. This can be left empty if you configure a default scope on the authorization server. For more information about this, see (jakub.todo).
+- `scope` is `openid`. This can be left empty if you configure a default scope on the authorization server. For more information about this, see the [Custom Authorization Server chapter](/authentication-guide/implementing-authentication/set-up-authz-server.html#create-scopes-optional).
 - `redirect_uri` is the callback location where the user-agent will be directed to along with the `code`. This must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
 - `state` is an arbitrary alphanumeric string that the authorization server will reproduce when redirecting the user-agent back to the client. This is used to help prevent cross-site request forgery.
 
@@ -90,6 +90,6 @@ If the code is still valid, your application will receive back access and ID tok
 
 When your application passes a request with an `access_token`, the resource server will need to validate it. For more on this, see [Validating Access Tokens](/authentication-guide/tokens/validating-access-tokens).
 
-### 5. Samples
+### Examples
 
 <https://github.com/okta/samples-nodejs-express-4>

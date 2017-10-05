@@ -39,7 +39,7 @@ For more information on configuring TTL and other parameters involving access an
 
 ## Removing a User Session
 
-Separate from access and refresh tokens, there is also the Okta session cookie which provides access to your Okta organization and applications. For a more complete explanation of Okta User sessions, see (jakub.todo). Okta sessions can be revoked in one of two ways: you can either close a specific session using the Sessions API, or revoke all sessions for a given user using the Users API. 
+Separate from access and refresh tokens, there is also the Okta session cookie which provides access to your Okta organization and applications. For a more complete explanation of Okta User sessions, see [the Sessions API documentation](https://developer.okta.com/docs/api/resources/sessions.html). Okta sessions can be revoked in one of two ways: you can either close a specific session using the Sessions API, or revoke all sessions for a given user using the Users API. 
 
 > Note: Removing all user sessions can optionally also remove all related access and refresh tokens as well.
 

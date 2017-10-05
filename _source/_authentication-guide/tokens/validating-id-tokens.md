@@ -19,18 +19,11 @@ We will now cover the terms used in this document, and an explanation of why you
 - If you'd like to see how to validate a token directly with Okta: [Validating A Token Remotely With Okta](#validating-a-token-remotely-with-okta)
 - If you want to see specifically how to accomplish this in your language of choice: [Okta Libraries to Help You Verify ID Tokens](#okta-libraries-to-help-you-verify-id-tokens)
 
-### Terms 
-
-Although OpenID Connect is built on top of OAuth 2.0, the specification uses slightly different terms:
-
-- The OpenID Provider (OP), which is the authorization server that issues the ID token. In this case Okta is the OP. For more information about setting-up Okta as your authorization server, go here: [Set Up Authorization Server](/authentication-guide/implementing-authentication/set-up-authz-server).
-- The End-User whose information is contained in the ID token.
-- A Claim is a piece of information about your End-User. 
-- The Relying Party (RP), which is the client application that requests the ID token from Okta.
-
-More information about all of this can be found in our high-level discussion of OpenID Connect, which you can find here: (jakub.todo).
+A high-level overview of OpenID Connect can be found [here](/authentication-guide/auth-overview/#openid-connect).
 
 The ID tokens are in JSON Web Token (JWT) format, the specification for which can be found here: <https://tools.ietf.org/html/rfc7519>. They are signed using private JSON Web Keys (JWK), the specification for which you can find here: <https://tools.ietf.org/html/rfc7517>.
+
+More information about Okta's ID tokens can be found here: <https://developer.okta.com/standards/OIDC/index#id-token>
 
 ## ID Tokens vs Access Tokens
 
@@ -39,8 +32,6 @@ The ID Token is a security token granted by the OpenID Provider that contains in
 You can pass an ID Token around different components of your client, and these components can use the ID Token to confirm that the user is authenticated and also to retrieve information about them.
 
 Access tokens, on the other hand, are not intended to carry information about the user. They simply allow access to certain defined server resources. More discussion about when to use access tokens can be found in [Validating Access Tokens](validating-access-tokens).
-
-More information about ID tokens can be found here: (jakub.todo).
 
 ## What to Check When Validating an ID Token 
 
@@ -59,9 +50,7 @@ The JSON Web Key Set (JWKS) needs to be retrieved from your [Okta Authorization 
  
 ### Decode the ID Token
 
-You will have to decode the ID token, which is in JWT format. Here are a few examples of how to do this:
-
-(jakub.todo. Link to code section below)
+You will have to decode the ID token, which is in JWT format. A list of libraries to help you do this can be found [below](#okta-libraries-to-help-you-verify-id-tokens).
 
 ### Verify the Token's Signature
 

@@ -7,18 +7,17 @@ excerpt: How to set up a custom authorization server in Okta
 
 # Overview
 
-Okta allows you to build custom authorization servers in Okta which can be used to protect your own API endpoints. An authorization server defines your security boundary, for example "staging" or "production."
+Okta allows you to build custom authorization servers which can be used to protect your own API endpoints. An authorization server defines your security boundary, for example "staging" or "production."
 Within each authorization server you can define your own OAuth scopes, claims, and access policies.
-
-This allows your apps and APIs to anchor to a central authorization point and leverage the rich identity features of Okta,
-such as Universal Directory for transforming attributes, adaptive MFA for end users, analytics, and system log, and extend it out to the API economy.
 
 At its core, an authorization server is simply an OAuth 2.0 token minting engine. Each authorization server has a unique issuer URI
 and its own signing key for tokens in order to keep proper boundary between security domains.
 
 The authorization server also acts as an OpenID Connect Provider,
-which means you can request [ID tokens](jakub.todo)
-in addition to [access tokens](jakub.todo) from the authorization server endpoints.
+which means you can request [ID tokens](https://developer.okta.com/standards/OIDC/index#id-token)
+in addition to [access tokens](https://developer.okta.com/standards/OAuth/index#access-token) from the authorization server endpoints.
+
+> NOTE: For a high-level explanation of OAuth 2.0 and OpenID Connect see our [OAuth 2.0 Overview](/authentication-guide/auth-overview/).
 
 How do you know if you need to use a custom Authorization Server instead of the authorization service that is built in to your Okta app?
 
@@ -131,6 +130,10 @@ If you need scopes in addition to the reserved scopes provided, create them now.
 
 These scopes are referenced by the **Claims** dialog.
 
+If you set a scope as "Default", then it will be included by default in an tokens that are created. Depending on which flow you are using, it might also allow you to exclude the `scope` parameter from your token request.
+
+For more information on Scopes, see here: <https://developer.okta.com/standards/OAuth/index#scopes-and-claims>
+
 ### Create Claims (Optional)
 
 Tokens contain claims that are statements about the subject or another subject, for example name, role, or email address.
@@ -160,6 +163,7 @@ While in the Claims list, you can:
 
     {% img claims2.png alt:"Claims List" width:"640px" %}
 
+For more information on claims, see here: <https://developer.okta.com/standards/OAuth/index#scopes-and-claims>
 
 ## Test Your Authorization Server Configuration
 

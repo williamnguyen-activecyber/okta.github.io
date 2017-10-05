@@ -71,7 +71,7 @@ The Okta Authentication API controls access to the Okta API by creating and cont
 
 Session tokens are for use within Okta, while ID tokens, access tokens, and refresh tokens are for use when accessing third party resources, such as your application.
 
-## What OAuth 2.0 Flow to use?
+## Which OAuth 2.0 Flow to use?
 
 Depending on what kind of OAuth client you are building, you will want to use a different OAuth flow. The flowchart below can quickly help you decide which flow to use. Further explanation about each flow is included below.
 

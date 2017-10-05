@@ -10,12 +10,12 @@ This guide answers some common questions about authentication with Okta. It is m
 
 This guide will also direct you to examples of how to implement authentication in your language of choice, using one of Okta's SDKs.
 
-(jakub.todo Will it?) 
+(jakub.todo Links forthcoming) 
 
 On the left-hand side you can navigate to different sections of the guide. Alternatively, find a question you would like answered below:
 
 - [What is the difference between OAuth 2.0, OpenID Connect, and the Okta Authentication API?](auth-overview/#oauth-20-vs-openid-connect-vs-authentication-api)
-- [What OAuth 2.0 flow should I use?](/auth-overview/#what-oauth-20-flow-to-use)
+- [Which OAuth 2.0 flow should I use?](/auth-overview/#which-oauth-20-flow-to-use)
 - [How do I implement an OAuth flow?](/implementing-authentication/)
 - [How do I validate an access token?](/tokens/validating-access-tokens)
 - [How do I refresh an access token?](/tokens/refreshing-tokens)

@@ -16,7 +16,7 @@ At a high-level, this flow has the following steps:
 - Your application extracts the tokens from the URI
 - Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
 
-For more information on the implicit flow, including why to use it, see (jakub.todo).
+For more information on the implicit flow, including why to use it, see [our OAuth 2.0 overview](/authentication-guide/auth-overview/#implicit-flow).
 
 ### 1. Setting up your Application
 
@@ -26,7 +26,7 @@ For more information on the implicit flow, including why to use it, see (jakub.t
 
 ### 2. Using the Implicit Flow
 
-This flow is very similar to the authorization code flow (jakub.todo Link to page) except that the `response_type` is `token` and/or `id_token` instead of `code`.
+Kicking off this flow is very similar to the [authorization code flow](/authentication-guide/implementing-authentication/auth-code) except that the `response_type` is `token` and/or `id_token` instead of `code`.
 
 Your browser makes a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
 
@@ -38,7 +38,7 @@ Note the parameters that are being passed:
 
 - `client_id` matches the Client ID of your Okta OAuth application that you created above.
 - `response_type` is `token`. It could also be `id_token` or both. 
-- `scope` is `openid` which is required, though additional scopes can be requested.
+- `scope` is `openid` which is required, though additional scopes can be requested. For more information about this, see the [Custom Authorization Server chapter](/authentication-guide/implementing-authentication/set-up-authz-server.html#create-scopes-optional).
 - `redirect_uri` is the callback location where the user-agent will be directed to along with the `access_token`. This must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
 - `state` is an arbitrary alphanumeric string that the authorization server will reproduce when redirecting the user-agent back to the client. This is used to help prevent cross-site request forgery.
 
@@ -56,4 +56,4 @@ Your application must now extract the token(s) from the URI and store them.
 
 When your application passes a request with an `access_token`, the resource server will need to validate it. For more on this, see [Validating Access Tokens](/authentication-guide/tokens/validating-access-tokens).
 
-### 4. Samples
+### Examples
