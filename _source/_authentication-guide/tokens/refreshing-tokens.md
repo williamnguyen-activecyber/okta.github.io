@@ -65,7 +65,7 @@ For more information on the `/authorize` endpoint, see the [Authentication Reque
 To refresh your access token, you send a token request with a `grant_type` of `refresh_token`.
 
 ```
-http --form POST https://dev-144769.oktapreview.com/oauth2/ausaw8fz3q4Yd3Zk70h7/v1/token \
+http --form POST https://{yourOktaDomain}.com/oauth2/ausaw8fz3q4Yd3Zk70h7/v1/token \
   accept:application/json \
   authorization:'Basic MG9hYmg3M...' \
   cache-control:no-cache \
