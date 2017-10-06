@@ -6,7 +6,7 @@ title: Okta OAuth 2.0 Overview
 
 # Okta OAuth 2.0 Overview
 
-This page will give you an overview of OAuth 2.0 and OpenID Connect and their Okta implementations. It will explain the different flows and help you decide which flow is best for you based on the type of application that you are building. If you already know what kind of flow you want, you can jump directly to:
+This page will give you an overview of OAuth 2.0 and OpenID Connect and their Okta implementations. It will explain the different flows, and help you decide which flow is best for you based on the type of application that you are building. If you already know what kind of flow you want, you can jump directly to:
 
 - [Implementing OAuth 2.0 Authentication](/authentication-guide/implementing-authentication/)
 - [SAML Authentication with OIDC](/authentication-guide/saml-login)
@@ -20,11 +20,11 @@ At a very high-level, these three can be summarized like this:
 
 - The Authentication API controls access to the Okta API.
 - The OAuth 2.0 protocol controls authorization to access a protected resource, like your web app, mobile app, or API service.
-- The OpenID Connect protocol is built on the OAuth 2.0 protocol and helps authenticate users and convey information about them. It is also more opinionated that plain OAuth 2.0, for example in its scope definitions.
+- The OpenID Connect protocol is built on the OAuth 2.0 protocol and helps authenticate users and convey information about them. It is also more opinionated than plain OAuth 2.0, for example in its scope definitions.
 
-If you would like to work with the Okta API and control user access to Okta, then you want to use the Authentication API and should check out the [Okta Authentication API documentation](https://developer.okta.com/docs/api/resources/authn.html).
+If you would like to work with the Okta API and control user access to Okta, then you should use the Authentication API and should check out the [Okta Authentication API documentation](https://developer.okta.com/docs/api/resources/authn.html).
 
-If you are interested in controlling access to your own application, then you should use the OAuth 2.0 and OpenID Connect (OIDC) protocols. The OAuth 2.0 protocol will allow you to delete authorization, while the OIDC protocol will allow you retrieve and store authentication information about your end-users. The Okta Authentication Guide is intended to help you figure out how to implement and use OAuth 2.0 and OIDC with Okta. 
+If you are interested in controlling access to your own application, then you should use the OAuth 2.0 and OpenID Connect (OIDC) protocols. The OAuth 2.0 protocol will allow you to delegate authorization, while the OIDC protocol will allow you retrieve and store authentication information about your end-users. The Okta Authentication Guide is intended to help you figure out how to implement and use OAuth 2.0 and OIDC with Okta. 
 
 ### OAuth 2.0
 
@@ -35,12 +35,12 @@ The OAuth 2.0 spec has four important roles:
 - The "authorization server", which is the server that issues the access token. In this case Okta is the authorization server. 
 - The "resource owner", normally your application's end-user, that grants permission to access the resource server with an access token. 
 - The "client", which is the application that requests the access token from Okta and then passes it to the resource server.
-- The "resource server", which accepts the access token and therefore also must verify that it is valid. In this case this is your application.
+- The "resource server", which accepts the access token and must verify that it is valid. In this case this is your application.
 
 Other important terms: 
 
 - An OAuth 2.0 "grant" is the authorization given (or "granted") to the client by the user. Examples of grants are "authorization code" and "client credentials".
-- The "access token" is given by the authorization server (Okta) in exchange for the grant.
+- The "access token" is issued by the authorization server (Okta) in exchange for the grant.
 - The "refresh token" is an optional token that can be exchanged for a new access token if the access token has expired.
 
 The usual OAuth 2.0 grant flow looks like this:
@@ -50,7 +50,9 @@ The usual OAuth 2.0 grant flow looks like this:
 3. If the grant is valid, the authorization server returns an access token, possibly alongside a refresh and/or ID token.
 4. The client now uses that access token to access the resource server.
 
-> For a deeper dive into OAuth 2.0, see [What the Heck is OAuth?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth) over on the Okta Developer blog. 
+> For a deeper dive into OAuth 2.0, see [What the Heck is OAuth?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth) over on the Okta Developer blog.
+> 
+> If you'd like to see the OAuth 2.0 spec, you can find it here: <https://tools.ietf.org/html/rfc6749>
 
 ### OpenID Connect
 
@@ -60,14 +62,16 @@ Although OpenID Connect (OIDC) is built on top of OAuth 2.0, the specification u
 - The "End-User" whose information is contained in the ID token.
 - The "Relying Party" (RP), which is the client application that requests the ID token from Okta.
 
-- The "ID token" is given by the OpenID Provider and contains information about the End-User in the form of claims.
+- The "ID token" is issued by the OpenID Provider and contains information about the End-User in the form of claims.
 - A "claim" is a piece of information about the End-User.
 
 The high-level flow looks the same for both OIDC and regular OAuth 2.0 flows, the primary difference being simply that an OIDC flow results in an ID token, in addition to any access or refresh tokens.
 
+> Note: If you would like to see the OpenID Connect specification, you can find it here: <https://openid.net/connect/>
+
 ### Authentication API
 
-The Okta Authentication API controls access to the Okta API by creating and controlling Okta session tokens. Okta session tokens are one-time bearer token issued when the authentication transaction completes successfully. Session tokens may be redeemed for a session in Okta's Session API or converted to a session cookie. 
+The Okta Authentication API controls access to the Okta API by creating and controlling Okta session tokens. Okta session tokens are one-time bearer tokens issued when the authentication transaction completes successfully. Session tokens may be redeemed for a session in Okta's Session API or converted to a session cookie. 
 
 Session tokens are for use within Okta, while ID tokens, access tokens, and refresh tokens are for use when accessing third party resources, such as your application.
 
@@ -115,7 +119,7 @@ else (no)
 
 ##### Is your Client public? 
 
-A client application is considered "public" when an end user could possibly view and modify the code. This includes Single Page Apps (SPAs) or any mobile or native applications. In both cases, the application cannot keep secrets from malicious users. 
+A client application is considered "public" when an end-user could possibly view and modify the code. This includes Single Page Apps (SPAs) or any mobile or native applications. In both cases, the application cannot keep secrets from malicious users. 
 
 ###### Is your Client a SPA or mobile/native?
 
