@@ -31,7 +31,7 @@ Kicking off this flow is very similar to the [authorization code flow](/authenti
 Your browser makes a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
 
 ```
-https://your-Org.oktapreview.com/oauth2/default/v1/authorize?client_id=0oabv6kx4qq6h1U5l0h7&response_type=token&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
+https://{yourOktaDomain}.com/oauth2/default/v1/authorize?client_id=0oabv6kx4qq6h1U5l0h7&response_type=token&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
 ```
 
 Note the parameters that are being passed:

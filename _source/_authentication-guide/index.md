@@ -16,7 +16,7 @@ On the left-hand side you can navigate to different sections of the guide. Alter
 
 - [What is the difference between OAuth 2.0, OpenID Connect, and the Okta Authentication API?](auth-overview/#oauth-20-vs-openid-connect-vs-authentication-api)
 - [Which OAuth 2.0 flow should I use?](/auth-overview/#which-oauth-20-flow-to-use)
-- [How do I implement an OAuth flow?](/implementing-authentication/)
+- [How do I implement an OAuth 2.0 flow?](/implementing-authentication/)
 - [How do I validate an access token?](/tokens/validating-access-tokens)
 - [How do I refresh an access token?](/tokens/refreshing-tokens)
 - [How do I implement social login with Okta?](/social-login/)

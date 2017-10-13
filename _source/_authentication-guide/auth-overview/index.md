@@ -9,26 +9,26 @@ title: Okta OAuth 2.0 Overview
 This page will give you an overview of OAuth 2.0 and OpenID Connect and their Okta implementations. It will explain the different flows, and help you decide which flow is best for you based on the type of application that you are building. If you already know what kind of flow you want, you can jump directly to:
 
 - [Implementing OAuth 2.0 Authentication](/authentication-guide/implementing-authentication/)
-- [SAML Authentication with OIDC](/authentication-guide/saml-login)
+- [SAML Authentication with OIDC](/authentication-guide/saml-login/)
 - [Social Login](/authentication-guide/social-login/)
 - [Working With OAuth 2.0 Tokens](/authentication-guide/tokens/)
-- [Customizing Login](/authentication-guide/tokens/customizing-login)
+- [Customizing Login](/authentication-guide/custom-login/)
 
 ## OAuth 2.0 vs OpenID Connect vs Authentication API
 
-At a very high-level, these three can be summarized like this:
+There are three major kinds of authentication that you can perform with Okta:
 
-- The Authentication API controls access to the Okta API.
-- The OAuth 2.0 protocol controls authorization to access a protected resource, like your web app, mobile app, or API service.
-- The OpenID Connect protocol is built on the OAuth 2.0 protocol and helps authenticate users and convey information about them. It is also more opinionated than plain OAuth 2.0, for example in its scope definitions.
+- The [Authentication API](/docs/api/resources/authn.html) controls access to the Okta API. It provides operations to authenticate users, perform multi-factor enrollment and verification, recover forgotten passwords, and unlock accounts. It is the underlying API that the Okta Sign-in Widget and Auth JS use under the hood.
+- The [OAuth 2.0](/docs/api/resources/oauth2.html) protocol controls authorization to access a protected resource, like your web app, mobile app, or API service.
+- The [OpenID Connect](/docs/api/resources/oidc.html) protocol is built on the OAuth 2.0 protocol and helps authenticate users and convey information about them. It is also more opinionated than plain OAuth 2.0, for example in its scope definitions.
 
-If you would like to work with the Okta API and control user access to Okta, then you should use the Authentication API and should check out the [Okta Authentication API documentation](https://developer.okta.com/docs/api/resources/authn.html).
+If you would like to work with the Okta API and control user access to Okta, then you should use [the Authentication API](/docs/api/resources/authn.html).
 
-If you are interested in controlling access to your own application, then you should use the OAuth 2.0 and OpenID Connect (OIDC) protocols. The OAuth 2.0 protocol will allow you to delegate authorization, while the OIDC protocol will allow you retrieve and store authentication information about your end-users. The Okta Authentication Guide is intended to help you figure out how to implement and use OAuth 2.0 and OIDC with Okta. 
+If you are interested in controlling access to your own application, then use the OAuth 2.0 and OpenID Connect (OIDC) protocols. The OAuth 2.0 protocol will allow you to delegate authorization, while the OIDC protocol will allow you retrieve and store authentication information about your end-users. The Okta Authentication Guide is intended to help you figure out how to implement and use OAuth 2.0 and OIDC with Okta. 
 
 ### OAuth 2.0
 
-OAuth is a standard that apps can use to provide client applications with access. If you would like to grant access to your application data in a secure way, then you want to use the OAuth 2.0 protocol. 
+OAuth 2.0 is a standard that apps use to provide client applications with access. If you would like to grant access to your application data in a secure way, then you want to use the OAuth 2.0 protocol. 
 
 The OAuth 2.0 spec has four important roles:
 
@@ -39,9 +39,9 @@ The OAuth 2.0 spec has four important roles:
 
 Other important terms: 
 
-- An OAuth 2.0 "grant" is the authorization given (or "granted") to the client by the user. Examples of grants are "authorization code" and "client credentials".
+- An OAuth 2.0 "grant" is the authorization given (or "granted") to the client by the user. Examples of grants are "Authorization Code" and "client credentials".
 - The "access token" is issued by the authorization server (Okta) in exchange for the grant.
-- The "refresh token" is an optional token that can be exchanged for a new access token if the access token has expired.
+- The "refresh token" is an optional token that is exchanged for a new access token if the access token has expired.
 
 The usual OAuth 2.0 grant flow looks like this:
 
@@ -56,7 +56,9 @@ The usual OAuth 2.0 grant flow looks like this:
 
 ### OpenID Connect
 
-Although OpenID Connect (OIDC) is built on top of OAuth 2.0, the specification uses slightly different terms for the roles in the flow:
+OpenID Connect is an authentication standard built on top of OAuth 2.0. It adds an additional token called an ID token. OpenID Connect also standardizes areas that OAuth 2.0 leaves up to choice, such as scopes, endpoint discovery, and dynamic registration of clients. Okta is [OpenID Certified](https://openid.net/certification/).
+
+Although OpenID Connect (OIDC) is built on top of OAuth 2.0, the specification uses slightly different terms for the roles in the flows:
 
 - The "OpenID Provider" (OP), which is the authorization server that issues the ID token. In this case Okta is the OpenID Provider. 
 - The "End-User" whose information is contained in the ID token.
@@ -75,9 +77,9 @@ The Okta Authentication API controls access to the Okta API by creating and cont
 
 Session tokens are for use within Okta, while ID tokens, access tokens, and refresh tokens are for use when accessing third party resources, such as your application.
 
-## Which OAuth 2.0 Flow to use?
+## Choosing an OAuth 2.0 Flow
 
-Depending on what kind of OAuth client you are building, you will want to use a different OAuth flow. The flowchart below can quickly help you decide which flow to use. Further explanation about each flow is included below.
+Depending on what kind of client you are building, you will want to use a different OAuth 2.0 flow. The flowchart below can quickly help you decide which flow to use. Further explanation about each flow is included below.
 
 {% img oauth_grant_flowchart.png alt:"OAuth Flow Diagram" width:"800px" %}
 
@@ -91,8 +93,8 @@ skinparam monochrome true
 
 start
 
-if (Is your Client public?) then (yes)
-    if (Is your Client a SPA or mobile/native?) then (SPA)
+if (Is your client public?) then (yes)
+    if (Is your client a SPA or mobile/native?) then (SPA)
     :Implicit Flow;
     end      
     else (mobile/native)
@@ -101,12 +103,12 @@ if (Is your Client public?) then (yes)
     endif
 else(no)
 
-if (Does the Client have \nan end-user?) then (yes)
+if (Does the client have \nan end-user?) then (yes)
   :Client Credentials Flow;
   end
 else (no)
 
-if (Does the Resource Owner \nalso own the Client?) then (yes)
+if (Does the resource owner \nalso own the client?) then (yes)
   :Resource Owner Flow;
   end
 else (no)
@@ -117,27 +119,27 @@ else (no)
 
 -->
 
-##### Is your Client public? 
+##### Is your client public? 
 
 A client application is considered "public" when an end-user could possibly view and modify the code. This includes Single Page Apps (SPAs) or any mobile or native applications. In both cases, the application cannot keep secrets from malicious users. 
 
-###### Is your Client a SPA or mobile/native?
+###### Is your client a SPA or mobile/native?
 
-If your Client application is a Single Page Application (SPA), you should use the [Implicit flow](#implicit-flow).
+If your client application is a Single Page Application (SPA), you should use the [Implicit flow](#implicit-flow).
 
-If your Client application is a mobile/native application, you should use the [Authorization Code with PKCE flow](#authorization-code-with-pkce).
+If your client application is a mobile/native application, you should use the [Authorization Code with PKCE flow](#authorization-code-with-pkce).
 
-##### Does the Client have an end-user?
+##### Does the client have an end-user?
 
 If your client application is running on a server with no direct end-user, then it can be trusted to store credentials and use them responsible. If your client application will only be doing this sort of machine-to-machine interaction, then you should use the [Client Credentials flow](#client-credentials-flow). 
 
-##### Does the Resource Owner own the Client?
+##### Does the resource owner own the client?
 
 If you own both the client application and the Resource that it is accessing, then your application can be trusted to store your end-user's login and password. In this case, you can use the [Resource Owner Password flow](resource-owner-password-flow).
 
 ### Authorization Code Flow
 
-The authorization code flow is best used by server-side apps where the source code is not publicly exposed. The apps should be server-side because the request that exchanges the authorization code for a token requires a client secret, which will have to be stored in your client. The server-side app requires an end-user, however, because it relies on interaction with the end-user's web browser which will redirect the user and then receive the authorization code.
+The Authorization Code flow is best used by server-side apps where the source code is not publicly exposed. The apps should be server-side because the request that exchanges the authorization code for a token requires a client secret, which will have to be stored in your client. The server-side app requires an end-user, however, because it relies on interaction with the end-user's web browser which will redirect the user and then receive the authorization code.
 
 {% img oauth_auth_code_flow.png alt:"Auth Code Flow" width:"800px" %}
 
@@ -156,7 +158,7 @@ client -> okta: Authorization Code Request to /authorize
 okta -> user: 302 redirect to authentication prompt
 user -> okta: Authentication & consent
 okta -> client: Authorization Code Response
-client -> okta: Send authorization code + Client Secret to /token
+client -> okta: Send authorization code + client secret to /token
 okta -> client: Access token (and optionally Refresh Token)
 client -> app: Request with access token
 app -> client: Response
@@ -167,7 +169,7 @@ For information how to set-up your application to use this flow, see [Implement 
 
 ### Authorization Code with PKCE
 
-For native/mobile applications, the Client Secret cannot be stored in the application because it could easily be exposed. Additionally, mobile callbacks use `app://` protocols, which are prone to interception. Basically, a rogue application could intercept the authorization code as it is being passed through the mobile/native operating system. Therefore native apps should make use of Proof Key for Code Exchange (PKCE), which acts like a secret but isn't hard-coded, to keep the authorization code flow secure.
+For native/mobile applications, the client secret cannot be stored in the application because it could easily be exposed. Additionally, mobile callbacks use `app://` protocols, which are prone to interception. Basically, a rogue application could intercept the authorization code as it is being passed through the mobile/native operating system. Therefore native apps should make use of Proof Key for Code Exchange (PKCE), which acts like a secret but isn't hard-coded, to keep the Authorization Code flow secure.
 
 PKCE is an extension to the regular Authorization Code flow, so the flow is very similar, except that PKCE elements are included at various steps in the flow. 
 
@@ -207,7 +209,7 @@ For information how to set-up your application to use this flow, see [Implement 
 
 ### Implicit Flow
 
-The Implicit Flow, like the Authorization Code Flow, is intended for applications where the confidentiality of the Client Secret cannot be guaranteed. Because the client does not have the Client Secret, it cannot make a request to the `/token` endpoint, and instead receives the access token directly from the `/authorize` endpoint. We recommend it for use with Single Page Applications (SPA), since the the client must be capable of interacting with the resource owner's user-agent and capable of receiving incoming requests (via redirection) from the authorization server.
+The Implicit Flow, like the Authorization Code Flow, is intended for applications where the confidentiality of the client secret cannot be guaranteed. Because the client does not have the client secret, it cannot make a request to the `/token` endpoint, and instead receives the access token directly from the `/authorize` endpoint. We recommend it for use with Single Page Applications (SPA), since the the client must be capable of interacting with the resource owner's user-agent and capable of receiving incoming requests (via redirection) from the authorization server.
 
 > NOTE: The Implicit Flow does not support refresh tokens.
 
@@ -259,7 +261,7 @@ For information how to set-up your application to use this flow, see [Implement 
 
 ### Client Credentials Flow
 
-The Client Credentials flow is intended for server-side (AKA "confidential") client applications with no end user, which normally describes machine-to-machine communication. The application must be server-side because it must be trusted with the Client Secret, and since the credentials are hard-coded, it cannot be used by an actual end-user. It involves a single, authenticated request to the `/token` endpoint, which returns an access token.
+The Client Credentials flow is intended for server-side (AKA "confidential") client applications with no end user, which normally describes machine-to-machine communication. The application must be server-side because it must be trusted with the client secret, and since the credentials are hard-coded, it cannot be used by an actual end-user. It involves a single, authenticated request to the `/token` endpoint, which returns an access token.
 
 > NOTE: The Client Credentials Flow does not support refresh tokens.
 
