@@ -37,6 +37,7 @@ Navigate to `https://{yourOktaDomain}.com/oauth2/default` to see if your default
 > **Note:** Remember to set the `audience` of the authorization server to point to your app's host. For example, if you are running your PHP application on `http://localhost:3000`, set the `audience` to `http://localhost:3000`.
 
 # PHP Application Set-up
+
 Now that we have all the configuration at Okta done, we can begin setting up our PHP application. There are a
 couple of different ways to include the sign-in widget in your application. You can use the NPM module by installing
 `@okta/okta-signin-widget` in your project, or by using the Okta CDN, which is what we&#8217;ll be using. Once you have the
@@ -48,16 +49,16 @@ There are 2 files we will require for the sign in widget to work, a JS file and 
 ```html
 <!-- Latest CDN production Javascript and CSS: 1.13.0 -->
 <script
-  src="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/1.13.0/js/okta-sign-in.min.js"
+  src="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/{{ site.versions.okta_signin_widget }}/js/okta-sign-in.min.js"
   type="text/javascript"></script>
 <link
-  href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/1.13.0/css/okta-sign-in.min.css"
+  href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/{{ site.versions.okta_signin_widget }}/css/okta-sign-in.min.css"
   type="text/css"
   rel="stylesheet"/>
 
 <!-- Theme file: Customize or replace this file if you want to override our default styles -->
 <link
-  href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/1.13.0/css/okta-theme.css"
+  href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/{{ site.versions.okta_signin_widget }}/css/okta-theme.css"
   type="text/css"
   rel="stylesheet"/>
 ```
@@ -225,7 +226,7 @@ $jws->verify($jwk, 'RS256');
 Each public key is identified by a `kid` attribute, which corresponds with the `kid` claim in the [Access Token header](/docs/api/resources/oauth2.html#token-authentication-methods).
 
 The access token is signed by an RSA private key, and we publish the future signing key well in advance.
-However, in an emergency situation you can still stay in sync with Okta&#8217;s key rotation. Have your application check the `kid`, and if it has changed and the key is missing from the local cache, check the `jwks_uri` value in the [authorization server metadata](/docs/api/resources/oauth2.html#retrieve-authorization-server-metadata) and you can go back to the [jwks uri](/docs/api/resources/oauth2.html#get-keys) to get keys again from Okta
+However, in an emergency situation you can still stay in sync with Okta&#8217;s key rotation. Have your application check the `kid`, and if it has changed and the key is missing from the local cache, check the `jwks_uri` value in the [authorization server metadata](/docs/api/resources/oauth2.html#retrieve-authorization-server-metadata) and you can go back to the [jwks uri](/docs/api/resources/oauth2.html#get-keys) to get keys again from Okta.
 
 Please note the following:
 
