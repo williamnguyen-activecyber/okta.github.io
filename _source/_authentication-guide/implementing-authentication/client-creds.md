@@ -28,7 +28,7 @@ Your Client Application will need to have its Client ID and Secret stored in a s
 
 ```
 curl --request POST \
-  --url https://dev-686102.oktapreview.com/oauth2/default/v1/token \
+  --url https://{yourOktaDomain}.com/oauth2/default/v1/token \
   --header 'accept: application/json' \
   --header 'authorization: Basic MG9hY...' \
   --header 'cache-control: no-cache' \
