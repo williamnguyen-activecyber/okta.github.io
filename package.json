@@ -9,6 +9,7 @@
     "dist"
   ],
   "scripts": {
+    "postinstall": "check-node-version --node 7.9.0 --npm 4.2.0 && ruby --version | grep -q 2.2.4 || (echo 'Invalid ruby version, expecting 2.2.4' && exit 1)",
     "clean": "node scripts/clean",
     "build-prod": "npm run clean && git fetch --force origin master:master && git clone -b master . dist && cross-env JEKYLL_ENV=production bundle exec jekyll build --verbose",
     "start": "npm run clean && cross-env JEKYLL_ENV=production bundle exec jekyll serve --incremental",
@@ -42,6 +43,7 @@
     "protractor": "^5.1.0",
     "recursive-readdir": "^2.2.1",
     "remove": "^0.1.5",
-    "wait-on": "^2.0.2"
+    "wait-on": "^2.0.2",
+    "check-node-version": "^2.1.0"
   }
 }
