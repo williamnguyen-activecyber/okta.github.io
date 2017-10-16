@@ -135,7 +135,7 @@ If your client application is running on a server with no direct end-user, then 
 
 ##### Does the resource owner own the client?
 
-If you own both the client application and the Resource that it is accessing, then your application can be trusted to store your end-user's login and password. In this case, you can use the [Resource Owner Password flow](resource-owner-password-flow).
+If you own both the client application and the Resource that it is accessing, then your application can be trusted to store your end-user's login and password. In this case, you can use the [Resource Owner Password flow](#resource-owner-password-flow).
 
 ### Authorization Code Flow
 
