@@ -15,7 +15,7 @@ If you don't have an existing authorizations server, or would like to create a n
 
 Once you have an authorization server, you can then implement an OAuth 2.0 flow. 
 
-> NOTE: For more information on which flow to use, see [Which OAuth 2.0 flow to use?](/authentication-guide/auth-overview/#which-oauth-20-flow-to-use).
+> NOTE: For more information on which flow to use, see [Which OAuth 2.0 flow to use?](/authentication-guide/auth-overview/#choosing-an-oauth-20-flow).
 
 | Type of Application     | OAuth 2.0 Flow|
 |-----------------------------|----------------------------------------|

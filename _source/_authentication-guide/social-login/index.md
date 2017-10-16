@@ -68,4 +68,4 @@ To set up social login, configure the following:
 2. An Identity Provider in Okta
 3. An OpenID Connect Application in Okta
 
-Every Identity Provider in Okta is linked to an Application, and every time a user signs in with a Social Identity Provider for the first time, an Application User is created for them. The Application User represents the external user at the Social Identity Provider and can be used to map attributes to the Okta User. For more information about how to configure this behavior see [Social Identity Provider Settings](#social-idp-settings) below.
+Every Identity Provider in Okta is linked to an Application, and every time a user signs in with a Social Identity Provider for the first time, an Application User is created for them. The Application User represents the external user at the Social Identity Provider and can be used to map attributes to the Okta User. For more information about how to configure this behavior see [Social Identity Provider Settings](social-settings) below.
