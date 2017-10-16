@@ -15,9 +15,9 @@ This guide will also direct you to examples of how to implement authentication i
 On the left-hand side you can navigate to different sections of the guide. Alternatively, find a question you would like answered below:
 
 - [What is the difference between OAuth 2.0, OpenID Connect, and the Okta Authentication API?](auth-overview/#oauth-20-vs-openid-connect-vs-authentication-api)
-- [Which OAuth 2.0 flow should I use?](/auth-overview/#which-oauth-20-flow-to-use)
-- [How do I implement an OAuth 2.0 flow?](/implementing-authentication/)
-- [How do I validate an access token?](/tokens/validating-access-tokens)
-- [How do I refresh an access token?](/tokens/refreshing-tokens)
-- [How do I implement social login with Okta?](/social-login/)
-- [How can I use Okta to get an ID token from my SAML service provider?](/saml-login)
+- [Which OAuth 2.0 flow should I use?](auth-overview/#choosing-an-oauth-20-flow)
+- [How do I implement an OAuth 2.0 flow?](implementing-authentication/)
+- [How do I validate an access token?](tokens/validating-access-tokens.html)
+- [How do I refresh an access token?](tokens/refreshing-tokens.html)
+- [How do I implement social login with Okta?](social-login/)
+- [How can I use Okta to get an ID token from my SAML service provider?](saml-login/)
