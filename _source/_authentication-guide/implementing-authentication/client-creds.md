@@ -24,7 +24,7 @@ The Client Credentials flow never has a user context, so you can't request OpenI
 
 ### 3. Using the Client Credentials Flow
 
-Your Client Application will need to have its Client ID and Secret stored in a secure manner. These are then passed via Basic Auth in the request to your Okta Authorization Server's `/token` endpoint:
+Your Client Application will need to have its client ID and secret stored in a secure manner. These are then passed via Basic Auth in the request to your Okta Authorization Server's `/token` endpoint:
 
 ```
 curl --request POST \
