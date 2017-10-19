@@ -1,10 +1,10 @@
 ---
 layout: docs_page
 weight: 1
-title: Okta OAuth 2.0 Overview
+title: Authentication Overview
 ---
 
-# Okta OAuth 2.0 Overview
+# Authentication Overview
 
 This page will give you an overview of OAuth 2.0 and OpenID Connect and their Okta implementations. It will explain the different flows, and help you decide which flow is best for you based on the type of application that you are building. If you already know what kind of flow you want, you can jump directly to:
 
@@ -19,7 +19,7 @@ This page will give you an overview of OAuth 2.0 and OpenID Connect and their Ok
 There are three major kinds of authentication that you can perform with Okta:
 
 - The [Authentication API](/docs/api/resources/authn.html) controls access to the Okta API. It provides operations to authenticate users, perform multi-factor enrollment and verification, recover forgotten passwords, and unlock accounts. It is the underlying API that the Okta Sign-in Widget and Auth JS use under the hood.
-- The [OAuth 2.0](/docs/api/resources/oauth2.html) protocol controls authorization to access a protected resource, like your web app, mobile app, or API service.
+- The [OAuth 2.0](/docs/api/resources/oauth2.html) protocol controls authorization to access a protected resource, like your web app, native app, or API service.
 - The [OpenID Connect](/docs/api/resources/oidc.html) protocol is built on the OAuth 2.0 protocol and helps authenticate users and convey information about them. It is also more opinionated than plain OAuth 2.0, for example in its scope definitions.
 
 If you would like to work with the Okta API and control user access to Okta, then you should use [the Authentication API](/docs/api/resources/authn.html).
@@ -39,7 +39,7 @@ The OAuth 2.0 spec has four important roles:
 
 Other important terms: 
 
-- An OAuth 2.0 "grant" is the authorization given (or "granted") to the client by the user. Examples of grants are "Authorization Code" and "client credentials".
+- An OAuth 2.0 "grant" is the authorization given (or "granted") to the client by the user. Examples of grants are "authorization code" and "client credentials".
 - The "access token" is issued by the authorization server (Okta) in exchange for the grant.
 - The "refresh token" is an optional token that is exchanged for a new access token if the access token has expired.
 
@@ -60,9 +60,9 @@ OpenID Connect is an authentication standard built on top of OAuth 2.0. It adds 
 
 Although OpenID Connect (OIDC) is built on top of OAuth 2.0, the specification uses slightly different terms for the roles in the flows:
 
-- The "OpenID Provider" (OP), which is the authorization server that issues the ID token. In this case Okta is the OpenID Provider. 
-- The "End-User" whose information is contained in the ID token.
-- The "Relying Party" (RP), which is the client application that requests the ID token from Okta.
+- The "OpenID provider", which is the authorization server that issues the ID token. In this case Okta is the OpenID provider. 
+- The "end-user" whose information is contained in the ID token.
+- The "relying party", which is the client application that requests the ID token from Okta.
 
 - The "ID token" is issued by the OpenID Provider and contains information about the End-User in the form of claims.
 - A "claim" is a piece of information about the End-User.
@@ -76,6 +76,8 @@ The high-level flow looks the same for both OIDC and regular OAuth 2.0 flows, th
 The Okta Authentication API controls access to the Okta API by creating and controlling Okta session tokens. Okta session tokens are one-time bearer tokens issued when the authentication transaction completes successfully. Session tokens may be redeemed for a session in Okta's Session API or converted to a session cookie. 
 
 Session tokens are for use within Okta, while ID tokens, access tokens, and refresh tokens are for use when accessing third party resources, such as your application.
+
+You can find out more in the [Authentication API Reference](/docs/api/resources/authn.html).
 
 ## Choosing an OAuth 2.0 Flow
 
@@ -103,12 +105,12 @@ if (Is your client public?) then (yes)
     endif
 else(no)
 
-if (Does the client have \nan end-user?) then (yes)
+if (Does the client have \nan end-user?) then (no)
   :Client Credentials Flow;
   end
-else (no)
+else (yes)
 
-if (Does the resource owner \nalso own the client?) then (yes)
+if (Is the client highly trusted \nand other flows are not \nviable?) then (yes)
   :Resource Owner Flow;
   end
 else (no)
@@ -131,11 +133,11 @@ If your client application is a mobile/native application, you should use the [A
 
 ##### Does the client have an end-user?
 
-If your client application is running on a server with no direct end-user, then it can be trusted to store credentials and use them responsible. If your client application will only be doing this sort of machine-to-machine interaction, then you should use the [Client Credentials flow](#client-credentials-flow). 
+If your client application is running on a server with no direct end-user, then it can be trusted to store credentials and use them responsibly. If your client application will only be doing machine-to-machine interaction, then you should use the [Client Credentials flow](#client-credentials-flow). 
 
 ##### Does the resource owner own the client?
 
-If you own both the client application and the Resource that it is accessing, then your application can be trusted to store your end-user's login and password. In this case, you can use the [Resource Owner Password flow](#resource-owner-password-flow).
+If you own both the client application and the resource that it is accessing, then your application can be trusted to store your end-user's login and password. Because of the high degree of trust required here, you should only use this flow if other flows are not viable. In this case, you can use the [Resource Owner Password flow](#resource-owner-password-flow).
 
 ### Authorization Code Flow
 
@@ -165,7 +167,7 @@ app -> client: Response
 
 -->
 
-For information how to set-up your application to use this flow, see [Implement the Authorization Code Flow](/authentication-guide/implementing-authentication/auth-code).
+For information how to set up your application to use this flow, see [Implement the Authorization Code Flow](/authentication-guide/implementing-authentication/auth-code).
 
 ### Authorization Code with PKCE
 
@@ -205,13 +207,13 @@ app -> client: Response
 
 -->
 
-For information how to set-up your application to use this flow, see [Implement the Authorization Code Flow with PKCE](/authentication-guide/implementing-authentication/auth-code-pkce).
+For information how to set up your application to use this flow, see [Implement the Authorization Code Flow with PKCE](/authentication-guide/implementing-authentication/auth-code-pkce).
 
 ### Implicit Flow
 
 The Implicit Flow, like the Authorization Code Flow, is intended for applications where the confidentiality of the client secret cannot be guaranteed. Because the client does not have the client secret, it cannot make a request to the `/token` endpoint, and instead receives the access token directly from the `/authorize` endpoint. We recommend it for use with Single Page Applications (SPA), since the the client must be capable of interacting with the resource owner's user-agent and capable of receiving incoming requests (via redirection) from the authorization server.
 
-> NOTE: The Implicit Flow does not support refresh tokens.
+> NOTE: Because it is intended for less-trusted clients, the Implicit Flow does not support refresh tokens.
 
 {% img oauth_implicit_flow.png alt:"Implicit Flow" width:"800px" %}
 
@@ -232,7 +234,7 @@ client -> app: Request with access token
 app -> client: Response
 -->
 
-For information how to set-up your application to use this flow, see [Implement the Implicit Flow](/authentication-guide/implementing-authentication/implicit).
+For information how to set up your application to use this flow, see [Implement the Implicit Flow](/authentication-guide/implementing-authentication/implicit).
 
 ### Resource Owner Password Flow 
 
@@ -257,7 +259,7 @@ app -> client: Response
 
 -->
 
-For information how to set-up your application to use this flow, see [Implement the Resource Owner Password Flow](/authentication-guide/implementing-authentication/password).
+For information how to set up your application to use this flow, see [Implement the Resource Owner Password Flow](/authentication-guide/implementing-authentication/password).
 
 ### Client Credentials Flow
 
@@ -282,4 +284,4 @@ app -> client: Response
 
 -->
 
-For information how to set-up your application to use this flow, see [Implement the Client Credentials Flow](/authentication-guide/implementing-authentication/client-creds).
+For information how to set up your application to use this flow, see [Implement the Client Credentials Flow](/authentication-guide/implementing-authentication/client-creds).

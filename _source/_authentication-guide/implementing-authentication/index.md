@@ -21,6 +21,6 @@ Once you have an authorization server, you can then implement an OAuth 2.0 flow.
 |-----------------------------|----------------------------------------|
 | Server-side (AKA Web)    | [Authorization Code Flow](auth-code)|
 | Single-Page Application   | [Implicit Flow](implicit)|
-| Native Mobile          | [Authorization Code Flow with PKCE](auth-code-pkce)|
+| Native                | [Authorization Code Flow with PKCE](auth-code-pkce)|
 | Trusted               | [Resource Owner Password Flow](password)|
 | Service               | [Client Credentials](client-creds)|

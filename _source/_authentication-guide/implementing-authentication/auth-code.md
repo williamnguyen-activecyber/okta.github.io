@@ -21,8 +21,8 @@ For more information on the authorization code flow, including why to use it, se
 
 ### 1. Setting up your Application
 
-1. From the Applications page, choose **Add Application**
-2. You will now be on the Create New Application page. From here, select **Web**
+1. From the Applications page, choose **Add Application**.
+2. On the Create New Application page, select **Web**.
 3. Fill-in the Application Settings, then click **Done**. The "Login redirect URIs" must match a URI that your user can be redirected to with their authorization code. See below for more details.
 
 ### 2. Using the Authorization Code Flow
@@ -37,8 +37,8 @@ Note the parameters that are being passed:
 
 - `client_id` matches the Client ID of your Okta OAuth application that you created above.
 - `response_type` is `code`, indicating that we are using the authorization code grant type.
-- `scope` is `openid`. This can be left empty if you configure a default scope on the authorization server. For more information about this, see the [Custom Authorization Server chapter](/authentication-guide/implementing-authentication/set-up-authz-server.html#create-scopes-optional).
-- `redirect_uri` is the callback location where the user-agent will be directed to along with the `code`. This must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
+- `scope` is `openid`, which means that the `/token` endpoint will return an ID token. For more information about scopes, see [here](/standards/OIDC/index.html#scopes).
+- `redirect_uri` is the callback location where the user-agent will be directed to along with the `code`. This must match one of the "Login redirect URIs" you specified when you were creating your Okta application in Step 1.
 - `state` is an arbitrary alphanumeric string that the authorization server will reproduce when redirecting the user-agent back to the client. This is used to help prevent cross-site request forgery.
 
 For more information on these parameters, see [the OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user).
@@ -68,7 +68,7 @@ curl --request POST \
 
 Note the parameters that are being passed:
 
-- `grant_type` is `code`, indicating that we are using the authorization code grant type.
+- `grant_type` is `authorization_code`, indicating that we are using the authorization code grant type.
 - `redirect_uri` must match the URI that was used to get the authorization code.
 - `code` is the authorization code that you got from the `/authorize` endpoint.
 

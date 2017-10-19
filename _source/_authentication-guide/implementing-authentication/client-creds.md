@@ -14,8 +14,8 @@ The Client Credentials flow is recommended for use in machine-to-machine authent
 
 ### 1. Setting up your Application
 
-1. From the Applications page, choose **Add Application**
-2. You will now be on the Create New Application page. From here, select **Service**
+1. From the Applications page, choose **Add Application**.
+2. On the Create New Application page, select **Service**.
 3. Fill-in the Application Name, then click **Done**.
 
 ### 2. Creating Custom Scopes
@@ -41,7 +41,7 @@ curl --request POST \
 Note the parameters that are being passed:
 
 - `grant_type` is `client_credentials`, indicating that we are using the Client Credentials grant type.
-- `redirectUri` must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
+- `redirectUri` must match one of the "Login redirect URIs" you specified when you were creating your Okta application in Step 1.
 - `scope` must be at least one custom scope that you have created. For more information about this, see the [Custom Authorization Server chapter](/authentication-guide/implementing-authentication/set-up-authz-server.html#create-scopes-optional).
 
 If the credentials are valid, the application will receive back an access token:

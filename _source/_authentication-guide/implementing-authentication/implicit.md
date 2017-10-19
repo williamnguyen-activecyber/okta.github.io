@@ -20,8 +20,8 @@ For more information on the implicit flow, including why to use it, see [our OAu
 
 ### 1. Setting up your Application
 
-1. From the Applications page, choose **Add Application**
-2. You will now be on the Create New Application page. From here, select **SPA**
+1. From the Applications page, choose **Add Application**.
+2. On the Create New Application page, select **SPA**.
 3. Fill-in the Application Settings, then click **Done**.
 
 ### 2. Using the Implicit Flow
@@ -38,8 +38,8 @@ Note the parameters that are being passed:
 
 - `client_id` matches the Client ID of your Okta OAuth application that you created above.
 - `response_type` is `token`. It could also be `id_token` or both. 
-- `scope` is `openid` which is required, though additional scopes can be requested. For more information about this, see the [Custom Authorization Server chapter](/authentication-guide/implementing-authentication/set-up-authz-server.html#create-scopes-optional).
-- `redirect_uri` is the callback location where the user-agent will be directed to along with the `access_token`. This must match one of the "Login redirect URIs" you specified when you were creating your application in Okta.
+- `scope` is `openid` which is required, though additional scopes can be requested. For more information about scopes, see [here](/standards/OIDC/index.html#scopes).
+- `redirect_uri` is the callback location where the user-agent will be directed to along with the `access_token`. This must match one of the "Login redirect URIs" you specified when you were creating your Okta application in Step 1.
 - `state` is an arbitrary alphanumeric string that the authorization server will reproduce when redirecting the user-agent back to the client. This is used to help prevent cross-site request forgery.
 
 For more information on these parameters, see [the OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user).
