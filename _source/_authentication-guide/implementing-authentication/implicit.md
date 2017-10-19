@@ -7,7 +7,7 @@ excerpt: How to implement the implicit code flow in Okta
 
 # Implementing the Implicit Flow
 
-If you are building a Single-page Application (SPA), then the implicit flow is the recommended method for controlling access between your SPA and a resource server. 
+If you are building a Single-Page Application (SPA), then the implicit flow is the recommended method for controlling access between your SPA and a resource server. 
 
 At a high-level, this flow has the following steps:
 
@@ -26,7 +26,7 @@ For more information on the implicit flow, including why to use it, see [our OAu
 
 ### 2. Using the Implicit Flow
 
-Kicking off this flow is very similar to the [authorization code flow](/authentication-guide/implementing-authentication/auth-code) except that the `response_type` is `token` and/or `id_token` instead of `code`.
+Kicking off this flow is very similar to the [authorization code flow](/authentication-guide/implementing-authentication/auth-code.html) except that the `response_type` is `token` and/or `id_token` instead of `code`.
 
 Your browser makes a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
 
