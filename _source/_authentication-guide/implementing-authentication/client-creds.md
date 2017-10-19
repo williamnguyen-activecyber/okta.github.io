@@ -33,7 +33,8 @@ curl --request POST \
   --header 'authorization: Basic MG9hY...' \
   --header 'cache-control: no-cache' \
   --header 'content-type: application/x-www-form-urlencoded' \
-  --data 'grant_type=client_credentials&redirect_uri=http%3A%2F%2Flocalhost&scope=customScope'
+  --data 'grant_type=client_credentials&redirect_uri=http%3A%2F%2Flocalhost&
+  scope=customScope'
 ```
 
 > NOTE: The Client ID and Secret aren’t included in the POST body, but rather are placed in the HTTP Authorization header following the rules of HTTP Basic Auth.

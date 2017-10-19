@@ -30,7 +30,9 @@ For more information on the authorization code flow, including why to use it, se
 To get an authorization code, you make a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
 
 ```
-https://{yourOktaDomain}.com/oauth2/default/v1/authorize?client_id=0oabucvyc38HLL1ef0h7&response_type=code&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601'
+https://{yourOktaDomain}.com/oauth2/default/v1/authorize?client_id=0oabucvy
+c38HLL1ef0h7&response_type=code&scope=openid&redirect_uri=http%3A%2F%2Flocal
+host&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601'
 ```
 
 Note the parameters that are being passed:
@@ -46,7 +48,8 @@ For more information on these parameters, see [the OAuth 2.0 API reference](http
 If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with a `code`:
 
 ```
-http://localhost:3000/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601
+http://localhost:3000/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57
+-be1a-d0e2fd9bb601
 ```
 
 This code will remain valid for 60 seconds, during which it can be exchanged for tokens.

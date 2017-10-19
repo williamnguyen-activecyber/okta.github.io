@@ -14,15 +14,15 @@ At its core, an authorization server is simply an OAuth 2.0 token minting engine
 and its own signing key for tokens in order to keep proper boundary between security domains.
 
 The authorization server also acts as an OpenID Connect Provider,
-which means you can request [ID tokens](https://developer.okta.com/standards/OIDC/index#id-token)
-in addition to [access tokens](https://developer.okta.com/standards/OAuth/index#access-token) from the authorization server endpoints.
+which means you can request [ID tokens](/standards/OIDC/index#id-token)
+in addition to [access tokens](/standards/OAuth/#access-token) from the authorization server endpoints.
 
 > NOTE: For a high-level explanation of OAuth 2.0 and OpenID Connect see our [OAuth 2.0 Overview](/authentication-guide/auth-overview/).
 
 How do you know if you need to use a custom Authorization Server instead of the authorization service that is built in to your Okta app?
 
 * You need to protect non-Okta resources.
-* You need different authorization policies depending on whether the person is an employee, partner, or end user, or other similar specializations.
+* You need different authorization policies depending on whether the person is an employee, partner, end user, or other similar specializations.
 
 > Note: If your employees, partners, and users can all use the same authentication policies for single sign-on,
 try [Okta's built in authorization service](https://support.okta.com/help/articles/Knowledge_Article/Single-Sign-On-Knowledge-Hub).
@@ -57,8 +57,8 @@ This document provides step-by-step instructions for creating and configuring th
 2. Choose **Add Authorization Server** and supply the requested information.
 
     * **Name**
-    * **Audience:** URI for the OAuth resource that consumes the Access Tokens. Use an absolute path such as `https://api.example.com/pets`.
-      This value is used as the default [audience](https://tools.ietf.org/html/rfc7519#section-4.1.3) for Access Tokens.
+    * **Audience:** URI for the OAuth resource that consumes the access tokens. Use an absolute path such as `https://api.example.com/pets`.
+      This value is used as the default [audience](https://tools.ietf.org/html/rfc7519#section-4.1.3) for access tokens.
     * **Description**
 
 When complete, your Authorization Server&#8217;s **Settings** tab displays the information that you provided and allows you to edit it.
@@ -130,7 +130,7 @@ If you need scopes in addition to the reserved scopes provided, create them now.
 
 These scopes are referenced by the **Claims** dialog.
 
-If you set a scope as "Default", then it will be included by default in an tokens that are created. Depending on which flow you are using, it might also allow you to exclude the `scope` parameter from your token request.
+If you set a scope as "Default", then it will be included by default in any tokens that are created. Depending on which flow you are using, it might also allow you to exclude the `scope` parameter from your token request.
 
 For more information on Scopes, see here: <https://developer.okta.com/standards/OAuth/index#scopes-and-claims>
 
@@ -138,7 +138,7 @@ For more information on Scopes, see here: <https://developer.okta.com/standards/
 
 Tokens contain claims that are statements about the subject or another subject, for example name, role, or email address.
 
-Create ID Token claims for OpenID Connect, or Access Tokens for OAuth 2.0:
+Create ID Token claims for OpenID Connect, or access tokens for OAuth 2.0:
 
 1. In the Okta Developer Dashboard, navigate to **API > Authorization Servers**.
 2. Choose the name of the Authorization Server to display, and choose **Claims**.
@@ -148,10 +148,10 @@ Create ID Token claims for OpenID Connect, or Access Tokens for OAuth 2.0:
 {% img claim.png alt:"Edit Claims" width:"800px" %}
 
     * **Name**
-    * **Claim type**: Choose Access Token (Oauth 2.0) or ID Token (OpenID Connect).
-    * **Value type**: Choose whether you&#8217;ll define the claim by a group filter or by an **Expression** written in Okta Expression Language.
+    * **Claim type**: Choose Access Token (OAuth 2.0) or ID Token (OpenID Connect).
+    * **Value type**: Choose whether you'll define the claim by a group filter or by an **Expression** written in Okta Expression Language.
         * **Mapping**: This option displays if you chose **Expression** in the previous field. Add the mapping here using [Okta&#8217;s Expression Language](/reference/okta_expression_language/), for example `appuser.username`.
-          Be sure to check that your expression returns the results expected--the expression isn&#8217;t validated here.
+          Be sure to check that your expression returns the results expected--the expression isn't validated here.
         * **Filter**: This option displays if you chose **Groups** in the previous field. Use it to add a group filter. If you leave it blank, all users are specified for this claim.
     * **Disable claim**: Check this option if you want to temporarily disable the claim for testing or debugging.
     * **Include in**: Specify whether the claim is valid for any scope, or select the scopes for which it is valid.

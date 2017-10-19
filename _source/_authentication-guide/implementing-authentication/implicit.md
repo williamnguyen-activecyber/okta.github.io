@@ -31,7 +31,9 @@ Kicking off this flow is very similar to the [authorization code flow](/authenti
 Your browser makes a request to your authorization server's `/authorize` endpoint. If you are using the default Okta authorization server, then your request URL would look something like this:
 
 ```
-https://{yourOktaDomain}.com/oauth2/default/v1/authorize?client_id=0oabv6kx4qq6h1U5l0h7&response_type=token&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
+https://{yourOktaDomain}.com/oauth2/default/v1/authorize?client_id=0oabv6kx4qq6
+h1U5l0h7&response_type=token&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&
+state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
 ```
 
 Note the parameters that are being passed:
@@ -47,7 +49,8 @@ For more information on these parameters, see [the OAuth 2.0 API reference](http
 If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, your browser will arrive at the specified `redirect_uri` along with a `token` as a hash fragment:
 
 ```
-http://localhost:3000/#access_token=eyJhb[...]erw&token_type=Bearer&expires_in=3600&scope=openid&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601
+http://localhost:3000/#access_token=eyJhb[...]erw&token_type=Bearer&expires_in=
+3600&scope=openid&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601
 ```
 
 Your application must now extract the token(s) from the URI and store them.

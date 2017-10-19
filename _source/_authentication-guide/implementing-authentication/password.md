@@ -35,7 +35,8 @@ curl --request POST \
   --header 'accept: application/json' \
   --header 'authorization: Basic MG9hYn...' \
   --header 'content-type: application/x-www-form-urlencoded' \
-  --data 'grant_type=password&username=testuser1%40example.com&password=%7CmCovrlnU9oZU4qWGrhQSM%3Dyd&scope=openid'
+  --data 'grant_type=password&username=testuser1%40example.com&password=%7CmCov
+  rlnU9oZU4qWGrhQSM%3Dyd&scope=openid'
 ```
 
 > Important: The call to the `/token` endpoint requires authentication. In this case, it is a Basic Auth digest of the Client ID and Secret. For more on Basic Auth, please see [Token Authentication Methods](https://developer.okta.com/docs/api/resources/oauth2.html#token-authentication-methods).

@@ -50,7 +50,10 @@ The `code_challenge` is a Base64-URL-encoded string of the SHA256 hash of the `c
 If you are using the default Okta authorization server, then your request URL would look something like this:
 
 ```
-https://{yourOktaDomain}.com/oauth2/default/v1/authorize?client_id=0oabygpxgk9lXaMgF0h7&response_type=code&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9&code_challenge_method=S256&code_challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
+https://{yourOktaDomain}.com/oauth2/default/v1/authorize?client_id=0oabygpxgk9l
+XaMgF0h7&response_type=code&scope=openid&redirect_uri=http%3A%2F%2Flocalhost&st
+ate=state-8600b31f-52d1-4dca-987c-386e3d8967e9&code_challenge_method=S256&code_
+challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
 ```
 
 Note the parameters that are being passed:
@@ -68,7 +71,8 @@ For more information on these parameters, see [the OAuth 2.0 API reference](/doc
 If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with an authorization `code`:
 
 ```
-yourApp:/callback?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-987c-386e3d8967e9
+yourApp:/callback?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-987c
+-386e3d8967e9
 ```
 
 This code can only be used once, and will remain valid for 60 seconds, during which time it can be exchanged for tokens.
@@ -83,7 +87,9 @@ curl --request POST \
   --header 'accept: application/json' \
   --header 'cache-control: no-cache' \
   --header 'content-type: application/x-www-form-urlencoded' \
-  --data 'grant_type=authorization_code&client_id=0oabygpxgk9lXaMgF0h7&redirect_uri=http%3A%2F%2Flocalhost&code=CKA9Utz2GkWlsrmnqehz&code_verifier=M25iVXpKU3puUjFaYWg3T1NDTDQtcW1ROUY5YXlwalNoc0hhakxifmZHag'
+  --data 'grant_type=authorization_code&client_id=0oabygpxgk9lXaMgF0h7&redirect
+  _uri=http%3A%2F%2Flocalhost&code=CKA9Utz2GkWlsrmnqehz&code_verifier=M25iVXpKU
+  3puUjFaYWg3T1NDTDQtcW1ROUY5YXlwalNoc0hhakxifmZHag'
 ```
 
 > Important: Unlike the regular [Authorization Code Flow](auth-code), this call does not require the Authorization header with the client ID and secret. This is why this version of the Authorization Code flow is appropriate for native apps.
