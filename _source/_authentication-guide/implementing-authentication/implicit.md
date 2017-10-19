@@ -47,7 +47,7 @@ For more information on these parameters, see [the OAuth 2.0 API reference](http
 If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, your browser will arrive at the specified `redirect_uri` along with a `token` as a hash fragment:
 
 ```
-http://localhost/#access_token=eyJhb[...]erw&token_type=Bearer&expires_in=3600&scope=openid&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601
+http://localhost:3000/#access_token=eyJhb[...]erw&token_type=Bearer&expires_in=3600&scope=openid&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601
 ```
 
 Your application must now extract the token(s) from the URI and store them.

@@ -46,14 +46,14 @@ For more information on these parameters, see [the OAuth 2.0 API reference](http
 If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with a `code`:
 
 ```
-http://localhost/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601
+http://localhost:3000/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601
 ```
 
 This code will remain valid for 60 seconds, during which it can be exchanged for tokens.
 
 ### 3. Exchanging the Code for Tokens
 
-To exchange this code for access and ID tokens, you pass it to your authorization server's `/token` endpoint:
+To exchange this code for access and ID tokens, you pass it to your authorization server's `/token` endpoint. If you are using the default Okta authorization server, then your request would look something like this:
 
 ```
 curl --request POST \
