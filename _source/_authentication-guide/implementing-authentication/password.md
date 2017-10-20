@@ -9,9 +9,9 @@ excerpt: How to implement the resource owner password flow in Okta
 
 The Resource Owner Password Flow is intended for use cases where you control both the client application and the resource that it is interacting with. At a high-level, this flow has the following steps:
 
-- Your client application collects a user's credentials
-- Your application sends these credentials to your Okta authorization server
-- If the credentials are accurate, Okta responds with the requested tokens
+- Your client application collects a user's credentials.
+- Your application sends these credentials to your Okta authorization server.
+- If the credentials are accurate, Okta responds with the requested tokens.
 
 For more information on the resource owner password flow, including why to use it, see [our OAuth 2.0 overview](/authentication-guide/auth-overview/#resource-owner-password-flow).
 
@@ -48,7 +48,7 @@ Note the parameters that are being passed:
 - `password` is the password of a user registered with Okta.
 - `scope` must be at least `openid`. For more information about this, see the [Custom Authorization Server chapter](/authentication-guide/implementing-authentication/set-up-authz-server.html#create-scopes-optional).
 
-For more information on these parameters, see the [OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#request-a-token).
+For more information on these parameters, see the [OAuth 2.0 API reference](/docs/api/resources/oauth2.html#request-a-token).
 
 If the credentials are valid, your application will receive back access and ID tokens:
 

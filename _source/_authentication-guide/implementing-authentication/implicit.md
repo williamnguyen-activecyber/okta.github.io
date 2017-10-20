@@ -11,10 +11,10 @@ If you are building a Single-Page Application (SPA), then the implicit flow is t
 
 At a high-level, this flow has the following steps:
 
-- Your application directs the browser to the Okta sign-in page, where the user authenticates
-- Okta redirects the browser back to the specified redirect URI, along with access and ID tokens as a hash fragment in the URI
-- Your application extracts the tokens from the URI
-- Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
+- Your application directs the browser to the Okta sign-in page, where the user authenticates.
+- Okta redirects the browser back to the specified redirect URI, along with access and ID tokens as a hash fragment in the URI.
+- Your application extracts the tokens from the URI.
+- Your application can now use these tokens to call the resource server (for example an API) on behalf of the user.
 
 For more information on the implicit flow, including why to use it, see [our OAuth 2.0 overview](/authentication-guide/auth-overview/#implicit-flow).
 

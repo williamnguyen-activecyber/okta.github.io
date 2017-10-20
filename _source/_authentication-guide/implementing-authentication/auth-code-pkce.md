@@ -11,18 +11,18 @@ If you are building a native application, then the authorization code flow with 
 
 The Authorization Code Flow with PKCE is the standard Code flow with an extra step at the beginning and an extra verification at the end. At a high-level, the flow has the following steps:
 
-- Your application generates a code verifier followed by a code challenge
-- Your application directs the browser to the Okta Sign-In page, along with the generated code challenge, and the user authenticates
-- Okta redirects back to your native application with an authorization code
-- Your application sends this code, along with the code verifier, to Okta. Okta returns access and ID tokens, and optionally a refresh token
-- Your application can now use these tokens to perform actions on behalf of the user with a resource server (for example an API)
+- Your application generates a code verifier followed by a code challenge.
+- Your application directs the browser to the Okta Sign-In page, along with the generated code challenge, and the user authenticates.
+- Okta redirects back to your native application with an authorization code.
+- Your application sends this code, along with the code verifier, to Okta. Okta returns access and ID tokens, and optionally a refresh token.
+- Your application can now use these tokens to call the resource server (for example an API) on behalf of the user.
 
 For more information on the authorization code with PKCE flow, including why to use it, see our [OAuth 2.0 Overview](/authentication-guide/auth-overview/#authorization-code-with-pkce).
 
 ### 1. Setting up your Application
 
-1. From the Applications page, choose **Add Application**
-2. On the Create New Application page, select **Native**
+1. From the Applications page, choose **Add Application**.
+2. On the Create New Application page, select **Native**.
 3. Fill-in the Application Settings, then click **Done**.
 
 ### 2. Using the Authorization Code Flow with PKCE
@@ -31,7 +31,7 @@ Just like with the regular authorization code flow, you start by making a reques
 
 Your first step is to generate a code verifier and challenge:
  
-* Code verifier: Random URL-safe string with a minimum length of 43 characters
+* Code verifier: Random URL-safe string with a minimum length of 43 characters.
 * Code challenge: Base64 URL-encoded SHA-256 hash of the code verifier.
 
 You’ll need to add code in your native app to create the code verifier and code challenge. For examples of code that handles this, see [below](#examples).
@@ -123,6 +123,6 @@ When your application passes a request with an `access_token`, the resource serv
 
 See our AppAuth SDKs that handle the OAuth 2.0 and OpenID Connect protocol:
 
-- [Okta APPAuth iOS](https://github.com/openid/AppAuth-iOS)
+- [Okta AppAuth iOS](https://github.com/openid/AppAuth-iOS)
 
-- [Okta APPAuth Android](https://github.com/openid/AppAuth-Android)
+- [Okta AppAuth Android](https://github.com/openid/AppAuth-Android)
