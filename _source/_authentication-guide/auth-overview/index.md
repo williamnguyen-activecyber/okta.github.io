@@ -26,6 +26,14 @@ If you would like to work with the Okta API and control user access to Okta, the
 
 If you are interested in controlling access to your own application, then use the OAuth 2.0 and OpenID Connect (OIDC) protocols. The OAuth 2.0 protocol will allow you to delegate authorization, while the OIDC protocol will allow you retrieve and store authentication information about your end-users. The Okta Authentication Guide is intended to help you figure out how to implement and use OAuth 2.0 and OIDC with Okta. 
 
+### Authentication API
+
+The Okta Authentication API controls access to the Okta API by creating and controlling Okta session tokens. Okta session tokens are one-time bearer tokens issued when the authentication transaction completes successfully. Session tokens may be redeemed for a session in Okta's Session API or converted to a session cookie. 
+
+Session tokens are for use within Okta, while ID tokens, access tokens, and refresh tokens are for use when accessing third party resources, such as your application.
+
+You can find out more in the [Authentication API Reference](/docs/api/resources/authn.html).
+
 ### OAuth 2.0
 
 OAuth 2.0 is a standard that apps use to provide client applications with access. If you would like to grant access to your application data in a secure way, then you want to use the OAuth 2.0 protocol. 
@@ -71,14 +79,6 @@ The high-level flow looks the same for both OIDC and regular OAuth 2.0 flows, th
 
 > Note: If you would like to see the OpenID Connect specification, you can find it here: <https://openid.net/connect/>
 
-### Authentication API
-
-The Okta Authentication API controls access to the Okta API by creating and controlling Okta session tokens. Okta session tokens are one-time bearer tokens issued when the authentication transaction completes successfully. Session tokens may be redeemed for a session in Okta's Session API or converted to a session cookie. 
-
-Session tokens are for use within Okta, while ID tokens, access tokens, and refresh tokens are for use when accessing third party resources, such as your application.
-
-You can find out more in the [Authentication API Reference](/docs/api/resources/authn.html).
-
 ## Choosing an OAuth 2.0 Flow
 
 Depending on what kind of client you are building, you will want to use a different OAuth 2.0 flow. The flowchart below can quickly help you decide which flow to use. Further explanation about each flow is included below.
@@ -96,10 +96,10 @@ skinparam monochrome true
 start
 
 if (Is your client public?) then (yes)
-    if (Is your client a SPA or mobile/native?) then (SPA)
+    if (Is your client a SPA or native app?) then (SPA)
     :Implicit Flow;
     end      
-    else (mobile/native)
+    else (native)
     :Auth Code w PKCE;
     end
     endif
@@ -125,11 +125,11 @@ else (no)
 
 A client application is considered "public" when an end-user could possibly view and modify the code. This includes Single Page Apps (SPAs) or any mobile or native applications. In both cases, the application cannot keep secrets from malicious users. 
 
-###### Is your client a SPA or mobile/native?
+###### Is your client a SPA or native?
 
 If your client application is a Single Page Application (SPA), you should use the [Implicit flow](#implicit-flow).
 
-If your client application is a mobile/native application, you should use the [Authorization Code with PKCE flow](#authorization-code-with-pkce).
+If your client application is a native application, you should use the [Authorization code flow with PKCE](#authorization-code-with-pkce).
 
 ##### Does the client have an end-user?
 
@@ -171,11 +171,11 @@ For information how to set up your application to use this flow, see [Implement 
 
 ### Authorization Code with PKCE
 
-For native/mobile applications, the client secret cannot be stored in the application because it could easily be exposed. Additionally, mobile callbacks use `app://` protocols, which are prone to interception. Basically, a rogue application could intercept the authorization code as it is being passed through the mobile/native operating system. Therefore native apps should make use of Proof Key for Code Exchange (PKCE), which acts like a secret but isn't hard-coded, to keep the Authorization Code flow secure.
+For native/mobile applications, the client secret cannot be stored in the application because it could easily be exposed. Additionally, mobile redirects use `app://` protocols, which are prone to interception. Basically, a rogue application could intercept the authorization code as it is being passed through the mobile/native operating system. Therefore native apps should make use of Proof Key for Code Exchange (PKCE), which acts like a secret but isn't hard-coded, to keep the Authorization Code flow secure.
 
 PKCE is an extension to the regular Authorization Code flow, so the flow is very similar, except that PKCE elements are included at various steps in the flow. 
 
-The PKCE-enhanced flow requires your application to generate a cryptographically random key called a "code verifier". A "code challenge" is then created from the verifier, and this challenge is passed along with the request for the authorization code.
+The PKCE-enhanced Authorization Code flow requires your application to generate a cryptographically random key called a "code verifier". A "code challenge" is then created from the verifier, and this challenge is passed along with the request for the authorization code.
 
 When the authorization code is sent in the access token request, the code verifier is sent as part of the request. The authorization server recomputes the challenge from the verifier using an agreed-upon hash algorithm and then compares that. If the two code challenges and verifier match, then it knows that both requests were sent by the same client. 
 
@@ -211,7 +211,7 @@ For information how to set up your application to use this flow, see [Implement 
 
 ### Implicit Flow
 
-The Implicit Flow, like the Authorization Code Flow, is intended for applications where the confidentiality of the client secret cannot be guaranteed. Because the client does not have the client secret, it cannot make a request to the `/token` endpoint, and instead receives the access token directly from the `/authorize` endpoint. We recommend it for use with Single Page Applications (SPA), since the the client must be capable of interacting with the resource owner's user-agent and capable of receiving incoming requests (via redirection) from the authorization server.
+The Implicit Flow is intended for applications where the confidentiality of the client secret cannot be guaranteed. Because the client does not have the client secret, it cannot make a request to the `/token` endpoint, and instead receives the access token directly from the `/authorize` endpoint. We recommend it for use with Single Page Applications (SPA), since the the client must be capable of interacting with the resource owner's user-agent and capable of receiving incoming requests (via redirection) from the authorization server.
 
 > NOTE: Because it is intended for less-trusted clients, the Implicit Flow does not support refresh tokens.
 
@@ -238,7 +238,7 @@ For information how to set up your application to use this flow, see [Implement 
 
 ### Resource Owner Password Flow 
 
-The Resource Owner Password Flow is intended for use cases where you control both the client application and the resource that it is interacting with. It requires that the client can be trusted with the resource owner's credentials, and so is most commonly found in clients made for online services, like the Facebook client applications that interact with the Facebook service. It doesn't require redirects like the Authorization Code or Implicit flows, and involves a single authenticated call to the `/token` endpoint.
+The Resource Owner Password Flow is intended for use cases where you control both the client application and the resource that it is interacting with. It requires that the client can store a client secret and can be trusted with the resource owner's credentials, and so is most commonly found in clients made for online services, like the Facebook client applications that interact with the Facebook service. It doesn't require redirects like the Authorization Code or Implicit flows, and involves a single authenticated call to the `/token` endpoint.
 
 {% img oauth_password_flow.png alt:"Resource Owner Password Flow" width:"800px" %}
 
