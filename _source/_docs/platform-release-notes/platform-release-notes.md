@@ -1,23 +1,17 @@
 ---
 layout: docs_page
 title: Okta API Release Notes
-excerpt: Change to App Wizard in Developer Console, new error string
+excerpt: Changes to Developer Console and an improved error string
 ---
 
 # Okta API Release Notes for Release 2017.43
 
-This release note summarizes the changes to API Products since Release 2017.42.
+This release note summarizes the changes since 2017.42.
 
 <!-- The following API feature enhancements are available in the 2017.43 release. -->
 Dates for preview and production release are the earliest possible release date. Always check your org to verify the release version.
 
-<!-- ### API Feature Enhancements
-
-#### Title
-
-Description
--->
-<!-- OKTA-xxxxx -->
+<!-- ### API Feature Enhancements #### Title Description --> <!-- OKTA-xxxxx -->
 
 ### API Bug Fixes
 
