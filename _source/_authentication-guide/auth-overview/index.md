@@ -12,9 +12,8 @@ This page will give you an overview of OAuth 2.0 and OpenID Connect and their Ok
 - [SAML Authentication with OIDC](/authentication-guide/saml-login/)
 - [Social Login](/authentication-guide/social-login/)
 - [Working With OAuth 2.0 Tokens](/authentication-guide/tokens/)
-- [Customizing Login](/authentication-guide/custom-login/)
 
-## OAuth 2.0 vs OpenID Connect vs Authentication API
+## Authentication API vs OAuth 2.0 vs OpenID Connect
 
 There are three major kinds of authentication that you can perform with Okta:
 
