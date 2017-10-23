@@ -13,13 +13,13 @@ A refresh token is a special token that is used to generate additional access to
 
 ## Setting Up Your Application
 
-Refresh tokens are available for a subset of Okta OAuth 2.0 Client Applications, specifically `web` or `native` applications. For more about creating an OAuth 2.0 application see [Using the App Integration Wizard](https://help.okta.com/en/prev/Content/Topics/Apps/Apps_App_Integration_Wizard.htm).
+Refresh tokens are available for a subset of Okta OAuth 2.0 Client Applications, specifically web or native applications. For more about creating an OAuth 2.0 application see [Implementing Authentication](/authentication-guide/implementing-authentication/).
 
-Once you have an application, you need to make sure that the "Allowed grant types" include "Refresh Token". 
+Once you have an application, you need to make sure that the "Allowed grant types" include "Refresh Token".
 
 ## How to Get a Refresh Token
 
-To get a refresh token, you send a request to your Okta Authorization Server. 
+To get a refresh token, you send a request to your Okta Authorization Server.
 
 ### Get a Refresh Token with the Code Flow
 
@@ -50,7 +50,7 @@ This table only shows the minimum requirements. For example, with the `password`
 
 You would then get back an ID token alongside your access and refresh tokens.
 
-> NOTE: Although you requested access, refresh, and ID tokens, the refresh token can only be used to get a new access token. An ID token will not be returned.
+> NOTE: Although you requested access, refresh, and ID tokens, the refresh token can only be used to get a new access token. An ID token cannot be refreshed.
 
 For more information see the [Okta OAuth 2.0 reference page](/docs/api/resources/oauth2.html#response-parameters-1).
 

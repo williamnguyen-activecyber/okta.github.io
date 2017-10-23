@@ -7,9 +7,9 @@ excerpt: How to implement the authorization code flow in Okta
 
 # Implement the Authorization Code Flow
 
-If you are building a server-side (or "web") application that is capable of securely storing secrets, then the authorization code flow is the recommended method for controlling access to it. 
+If you are building a server-side (or "web") application that is capable of securely storing secrets, then the authorization code flow is the recommended method for controlling access to it.
 
-At a high-level, this flow has the following steps: 
+At a high-level, this flow has the following steps:
 
 - Your application directs the browser to the Okta Sign-In page, where the user authenticates.
 - The browser receives an authorization code from your Okta authorization server.
@@ -20,6 +20,8 @@ At a high-level, this flow has the following steps:
 For more information on the authorization code flow, including why to use it, see [our OAuth 2.0 overview](/authentication-guide/auth-overview/#authorization-code-flow).
 
 ### 1. Setting up your Application
+
+You set up your OAuth 2.0 application inside the Okta Developer Console:
 
 1. From the Applications page, choose **Add Application**.
 2. On the Create New Application page, select **Web**.
@@ -37,7 +39,7 @@ host&state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601'
 
 Note the parameters that are being passed:
 
-- `client_id` matches the Client ID of your Okta OAuth application that you created above.
+- `client_id` matches the Client ID of your Okta OAuth application that you created above. You can find it at the bottom of your application's General tab.
 - `response_type` is `code`, indicating that we are using the authorization code grant type.
 - `scope` is `openid`, which means that the `/token` endpoint will return an ID token. For more information about scopes, see [here](/standards/OIDC/index.html#scopes).
 - `redirect_uri` is the callback location where the user-agent will be directed to along with the `code`. This must match one of the "Login redirect URIs" you specified when you were creating your Okta application in Step 1.
@@ -45,14 +47,14 @@ Note the parameters that are being passed:
 
 For more information on these parameters, see [the OAuth 2.0 API reference](https://developer.okta.com/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user).
 
-If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with a `code`:
+If the user does not have an existing session, this will open the Okta Sign-in Page. If they have an existing session, or after they authenticate, they will arrive at the specified `redirect_uri` along with a `code`:
 
 ```
 http://localhost:3000/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57
 -be1a-d0e2fd9bb601
 ```
 
-This code will remain valid for 60 seconds, during which it can be exchanged for tokens.
+This code will remain valid for 60 seconds, during which it can be exchanged for tokens. 
 
 ### 3. Exchanging the Code for Tokens
 
@@ -67,7 +69,7 @@ curl --request POST \
   --data 'grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost&code=P59yPm1_X1gxtdEOEZjn'
 ```
 
-> Important: The call to the `/token` endpoint requires authentication. In this case, it is a Basic Auth digest of the client ID and secret. This requirement is why this call is only appropriate for applications that can guarantee the secrecy of the client secret. For more on Basic Auth, please see [Token Authentication Methods](https://developer.okta.com/docs/api/resources/oauth2.html#token-authentication-methods).
+> Important: The call to the `/token` endpoint requires authentication. In this case, it is a Basic Auth digest of the client ID and secret. You can find the client ID and secret in your application's General tab. This requirement is why this call is only appropriate for applications that can guarantee the secrecy of the client secret. For more on Basic Auth, please see [Token Authentication Methods](https://developer.okta.com/docs/api/resources/oauth2.html#token-authentication-methods).
 
 Note the parameters that are being passed:
 

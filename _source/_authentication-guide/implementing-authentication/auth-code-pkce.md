@@ -21,6 +21,8 @@ For more information on the authorization code with PKCE flow, including why to 
 
 ### 1. Setting up your Application
 
+You set up your OAuth 2.0 application inside the Okta Developer Console:
+
 1. From the Applications page, choose **Add Application**.
 2. On the Create New Application page, select **Native**.
 3. Fill-in the Application Settings, then click **Done**.
@@ -58,7 +60,7 @@ challenge=qjrzSW9gMiUgpUvqgEPE4_-8swvyCtfOVvg55o5S_es
 
 Note the parameters that are being passed:
 
-- `client_id` matches the Client ID of your Okta OAuth application that you created above.
+- `client_id` matches the Client ID of your Okta OAuth application that you created above. You can find it at the bottom of your application's General tab.
 - `response_type` is `code`, indicating that we are using the authorization code grant type.
 - `scope` is `openid`, which means that the `/token` endpoint will return an ID token. For more information about scopes, see [here](/standards/OIDC/index.html#scopes).
 - `redirect_uri` is the callback location where the user-agent will be directed to along with the `code`. This must match one of the "Login redirect URIs" you specified when you were creating your Okta application in Step 1.
@@ -68,14 +70,14 @@ Note the parameters that are being passed:
 
 For more information on these parameters, see [the OAuth 2.0 API reference](/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user).
 
-If the user does not have an existing session, this will open the Okta Sign-in Page. After successfully authenticating, the user will arrive at the specified `redirect_uri` along with an authorization `code`:
+If the user does not have an existing session, this will open the Okta Sign-in Page. If they have an existing session, or after they authenticate, they will arrive at the specified `redirect_uri` along with an authorization `code`:
 
 ```
-yourApp:/callback?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-987c
--386e3d8967e9
+yourApp://callback?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-
+987c-386e3d8967e9
 ```
 
-This code can only be used once, and will remain valid for 60 seconds, during which time it can be exchanged for tokens.
+This code can only be used once, and will remain valid for 60 seconds, during which time it can be exchanged for tokens. 
 
 ### 3. Exchanging the Code for Tokens
 
