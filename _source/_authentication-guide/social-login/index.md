@@ -6,12 +6,14 @@ title: Social Login Overview
 
 # Social Login
 
-Okta allows your users to sign in to your app using their Facebook, Google, LinkedIn, and Microsoft credentials. Once the user has successfully authenticated, they are returned to your app, and their social profile information is pulled into your Okta directory.
+Okta allows your users to sign in to your app using credentials from external social login providers. Once the user has successfully authenticated, they are returned to your app, and their social profile information is pulled into your Okta directory.
 
 Currently Okta supports the following social login providers:
 
 - [Facebook](facebook)
 - [Google](google)
+- [LinkedIn](linkedin)
+- [Microsoft](microsoft)
 
 ### Features
 

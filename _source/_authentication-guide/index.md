@@ -14,7 +14,7 @@ This guide will also direct you to examples of how to implement authentication i
 
 On the left-hand side you can navigate to different sections of the guide. Alternatively, find a question you would like answered below:
 
-- [What is the difference between OAuth 2.0, OpenID Connect, and the Okta Authentication API?](/authentication-guide/auth-overview/index.html#oauth-20-vs-openid-connect-vs-authentication-api)
+- [What is the difference between OAuth 2.0, OpenID Connect, and the Okta Authentication API?](/authentication-guide/auth-overview/index.html#authentication-api-vs-oauth-20-vs-openid-connect)
 - [Which OAuth 2.0 flow should I use?](/authentication-guide/auth-overview/#choosing-an-oauth-20-flow)
 - [How do I implement an OAuth 2.0 flow?](/authentication-guide/implementing-authentication/)
 - [How do I validate an access token?](/authentication-guide/tokens/validating-access-tokens.html)

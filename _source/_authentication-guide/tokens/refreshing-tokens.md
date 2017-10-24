@@ -25,11 +25,11 @@ To get a refresh token, you send a request to your Okta Authorization Server.
 
 In the case of the Authorization Code flow, you use the Authorization Server's `/authorize` endpoint to get an authorization code, specifying an `offline_access` scope. You then send this code to the `/token` endpoint to get an access token and a refresh token. For more information about this endpoint, see [Obtain an Authorization Grant from a User](/docs/api/resources/oauth2.html#obtain-an-authorization-grant-from-a-user). For more information about the Authorization Code flow, see [Implementing the Authorization Code Flow](/authentication-guide/implementing-authentication/auth-code.html).
 
-### Get a Refresh Token with the Client Credentials or Password Flow
+### Get a Refresh Token with the Authorization Code or Password Flow
 
-For the Client Credentials and Resource Owner Password flows, you use the Authorization Server's `/token` endpoint directly. For more information about this endpoint, see [Request a Token](/docs/api/resources/oauth2.html#request-a-token). For more information about the Client Credentials and Resource Owner Password flows, see:
+For the Authorization Code and Resource Owner Password flows, you use the Authorization Server's `/token` endpoint directly. For more information about this endpoint, see [Request a Token](/docs/api/resources/oauth2.html#request-a-token). For more information about the Client Credentials and Resource Owner Password flows, see:
 
-- [Implementing the Client Credentials Flow](/authentication-guide/implementing-authentication/client-creds)
+- [Implementing the Authorization Code Flow](/authentication-guide/implementing-authentication/auth-code)
 - [Implementing the Resource Owner Password Flow](/authentication-guide/implementing-authentication/password.html)
 
 The following combinations of grant type and scope, when sent to `/token` endpoint, will return a refresh token:
@@ -65,12 +65,12 @@ For more information on the `/authorize` endpoint, see the [Authentication Reque
 To refresh your access token, you send a token request with a `grant_type` of `refresh_token`.
 
 ```
-http --form POST https://{yourOktaDomain}.com/oauth2/ausaw8fz3q4Yd3Zk70h7/v1/token \
+http --form POST https://{yourOktaDomain}.com/oauth2/ausaw8fz3q4Yd3Zk70h7/v1/
+token \
   accept:application/json \
   authorization:'Basic MG9hYmg3M...' \
   cache-control:no-cache \
   content-type:application/x-www-form-urlencoded \
-  postman-token:b20452fd-779c-9350-9344-28be9c1b9731 \
   grant_type=refresh_token \
   redirect_uri=http://localhost \
   scope=offline_access \
