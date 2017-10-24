@@ -7,7 +7,7 @@ excerpt: How to implement the implicit code flow in Okta
 
 # Implementing the Implicit Flow
 
-If you are building a Single-Page Application (SPA), then the implicit flow is the recommended method for controlling access between your SPA and a resource server. 
+If you are building a Single-Page Application (SPA), then the implicit flow is the recommended method for controlling access between your SPA and a resource server.
 
 At a high-level, this flow has the following steps:
 
@@ -41,7 +41,7 @@ state=state-296bc9a0-a2a2-4a57-be1a-d0e2fd9bb601&nonce=foo'
 Note the parameters that are being passed:
 
 - `client_id` matches the Client ID of your Okta OAuth application that you created above. You can find it at the bottom of your application's General tab.
-- `response_type` is `token`. It could also be `id_token` or both. 
+- `response_type` is `token`. It could also be `id_token` or both.
 - `scope` is `openid` which is required, though additional scopes can be requested. For more information about scopes, see [here](/standards/OIDC/index.html#scopes).
 - `redirect_uri` is the callback location where the user-agent will be directed to along with the `access_token`. This must match one of the "Login redirect URIs" you specified when you were creating your Okta application in Step 1.
 - `state` is an arbitrary alphanumeric string that the authorization server will reproduce when redirecting the user-agent back to the client. This is used to help prevent cross-site request forgery.
@@ -62,3 +62,11 @@ Your application must now extract the token(s) from the URI and store them.
 When your application passes a request with an `access_token`, the resource server will need to validate it. For more on this, see [Validating Access Tokens](/authentication-guide/tokens/validating-access-tokens).
 
 ### Examples
+
+The following quickstart guides will show you how to integrate the implicit flow into your front-end application.
+
+|                                         | Framework         | Quickstart Link                                   |
+| --------------------------------------- | ----------------- | ------------------------------------------------- |
+| <i class="icon code-angular-32"></i>    | Angular           | <https://developer.okta.com/quickstart/#/angular> |
+| <i class="icon code-react-32"></i>      | React             | <https://developer.okta.com/quickstart/#/react>   |
+| <i class="icon code-javascript-32"></i> | None (Vanilla JS) | <https://developer.okta.com/quickstart/#/widget>  |

@@ -7,7 +7,7 @@ excerpt: How to implement the authorization code flow with PKCE in Okta
 
 # Implementing the Authorization Code Flow with PKCE
 
-If you are building a native application, then the authorization code flow with a Proof Key for Code Exchange (PKCE) is the recommended method for controlling the access between your application and a resource server. 
+If you are building a native application, then the authorization code flow with a Proof Key for Code Exchange (PKCE) is the recommended method for controlling the access between your application and a resource server.
 
 The Authorization Code Flow with PKCE is the standard Code flow with an extra step at the beginning and an extra verification at the end. At a high-level, the flow has the following steps:
 
@@ -32,7 +32,7 @@ You set up your OAuth 2.0 application inside the Okta Developer Console:
 Just like with the regular authorization code flow, you start by making a request to your authorization server’s `/authorize` endpoint. However, in this instance you will also have to pass along a code challenge.
 
 Your first step is to generate a code verifier and challenge:
- 
+
 * Code verifier: Random URL-safe string with a minimum length of 43 characters.
 * Code challenge: Base64 URL-encoded SHA-256 hash of the code verifier.
 
@@ -77,7 +77,7 @@ yourApp://callback?code=BdLDvZvO3ZfSwg-asLNk&state=state-8600b31f-52d1-4dca-
 987c-386e3d8967e9
 ```
 
-This code can only be used once, and will remain valid for 60 seconds, during which time it can be exchanged for tokens. 
+This code can only be used once, and will remain valid for 60 seconds, during which time it can be exchanged for tokens.
 
 ### 3. Exchanging the Code for Tokens
 
@@ -123,8 +123,9 @@ When your application passes a request with an `access_token`, the resource serv
 
 ### Examples
 
-See our AppAuth SDKs that handle the OAuth 2.0 and OpenID Connect protocol:
+The following native application examples show the authorization code flow, as it would be implemented by a native application that needs to authenticate a user.  These are complete example applications that show the entire experience.
 
-- [Okta AppAuth iOS](https://github.com/openid/AppAuth-iOS)
-
-- [Okta AppAuth Android](https://github.com/openid/AppAuth-Android)
+|                                      | Environment | Example Repository                                 |
+| ------------------------------------ | ----------- | -------------------------------------------------- |
+| <i class="icon code-android-32"></i> | Android     | <https://github.com/okta/okta-sdk-appauth-android> |
+| <i class="icon code-ios-32"></i>     | iOS         | <https://github.com/okta/okta-sdk-appauth-ios>     |

@@ -54,7 +54,7 @@ http://localhost:3000/?code=P5I7mdxxdv13_JfXrCSq&state=state-296bc9a0-a2a2-4a57
 -be1a-d0e2fd9bb601
 ```
 
-This code will remain valid for 60 seconds, during which it can be exchanged for tokens. 
+This code will remain valid for 60 seconds, during which it can be exchanged for tokens.
 
 ### 3. Exchanging the Code for Tokens
 
@@ -97,4 +97,11 @@ When your application passes a request with an `access_token`, the resource serv
 
 ### Examples
 
-<https://github.com/okta/samples-nodejs-express-4>
+The following web application examples show you the authorization code flow, as it would be implemented by a web app that needs to authenticate the end user and then create a local session for that user. These projects use popular web frameworks to handle the heavy lifting. Each project can be cloned and ran locally.
+
+|                                     | Framework    | Example Repository                                             |
+| ----------------------------------- | ------------ | -------------------------------------------------------------- |
+| <i class="icon code-dotnet-32"></i> | ASP.NET Core | <https://github.com/oktadeveloper/okta-aspnetcore-mvc-example> |
+| <i class="icon code-nodejs-32"></i> | Express.js   | <https://github.com/okta/samples-nodejs-express-4>             |
+| <i class="icon code-java-32"></i>   | Spring       | <https://github.com/okta/samples-java-spring-mvc>              |
+| <i class="icon code-php-32"></i>    | Symphony     | <https://github.com/okta/samples-php-symfony>                  |
