@@ -27,7 +27,7 @@ You set up your OAuth 2.0 application inside the Okta Developer Console:
 
 ### 2. Using the Resource Owner Password Flow
 
-Before you can begin this flow, you will have to collect the user's password in a manner of your choosing. 
+Before you can begin this flow, you will have to collect the user's password in a manner of your choosing.
 
 Once you have collected the credentials, all that is required is a single API call to the `/token` endpoint:
 
@@ -67,5 +67,3 @@ If the credentials are valid, your application will receive back access and ID t
 ### 3. Next Steps
 
 When your application passes a request with an access token, the resource server will need to validate it. For more on this, see [Validating Access Tokens](/authentication-guide/tokens/validating-access-tokens).
-
-### Examples
