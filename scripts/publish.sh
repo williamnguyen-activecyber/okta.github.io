@@ -25,6 +25,13 @@ then
     exit ${BUILD_FAILURE};
 fi
 
+interject "Generating conductor file in $(pwd)"
+if ! generate_conductor_file;
+then
+    echo "Error generating conductor file"
+    exit ${BUILD_FAILURE};
+fi
+
 # ----- Start (Temporary) Deploy to S3 -----
 if [[ "${BRANCH}" == "${DEPLOY_BRANCH}" ]];
 then
