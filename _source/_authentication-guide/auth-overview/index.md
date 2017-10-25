@@ -61,6 +61,13 @@ The usual OAuth 2.0 grant flow looks like this:
 > 
 > If you'd like to see the OAuth 2.0 spec, you can find it here: <https://tools.ietf.org/html/rfc6749>
 
+At the core of both OAuth 2.0 and its OpenID Connect extension is the authorization server. An authorization server is simply an OAuth 2.0 token minting engine. Each authorization server has a unique issuer URI
+and its own signing key for tokens in order to keep proper boundary between security domains. In the context of this guide, Okta is your authorization server.
+
+The authorization server also acts as an OpenID Connect Provider,
+which means you can request [ID tokens](/standards/OIDC/index#id-token)
+in addition to [access tokens](/standards/OAuth/#access-token) from the authorization server endpoints.
+
 ### OpenID Connect
 
 OpenID Connect is an authentication standard built on top of OAuth 2.0. It adds an additional token called an ID token. OpenID Connect also standardizes areas that OAuth 2.0 leaves up to choice, such as scopes, endpoint discovery, and dynamic registration of clients. Okta is [OpenID Certified](https://openid.net/certification/).
@@ -83,8 +90,6 @@ The high-level flow looks the same for both OIDC and regular OAuth 2.0 flows, th
 Depending on what kind of client you are building, you will want to use a different OAuth 2.0 flow. The flowchart below can quickly help you decide which flow to use. Further explanation about each flow is included below.
 
 {% img oauth_grant_flowchart.png alt:"OAuth Flow Diagram" width:"800px" %}
-
-(This is probably not the best way to render this diagram, but until the flow itself is approved I'll leave it in this format)
 
 <!-- Source for image. Generated using http://www.plantuml.com/plantuml/uml/
 
