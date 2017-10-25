@@ -9,7 +9,9 @@ excerpt: How to set up a custom authorization server in Okta
 
 Okta allows you to create multiple custom OAuth 2.0 authorization servers which can be used to protect your own resource servers. Within each authorization server you can define your own OAuth 2.0 scopes, claims, and access policies.
 
-If you have an [Okta Developer Edition](/signup/) account, you already have a custom Authorization Server created for you, called "default". The default authorization server also comes with one default Policy and one default Rule. If you only need one Authorization Server, you can skip the instructions for creating another Authorization Server and instead find out how to:
+If you have an [Okta Developer Edition](/signup/) account, you already have a custom Authorization Server created for you, called "default". For simple use cases the default Authorization Server should suffice. If your application has requirements, such as additional scopes, customizing rules for when to grant scopes, or you need additional authorization servers with different scopes and claims, then this chapter is for you.
+
+If you only need one Authorization Server, but you'd like to know more about customizing it, you can skip ahead and find out how to:
 
 - [Create Access Policies](#create-access-policies)
 - [Create Rules for your Access Policies](#create-rules-for-each-access-policy)
@@ -21,7 +23,7 @@ If you have an [Okta Developer Edition](/signup/) account, you already have a cu
 
 ## Create an Authorization Server
 
-> NOTE: If you have an [Okta Developer Edition](/signup/) account, you can skip this step because you already have a custom Authorization Server created for you, called "default".
+> NOTE: If you have an [Okta Developer Edition](/signup/) account, you can skip this step because you already have a custom Authorization Server created for you, called "default". The `{authorizationServerId}` for the default server is `default`.
 
 1. In the Okta Developer Dashboard, navigate to **API > Authorization Servers**.
 {% img okta-admin-auth-server-toolbar-dev alt:"Authorization Server" %}
@@ -108,7 +110,7 @@ At this point you can keep reading to find out how to create custom scopes and c
 
 Scopes specify what access privileges are being requested as part of the authorization. For example, the `email` scope requests access to the user's email address. There are certain reserved scopes that are created with any Okta authorization server, which are listed [here](/standards/OIDC/index.html#scopes). 
 
-If you need scopes in addition to the reserved scopes provided, you can create them. Custom scopes also require corresponding claims that tie them to some sort of user information.
+If you need scopes in addition to the reserved scopes provided, you can create them. Custom scopes can have corresponding claims that tie them to some sort of user information.
 
 1. In the Okta Developer Dashboard, navigate to **API > Authorization Servers**.
 2. Choose the name of the Authorization Server to display, and then select **Scopes**.
@@ -135,7 +137,7 @@ Create ID Token claims for OpenID Connect, or access tokens for OAuth 2.0:
 {% img claim.png alt:"Edit Claims" width:"800px" %}
 
     * **Name**
-    * **Claim type**: Choose Access Token (OAuth 2.0) or ID Token (OpenID Connect).
+    * **Include in token type**: Choose Access Token (OAuth 2.0) or ID Token (OpenID Connect). If you choose ID Token, you can also choose if the claim should be included only when requested, or always.
     * **Value type**: Choose whether you'll define the claim by a group filter or by an **Expression** written in Okta Expression Language.
         * **Mapping**: This option displays if you chose **Expression** in the previous field. Add the mapping here using [Okta's Expression Language](/reference/okta_expression_language/), for example `appuser.username`.
           Be sure to check that your expression returns the results expected--the expression isn't validated here.
@@ -152,7 +154,11 @@ While in the Claims list, you can:
 
 ## Test Your Authorization Server Configuration
 
-Once you have followed the above instructions to set-up and/or customize your Authorization Server, you can test it by sending any one of the API calls that returns OAuth 2.0 and/or OpenID Connect tokens. A full description of Okta's relevant APIs can be found here: [OAuth 2.0 Authorization Operations](/docs/api/resources/oauth2.html#authorization-operations). 
+Once you have followed the above instructions to set-up and/or customize your Authorization Server, you can test it by sending any one of the API calls that returns OAuth 2.0 and/or OpenID Connect tokens. 
+
+> NOTE: The `{authorizationServerId}` for the default server is `default`.
+
+A full description of Okta's relevant APIs can be found here: [OAuth 2.0 Authorization Operations](/docs/api/resources/oauth2.html#authorization-operations). 
 
 We have included here a few things that you can try to ensure that your Authorization Server is functioning as expected. 
 
@@ -160,7 +166,7 @@ We have included here a few things that you can try to ensure that your Authoriz
 
 ### OpenID Connect Configuration
 
-To verify that your server was created and has the expected configuration values, you can send an API request to the Server's OpenID Connect Metadata URI: `/oauth2/{authorizationServerId}/.well-known/openid-configuration` using an HTTP client or by typing the URI inside of a browser. This will return information about the OpenID configuration of your Authorization Server, though it does not currently return any custom scopes or claims that you might have created.
+To verify that your server was created and has the expected configuration values, you can send an API request to the Server's OpenID Connect Metadata URI: `https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/openid-configuration` using an HTTP client or by typing the URI inside of a browser. This will return information about the OpenID configuration of your Authorization Server, though it does not currently return any custom scopes or claims that you might have created.
 
 For more information on this endpoint, see here: [Retrieve Authorization Server OpenID Connect Metadata](/docs/api/resources/oauth2.html#retrieve-authorization-server-openid-connect-metadata).
 
@@ -186,14 +192,14 @@ For more information you can read about:
 - [The OpenID Connect Application Wizard](https://help.okta.com/en/prev/Content/Topics/Apps/Apps_App_Integration_Wizard.htm)
 - [How to assign a User to an Application](https://support.okta.com/help/Documentation/Knowledge_Article/27418177-Using-the-Okta-Applications-Page#Assigning)
 
-You will need the following values from your Application:
+You will need the following values from your Okta OAuth 2.0 Application, both of which can be found on your Application's General tab:
 
 - Client ID
 - A valid Redirect URI
 
 Once you have an OpenID Connect Application set-up, and a User assigned to it you can try the authentication flow.
 
-First, you will need your Authorization Server's Authorization Endpoint, which you can retrieve using the Server's Metadata URI: `/oauth2/:authorizationServerId/.well-known/openid-configuration`. It will look like this:
+First, you will need your Authorization Server's Authorization Endpoint, which you can retrieve using the Server's Metadata URI: `https://{yourOktaDomain}/oauth2/:authorizationServerId/.well-known/openid-configuration`. It will look like this:
 
 `https://{yourOktaDomain}.com/oauth2/{authorizationServerId}/v1/authorize`
 
