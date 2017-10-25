@@ -1,10 +1,10 @@
 ---
 layout: docs_page
 title: Okta API Release Notes
-excerpt: Changes to Developer Console and an improved error strings
+excerpt: Changes to Developer Console and an improved error string
 ---
 
-## Okta API Release Notes for Release 2017.43
+# Okta API Release Notes for Release 2017.43
 
 This release note summarizes the changes since 2017.42.
 
