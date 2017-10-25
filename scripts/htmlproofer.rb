@@ -7,8 +7,8 @@ options = {
     :allow_hash_href => true,
     :empty_alt_ignore => true,
     :log_level => :debug,
-    # cache external results for 1 day in ~/.htmlproofer/cache
-    :cache => { :timeframe => '1d', :storage_dir => "#{Dir.home}/.htmlproofer/cache"},
+    # # cache external results for 1 day in ~/.htmlproofer/cache
+    # :cache => { :timeframe => '1d', :storage_dir => "#{Dir.home}/.htmlproofer/cache"},
     # 8 threads, any more doesn't seem to make a difference
     :parallel => { :in_processes => 8},
     :file_ignore => [
