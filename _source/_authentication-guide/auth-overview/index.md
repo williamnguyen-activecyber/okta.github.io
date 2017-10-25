@@ -27,11 +27,13 @@ If you are interested in controlling access to your own application, then use th
 
 ### Authentication API
 
-The Okta Authentication API controls access to the Okta API by creating and controlling Okta session tokens. Okta session tokens are one-time bearer tokens issued when the authentication transaction completes successfully. Session tokens may be redeemed for a session in Okta's Session API or converted to a session cookie. 
+The Okta Authentication API controls access to the Okta API by creating and controlling Okta session tokens. Okta session tokens are one-time tokens issued when the authentication transaction completes successfully. Session tokens may be redeemed for a session in Okta's Session API or converted to a session cookie. 
 
-Session tokens are for use within Okta, while ID tokens, access tokens, and refresh tokens are for use when accessing third party resources, such as your application.
+Session tokens are usually for use within Okta, while ID tokens, access tokens, and refresh tokens are for use when accessing third party resources, such as your application.
 
-You can find out more in the [Authentication API Reference](/docs/api/resources/authn.html).
+The Authentication API is used by the Okta Sign-In Widget as well as the AuthJS library. Both AuthJS and the Authentication API are intended for advanced use cases.
+
+You can find out more about the Authentication API in our [API Reference](/docs/api/resources/authn.html).
 
 ### OAuth 2.0
 
